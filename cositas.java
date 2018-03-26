@@ -35,6 +35,13 @@ public class cositas extends Application {
     LineTo line1 = new LineTo(200, 100);  //segundos punto
     LineTo line2 = new LineTo(150, 150);  //tercer punto
     LineTo line3 = new LineTo(200, 150);  //cuarto punto
+    
+    //Multiplicación
+    MoveTo asterisco =new MoveTo(200, 400); 
+    LineTo extremo1 = new LineTo(200, 250);
+    LineTo extremo2 = new LineTo(200, 200);  
+    LineTo extremo3 = new LineTo(150, 250);  
+    LineTo extremo4 = new LineTo(200, 250);  
 
 
     path.setStrokeWidth(4); //grisor de la linea
@@ -42,7 +49,8 @@ public class cositas extends Application {
 
     //Adding all the elements to the path 
     path.getElements().add(moveTo); 
-    path.getElements().addAll(line4,line1, line2, line3);        
+    path.getElements().add(asterisco); 
+    path.getElements().addAll(line4,line1, line2, line3, extremo1, extremo2, extremo3, extremo4);        
 
 
 //    en esta parte se crean los circulos para modificar el numero  
