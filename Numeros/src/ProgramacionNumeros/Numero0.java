@@ -29,7 +29,7 @@ public class Numero0 {
     double marco;
     double espacio;
     double superior;
-    
+    double reAjuste=25;
 
     public Numero0(double marco, double espacio, double superior) {
         this.marco= marco;
@@ -39,19 +39,25 @@ public class Numero0 {
     
     public Group start(Path path) {
     
-        MoveTo moveTo1=new MoveTo(200+espacio, 200+superior);
-        LineTo line1=new LineTo(200+espacio, 100+superior);
-        LineTo line2= new LineTo(100+espacio, 200+espacio);
-        QuadCurve curva1 = new QuadCurve();
+        MoveTo moveTo1=new MoveTo(150+espacio, 160+superior);
+        LineTo line1=new LineTo(150+espacio, 140+superior);
+        MoveTo moveTo2= new MoveTo(100+espacio, 160+espacio);
+        LineTo line2=new LineTo(100+espacio, 140+superior);
+        QuadCurve curva1 = new QuadCurve(line1.getX(),line1.getY()+reAjuste,line2.getX()+((line1.getX()-line2.getX())/2),line1.getY()-reAjuste,line2.getX(),line2.getY()+reAjuste);
+        QuadCurve curva2 = new QuadCurve(moveTo1.getX(),moveTo1.getY()+reAjuste,line2.getX()+((line1.getX()-line2.getX())/2),moveTo1.getY()+reAjuste+40,moveTo2.getX(),moveTo2.getY()+reAjuste);
         curva1.setFill(Color.TRANSPARENT);
         curva1.setStroke(Color.BLACK);
+        curva2.setFill(Color.TRANSPARENT);
+        curva2.setStroke(Color.BLACK);
         
         path.setStrokeWidth(4); //grisor de la linea
 
 
     //Adding all the elements to the path 
     path.getElements().add(moveTo1); 
-    path.getElements().addAll(line1,line2);        
+    path.getElements().addAll(line1,moveTo2, line2);   
+    Group root = new Group(path);
+    root.getChildren().addAll(circle,curva1,curva2);
 
     
         Circle c1 = new Circle();
@@ -76,24 +82,34 @@ public class Numero0 {
         c3.setCenterX(line2.getX());
         c3.setCenterY(line2.getY()+marco);
         c3.setRadius(5.0);
+        c3.setCache(true);
         c3.setStroke(Color.RED);
         c3.setFill(Color.GREENYELLOW);
         c3.setStrokeWidth(3);
 //
-//        Circle c4 = new Circle();
-//        c4.setCenterX(line3.getX());
-//        c4.setCenterY(line3.getY()+marco);
-//        c4.setRadius(5.0);
-//        c4.setCache(true);
-//        c4.setStroke(Color.RED);
-//        c4.setFill(Color.GREENYELLOW);
-//        c4.setStrokeWidth(3);
+        Circle c4 = new Circle();
+        c4.setCenterX(moveTo2.getX());
+        c4.setCenterY(moveTo2.getY()+marco);
+        c4.setRadius(5.0);
+        c4.setStroke(Color.RED);
+        c4.setFill(Color.GREENYELLOW);
+        c4.setStrokeWidth(3);
+//
+        Circle c5 = new Circle();
+        c5.setCenterX(curva1.getControlX());
+        c5.setCenterY(curva1.getControlY()+marco);
+        c5.setRadius(5.0);
+        c5.setStroke(Color.RED);
+        c5.setFill(Color.GREENYELLOW);
+        c5.setStrokeWidth(3);
+
+        curva1.setStrokeWidth(4);
+        curva2.setStrokeWidth(4);
         
-    Group root = new Group(path);
-    circle.getChildren().addAll(c1,c2/*,c3,c4*/);
-    root.getChildren().addAll(circle,curva1);
     
-    circle.setVisible(true);
+    
+    
+    circle.setVisible(false);
     
     //se toma la posicion del circulo al cl1ckearlo
     c1.setOnMousePressed(pressMouse(c1));
@@ -102,12 +118,15 @@ public class Numero0 {
   
     c2.setOnMousePressed(pressMouse(c2));
     c2.setOnMouseDragged(dragMouse(c2, line1,curva1));
-//    c3.setOnMousePressed(pressMouse(c3));
-//    c3.setOnMouseDragged(dragMouse(c3, line2));
-//    c4.setOnMousePressed(pressMouse(c4));
-//    c4.setOnMouseDragged(dragMouseFinal(c4, line3, line4));
+    c3.setOnMousePressed(pressMouse(c3));
+    c3.setOnMouseDragged(dragMouseFinal(c3, line2,curva1));
+    c4.setOnMousePressed(pressMouse(c4));
+    c4.setOnMouseDragged(dragMouseInicial(c4, moveTo2));
+    c5.setOnMousePressed(pressMouse(c5));
+    c5.setOnMouseDragged(dragMousecurve(c5, curva1));
       
     
+    circle.getChildren().addAll(c1,c2,c3,c4,c5);
     return root;
     }
     
@@ -183,7 +202,7 @@ public class Numero0 {
                  l.setX(event.getSceneX());
                  l.setY(event.getSceneY()-marco);
                  curva.setStartX(l.getX());
-                 curva.setStartY(l.getY());
+                 curva.setStartY(l.getY()+reAjuste);
 
                  // get the latest mouse coordinate.
                  m_nMouseX = event.getSceneX();
@@ -194,7 +213,7 @@ public class Numero0 {
      return dragHandler;
     }
 
-    EventHandler<MouseEvent> dragMouseFinal(Circle c, LineTo l1, LineTo l2) {
+    EventHandler<MouseEvent> dragMouseFinal(Circle c, LineTo l1,QuadCurve curv) {
      EventHandler<MouseEvent> dragHandler = new EventHandler<MouseEvent>() {
 
          public void handle(MouseEvent event) {
@@ -213,8 +232,36 @@ public class Numero0 {
                  c.setLayoutY(m_nY);
                  l1.setX(event.getSceneX());
                  l1.setY(event.getSceneY()-marco);
-                 l2.setX(event.getSceneX());
-                 l2.setY(event.getSceneY()-marco);
+                 curv.setEndX(l1.getX());
+                 curv.setEndY(l1.getY()+reAjuste);
+
+                 // get the latest mouse coordinate.
+                 m_nMouseX = event.getSceneX();
+                 m_nMouseY = event.getSceneY();
+             }
+         }
+     };
+     return dragHandler;
+    }
+    EventHandler<MouseEvent> dragMousecurve(Circle c,QuadCurve curv) {
+     EventHandler<MouseEvent> dragHandler = new EventHandler<MouseEvent>() {
+
+         public void handle(MouseEvent event) {
+             if (event.getButton() == MouseButton.PRIMARY) {
+                 // find the delta coordinates by subtracting the new mouse
+                 // coordinates with the old.
+                 double deltaX = event.getSceneX() - m_nMouseX;
+                 double deltaY = event.getSceneY() - m_nMouseY;
+
+                 // add the delta coordinates to the node coordinates.
+                 m_nX += deltaX;
+                 m_nY += deltaY;
+
+                 // set the layout for the draggable node.
+                 c.setLayoutX(m_nX);
+                 c.setLayoutY(m_nY);
+                 curv.setControlX(event.getSceneX());
+                 curv.setControlY(event.getSceneY()-marco);
 
                  // get the latest mouse coordinate.
                  m_nMouseX = event.getSceneX();
