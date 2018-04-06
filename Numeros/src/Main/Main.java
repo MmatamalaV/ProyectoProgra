@@ -1,6 +1,7 @@
 package Main;
 
 
+import ProgramacionNumeros.Numero1;
 import ProgramacionNumeros.Numero0;
 import ProgramacionNumeros.Numero0V2;
 import ProgramacionSimbolos.Multiplicacion;
@@ -9,7 +10,6 @@ import ProgramacionSimbolos.Suma;
 import ProgramacionSimbolos.Division;
 import ProgramacionSimbolos.Parentesis1;
 import ProgramacionSimbolos.Parentesis2;
-import ProgramacionNumeros.Numero4;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Group;
@@ -51,6 +51,10 @@ public class Main extends Application{
                 Button boton0 = new Button("0");
                 boton0.setMinWidth(100);
                 boton0.setMaxWidth(100);
+                
+                Button boton1 = new Button("1");
+                boton1.setMinWidth(100);
+                boton1.setMaxWidth(100);
                  
                 Button boton4 = new Button("4");
                 boton4.setMinWidth(100);
@@ -85,7 +89,7 @@ public class Main extends Application{
                 boton0.setMaxWidth(100);
                         
                         
-        botones.getChildren().addAll(boton0, boton0V2, boton4, botonMulti, botonSuma, botonResta, botonDivision, botonParentesis1, botonParentesis2);
+        botones.getChildren().addAll(boton0, boton0V2, boton4, botonMulti, botonSuma, botonResta, botonDivision, botonParentesis1, botonParentesis2,boton1);
         Path path = new Path();   
         general.getChildren().addAll(botones, path);
         
@@ -122,11 +126,26 @@ public class Main extends Application{
             }
         });
         
-        boton4.setOnAction((ActionEvent event) ->
+        boton0.setOnAction((ActionEvent event) ->
+        { 
+            double n =boton0.getHeight();
+            Numero0 numero0=new Numero0(n, espacioNumero,espacioSuperior);
+            root.getChildren().add(numero0.start(path));
+            //contador para el salto de linea en la pantalla
+            espacioNumero+=100;
+            contador+=100;
+            if(contador>300){
+                espacioSuperior+=120;
+                contador =0;
+                espacioNumero=0;
+            }
+        });
+        
+        boton1.setOnAction((ActionEvent event) ->
         { 
             double n =boton4.getHeight();
-            Numero4 numero4=new Numero4(n, espacioNumero,espacioSuperior);
-            root.getChildren().add(numero4.start(path));
+            Numero1 numero1=new Numero1(n, espacioNumero,espacioSuperior);
+            root.getChildren().add(numero1.start(path));
             //contador para el salto de linea en la pantalla
             espacioNumero+=100;
             contador+=100;
