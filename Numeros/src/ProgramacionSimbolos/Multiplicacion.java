@@ -27,11 +27,12 @@ public class Multiplicacion extends Lineas{
     }
     
     public Group start(Path path) {
-        
+        //Se define el tamaño de la figura..
         double size=1.2;
+        //Se define el centro de la figura.
         int xPoint = (int) (200+espacio);
         int yPoint = (int) (150+superior);
-
+        //Se crean las líneas de la figura.
         MoveTo centroMulti = new MoveTo(xPoint, yPoint);
         LineTo line1Multi = new LineTo(xPoint-15*size, yPoint-15*size);
         LineTo line2Multi = new LineTo(xPoint+15*size, yPoint+15*size);
@@ -43,9 +44,10 @@ public class Multiplicacion extends Lineas{
         LineTo line8Multi = new LineTo(xPoint+20*size, yPoint);
 
         path.setStrokeWidth(4*size);
-
+        //Se añaden las líneas de la figura a path.
         path.getElements().addAll(centroMulti, line1Multi,centroMulti, line2Multi, centroMulti, line3Multi, centroMulti, line4Multi, centroMulti, line5Multi, centroMulti, line6Multi, centroMulti, line7Multi, centroMulti, line8Multi);
         
+        //Se crean los círculos con la ubicación de las líneas.
         createCircle(centroMulti.getX(), centroMulti.getY()+marco);
         createCircle(line1Multi.getX(), line1Multi.getY()+marco);
         createCircle(line2Multi.getX(), line2Multi.getY()+marco);
@@ -56,6 +58,7 @@ public class Multiplicacion extends Lineas{
         createCircle(line7Multi.getX(), line7Multi.getY()+marco);
         createCircle(line8Multi.getX(), line8Multi.getY()+marco);
 
+        //Se añaden los eventos a los círculos creados indicando con qué linea interactúa.
         controlDragMouseInicial(0, centroMulti);
         controlDragMouse(1, line1Multi);
         controlDragMouse(2, line2Multi);
@@ -68,6 +71,7 @@ public class Multiplicacion extends Lineas{
       
         Group root = new Group(path, circle);
 
+        //Se hacen visibles los círculos.
         circle.setVisible(true);
         
         return root;

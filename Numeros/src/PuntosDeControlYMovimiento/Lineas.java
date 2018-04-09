@@ -25,6 +25,7 @@ public class Lineas extends PuntosDeControl{
     private double m_nMouseY = 0;
     protected List lineas = new ArrayList();
 
+    //Eventos para la interacción con el Mouse y los Puntos de Control.
     protected EventHandler<MouseEvent> pressMouse(Circle c) {
      EventHandler<MouseEvent> mousePressHandler = new EventHandler<MouseEvent>() {
 
@@ -156,7 +157,7 @@ public class Lineas extends PuntosDeControl{
         }
         lineas.clear();
     }*/
-    
+    //Métodos que reciben como entrada un int (número de círculo creado en el Group "circle") y un MoveTo o LineTo según corresponda.
     protected void controlDragMouseInicial (int x, MoveTo moveTo) {
         ((Circle) circle.getChildren().get(x)).setOnMousePressed(pressMouse((Circle) circle.getChildren().get(x)));
         ((Circle) circle.getChildren().get(x)).setOnMouseDragged(dragMouseInicial(((Circle) circle.getChildren().get(x)), moveTo));

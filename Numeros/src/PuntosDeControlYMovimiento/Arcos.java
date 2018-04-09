@@ -12,8 +12,10 @@ import javafx.scene.shape.Arc;
  *
  * @author elias
  */
+
+
 public class Arcos extends PuntosDeControl{
-        
+        //Método para configurar los arcos que recibe.
         protected void configuraArco (Arc arc) {
             arc.setStroke(Color.BLACK);
             arc.setFill(null);
