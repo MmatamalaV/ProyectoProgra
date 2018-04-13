@@ -19,10 +19,11 @@ public class Numero1 extends Lineas{
     private final double espacio;
     private final double superior;
     
-    public Numero1(double marco, double espacio, double superior) {
+    public Numero1(double marco, double espacio, double superior, boolean puntosVisibles) {
         this.marco= marco;
         this.espacio=espacio;
         this.superior=superior;
+        this.puntosVisibles=puntosVisibles;
     }
     
     public Group start(Path path){
@@ -41,12 +42,14 @@ public class Numero1 extends Lineas{
         createCircle(p1.getX(),p1.getY()+marco);
         createCircle(p2.getX(),p2.getY()+marco);
         createCircle(p3.getX(),p3.getY()+marco);
+        
+        circle.setVisible(puntosVisibles);
     
         controlDragMouseInicial(0, p1);
         controlDragMouse(1, p2);
         controlDragMouse(2, p3);
         
-        Group root= new Group(path,circle);
+        Group root= new Group(path, circle);
         return root;
         
     }

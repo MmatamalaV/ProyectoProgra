@@ -20,10 +20,11 @@ public class Numero4 extends Lineas{
     private final double espacio;
     private final double superior;
 
-    public Numero4(double marco, double espacio, double superior) {
+    public Numero4(double marco, double espacio, double superior, boolean puntosVisibles) {
         this.espacio=espacio;
         this.superior=superior;
         this.marco=marco;
+        this.puntosVisibles=puntosVisibles;
     }
 
     public Group start(Path path) {
@@ -51,7 +52,7 @@ public class Numero4 extends Lineas{
         controlDragMouse(2, line2);
         controlDragMouseFinal(3, line3, line4);
 
-        circle.setVisible(true);
+        circle.setVisible(puntosVisibles);
         
         Group root = new Group(path, circle);
 

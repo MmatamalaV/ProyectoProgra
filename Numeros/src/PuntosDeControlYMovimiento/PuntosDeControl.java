@@ -18,6 +18,7 @@ public class PuntosDeControl{
     protected Group circle=new Group(); //Grupo donde se almacenarán los Circle que se irán creando.
     protected double marco; 
     protected boolean puntosVisibles;
+    
     //Método que crea los círculos y los añade al Group "circle".
     protected void createCircle(double centerX, double centerY) {
         Circle circulo = new Circle();
@@ -31,9 +32,10 @@ public class PuntosDeControl{
         circle.getChildren().add(circulo);
     }
     
-    public void setVisibleCircle(Boolean visible) {
+    public void visibleCircle(Boolean visible) {
         circle.setVisible(visible);
     }
+    
     //Método que remueve elementos duplicados de una lista.
     protected void remueveDuplicados(List list){
         for(int i=0;i<list.size();i++){

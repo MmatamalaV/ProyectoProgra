@@ -19,10 +19,11 @@ public class Numero0 extends Arcos{
     private final double espacio;
     private final double superior;
 
-    public Numero0(double marco, double espacio, double superior) {
+    public Numero0(double marco, double espacio, double superior, boolean puntosVisibles) {
         this.espacio=espacio;
         this.superior=superior;
         this.marco=marco;
+        this.puntosVisibles=puntosVisibles;
     }
 
     public Group start(Path path) {
@@ -46,7 +47,7 @@ public class Numero0 extends Arcos{
         createCircle(arc2Zero.getCenterX(), arc2Zero.getCenterY()+40*size);
         createCircle(arc3Zero.getCenterX()-25*size, arc3Zero.getCenterY());
         
-        circle.setVisible(true);
+        circle.setVisible(puntosVisibles);
         
         Group root = new Group(path, arcZero, arc1Zero, arc2Zero, arc3Zero, circle);
 

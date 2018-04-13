@@ -19,10 +19,11 @@ public class Parentesis2 extends Arcos{
     private final double superior;
     
 
-    public Parentesis2(double marco, double espacio, double superior) {
+    public Parentesis2(double marco, double espacio, double superior, boolean puntosVisibles) {
         this.marco= marco;
         this.espacio=espacio;
         this.superior=superior;
+        this.puntosVisibles=puntosVisibles;
     }
 
     public Group start(Path path) {
@@ -44,7 +45,7 @@ public class Parentesis2 extends Arcos{
 
         Group root = new Group(path, arc1Paren2, arc2Paren2, circle);
 
-        circle.setVisible(true);
+        circle.setVisible(puntosVisibles);
         
         return root;
     }

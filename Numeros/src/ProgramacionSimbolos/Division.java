@@ -20,10 +20,11 @@ public class Division extends Lineas{
     private final double superior;
     
 
-    public Division(double marco, double espacio, double superior) {
+    public Division(double marco, double espacio, double superior, boolean puntosVisibles) {
         this.marco= marco;
         this.espacio=espacio;
         this.superior=superior;
+        this.puntosVisibles=puntosVisibles;
     }
 
     public Group start(Path path) {
@@ -51,7 +52,7 @@ public class Division extends Lineas{
         
         Group root = new Group(path, circle);
         
-        circle.setVisible(true);
+        circle.setVisible(puntosVisibles);
         
         return root;
     }

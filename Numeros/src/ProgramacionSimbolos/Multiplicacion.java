@@ -20,10 +20,11 @@ public class Multiplicacion extends Lineas{
     private final double superior;
     
 
-    public Multiplicacion(double marco, double espacio, double superior) {
+    public Multiplicacion(double marco, double espacio, double superior, boolean puntosVisibles) {
         this.marco= marco;
         this.espacio=espacio;
         this.superior=superior;
+        this.puntosVisibles=puntosVisibles;
     }
     
     public Group start(Path path) {
@@ -71,8 +72,7 @@ public class Multiplicacion extends Lineas{
       
         Group root = new Group(path, circle);
 
-        //Se hacen visibles los círculos.
-        circle.setVisible(true);
+        circle.setVisible(puntosVisibles);
         
         return root;
     }
