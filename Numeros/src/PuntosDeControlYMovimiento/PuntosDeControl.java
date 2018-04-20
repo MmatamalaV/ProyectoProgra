@@ -24,10 +24,10 @@ public class PuntosDeControl{
         Circle circulo = new Circle();
         circulo.setCenterX(centerX);
         circulo.setCenterY(centerY);
-        circulo.setRadius(6.0);
+        circulo.setRadius(6);
         circulo.setCache(true);
-        circulo.setStroke(Color.BLACK);
-        circulo.setFill(Color.WHITE);
+        circulo.setStroke(Color.RED);
+        circulo.setFill(Color.BLACK);
         circulo.setStrokeWidth(2);
         circle.getChildren().add(circulo);
     }

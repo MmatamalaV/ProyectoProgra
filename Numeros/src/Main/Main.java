@@ -3,6 +3,8 @@ package Main;
 
 import ProgramacionNumeros.Numero0;
 import ProgramacionNumeros.Numero1;
+import ProgramacionNumeros.Numero2;
+import ProgramacionNumeros.Numero3;
 import ProgramacionNumeros.Numero4;
 import ProgramacionSimbolos.Multiplicacion;
 import ProgramacionSimbolos.Resta;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -53,48 +56,52 @@ public class Main extends Application{
         VBox general= new VBox();
         
             HBox botones=new HBox();
-                Button boton0 = new Button("0");
-                boton0.setMinWidth(100);
-                boton0.setMaxWidth(100);
-                
-                Button boton1 = new Button("1");
-                boton1.setMinWidth(100);
-                boton1.setMaxWidth(100);
-                 
-                Button boton4 = new Button("4");
-                boton4.setMinWidth(100);
-                boton4.setMaxWidth(100);
-                
-                Button botonMulti = new Button("Multiplicacion");
-                boton0.setMinWidth(100);
-                boton0.setMaxWidth(100);
-                
-                Button botonSuma = new Button("Suma");
-                boton0.setMinWidth(100);
-                boton0.setMaxWidth(100);
-                
-                Button botonResta = new Button("Resta");
-                boton0.setMinWidth(100);
-                boton0.setMaxWidth(100);
-                
-                Button botonDivision = new Button("Division");
-                boton0.setMinWidth(100);
-                boton0.setMaxWidth(100);
-                
-                Button botonParentesis1 = new Button("Parentesis1");
-                boton0.setMinWidth(100);
-                boton0.setMaxWidth(100);
-                 
-                Button botonParentesis2 = new Button("Parentesis2");
-                boton0.setMinWidth(100);
-                boton0.setMaxWidth(100);
-                
-                Button botonMuestraEsconde = new Button("Mostrar/Ocultar Puntos");
-                boton0.setMinWidth(100);
-                boton0.setMaxWidth(100);
+
+            Button boton1 = new Button("1");
+            boton1.setTranslateX(-165);
+            boton1.setTranslateY(40);
+            boton1.setMinWidth(30);
+            
+            Button boton2 = new Button("2");
+            boton2.setTranslateX(-155);
+            boton2.setTranslateY(40);
+            boton2.setMinWidth(30);
+            
+            Button boton3 = new Button("3");
+            boton3.setTranslateX(-145);
+            boton3.setTranslateY(40);
+            boton3.setMaxSize(10, 10);
+            boton3.setMinWidth(30);
+
+            Button boton4 = new Button("4");
+            boton4.setTranslateX(-255);
+            boton4.setTranslateY(80);
+            boton4.setMinWidth(30);
+            
+            Button boton0 = new Button("0");
+            boton0.setTranslateX(-90);
+            boton0.setTranslateY(200);
+            
+
+            Button botonMulti = new Button("*");
+
+            Button botonSuma = new Button("+");
+
+            Button botonResta = new Button("-");
+
+            Button botonDivision = new Button("/");
+
+            Button botonParentesis1 = new Button("(");
+
+            Button botonParentesis2 = new Button(")");
+
+            Button botonMuestraEsconde = new Button("Mostrar/Ocultar Puntos");
+           
+            
+            
+                    
                         
-                        
-        botones.getChildren().addAll(botonMuestraEsconde, boton0, boton1, boton4, botonMulti, botonSuma, botonResta, botonDivision, botonParentesis1, botonParentesis2);
+        botones.getChildren().addAll(botonMuestraEsconde, boton0, boton1, boton2, boton3, boton4, botonMulti, botonSuma, botonResta, botonDivision, botonParentesis1, botonParentesis2);
         Path path = new Path();   
         general.getChildren().addAll(botones, path);
         
@@ -254,7 +261,39 @@ public class Main extends Application{
             enPantalla.add(parentesis2);
         });
         
-        Scene scene = new Scene(root, 700, 700);
+        boton2.setOnAction((ActionEvent event) ->
+        { 
+            double n =boton2.getHeight();
+            Numero2 numero2 = new Numero2(n, espacioNumero,espacioSuperior, puntosVisibles);
+            root.getChildren().add(numero2.start(path));
+            //contador para el salto de linea en la pantalla
+            espacioNumero+=100;
+            contador+=100;
+            if(contador>300){
+                espacioSuperior+=120;
+                contador =0;
+                espacioNumero=0;
+            }
+            enPantalla.add(numero2);
+        });
+        
+        boton3.setOnAction((ActionEvent event) ->
+        { 
+            double n =boton3.getHeight();
+            Numero3 numero3 = new Numero3(n, espacioNumero,espacioSuperior, puntosVisibles);
+            root.getChildren().add(numero3.start(path));
+            //contador para el salto de linea en la pantalla
+            espacioNumero+=100;
+            contador+=100;
+            if(contador>300){
+                espacioSuperior+=120;
+                contador =0;
+                espacioNumero=0;
+            }
+            enPantalla.add(numero3);
+        });
+        
+        Scene scene = new Scene(root, 1024, 768);
         stage.setScene(scene);
         stage.show();
     }
