@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Group;
@@ -37,7 +38,7 @@ public class Main extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-       List<PuntosDeControl> enPantalla = new ArrayList<>();
+       List<NumerosYSimbolos> enPantalla = new ArrayList<>();
        HBox contenerdorPrincipal = new HBox();
        
        //*******inicio numeros***************
@@ -98,7 +99,7 @@ public class Main extends Application {
        numerosFila1.setPadding(new Insets(0));// se define el  margen entre el  borde del panel y  los objetos que estan dentro en pixeles 
        Button button00 = new Button("    ");
        Button button0 = new Button(" 0 ");// en este caso el contenido se entrega en el contructor
-       Button buttonNn = new Button("    ");
+       Button buttonNn = new Button("Eliminar");
        HBox.setHgrow(button00, Priority.ALWAYS);// esto  se define la prioridad  en caso de aumentar el tamaño de la ventana  los objetos con prioridad llenaran  el espacio 
        HBox.setHgrow(button0, Priority.ALWAYS);
        HBox.setHgrow(buttonNn, Priority.ALWAYS);
@@ -198,7 +199,7 @@ public class Main extends Application {
         { 
             double n =0;
             NumerosYSimbolos division = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(division.division(center));
+            centro.getChildren().add(division.division());
             //contador para el salto de linea en la pantalla
             contador();
             enPantalla.add(division);
@@ -209,7 +210,7 @@ public class Main extends Application {
         { 
             double n =0;
             NumerosYSimbolos multiplicacion = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(multiplicacion.multiplicacion(center));
+            centro.getChildren().add(multiplicacion.multiplicacion());
             //contador para el salto de linea en la pantalla
             contador();
             enPantalla.add(multiplicacion);
@@ -219,7 +220,7 @@ public class Main extends Application {
         { 
             double n =0;
             NumerosYSimbolos parentesis1 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(parentesis1.parentesis1(center));
+            centro.getChildren().add(parentesis1.parentesis1());
             //contador para el salto de linea en la pantalla
             contador();
             enPantalla.add(parentesis1);
@@ -229,7 +230,7 @@ public class Main extends Application {
         { 
             double n =0;
             NumerosYSimbolos parentesis2 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(parentesis2.parentesis2(center));
+            centro.getChildren().add(parentesis2.parentesis2());
             //contador para el salto de linea en la pantalla
             contador();
             enPantalla.add(parentesis2);
@@ -239,7 +240,7 @@ public class Main extends Application {
         { 
             double n =0;
             NumerosYSimbolos suma = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(suma.suma(center));
+            centro.getChildren().add(suma.suma());
             //contador para el salto de linea en la pantalla
             contador();
             enPantalla.add(suma);
@@ -249,7 +250,7 @@ public class Main extends Application {
         { 
             double n =0;
             NumerosYSimbolos resta = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(resta.resta(center));
+            centro.getChildren().add(resta.resta());
             //contador para el salto de linea en la pantalla
             contador();
             enPantalla.add(resta);
@@ -259,7 +260,7 @@ public class Main extends Application {
         { 
             double n =0;
             NumerosYSimbolos numero0 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(numero0.numero0(center));
+            centro.getChildren().add(numero0.numero0());
             //contador para el salto de linea en la pantalla
             contador();
             enPantalla.add(numero0);
@@ -269,7 +270,7 @@ public class Main extends Application {
         { 
             double n =0;
             NumerosYSimbolos numero1 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(numero1.numero1(center));
+            centro.getChildren().add(numero1.numero1());
             //contador para el salto de linea en la pantalla
             contador();
             enPantalla.add(numero1);
@@ -279,7 +280,7 @@ public class Main extends Application {
         { 
             double n =0;
             NumerosYSimbolos numero2 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(numero2.numero2(center));
+            centro.getChildren().add(numero2.numero2());
             //contador para el salto de linea en la pantalla
             contador();
             enPantalla.add(numero2);
@@ -289,7 +290,7 @@ public class Main extends Application {
         { 
             double n =0;
             NumerosYSimbolos numero3 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(numero3.numero3(center));
+            centro.getChildren().add(numero3.numero3());
             //contador para el salto de linea en la pantalla
             contador();
             enPantalla.add(numero3);
@@ -300,7 +301,7 @@ public class Main extends Application {
            {
                double n =0;
                 NumerosYSimbolos numero4 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-                centro.getChildren().add(numero4.numero4(center));
+                centro.getChildren().add(numero4.numero4());
                 //contador para el salto de linea en la pantalla
                 contador();
                 enPantalla.add(numero4);
@@ -313,6 +314,14 @@ public class Main extends Application {
             puntosVisibles = puntosVisibles != true;
             for (int x=0; x<tamano; x++)
                 enPantalla.get(x).visibleCircle(puntosVisibles);
+        });
+       buttonNn.setOnAction((ActionEvent event) ->
+        {
+            if (enPantalla.size()>0) {
+                centro.getChildren().remove(centro.getChildren().size()-1);
+                enPantalla.remove(centro.getChildren().size()-1);
+                espacioNumero-=90;
+            }   
         });
        
        

@@ -37,8 +37,8 @@ public class PuntosDeControl{
         circulo.setCenterY(centerY);
         circulo.setRadius(6);
         circulo.setCache(true);
-        circulo.setStroke(Color.RED);
-        circulo.setFill(Color.BLACK);
+        circulo.setStroke(Color.BLACK);
+        circulo.setFill(Color.WHITE);
         circulo.setStrokeWidth(2);
         circle.getChildren().add(circulo);
     }
@@ -58,5 +58,4 @@ public class PuntosDeControl{
             }
         }
     }
-    
 }
