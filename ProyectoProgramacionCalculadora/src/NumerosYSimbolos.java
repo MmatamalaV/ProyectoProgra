@@ -26,21 +26,27 @@ public class NumerosYSimbolos extends PuntosDeControl{
     private double yPoint;
     private double amountOfSymbolsDivide;
     private final Path pathActual = new Path();
+    private String ID;
     
 
-    public NumerosYSimbolos(double marco, double espacio, double superior, boolean puntosVisibles) {
+    public NumerosYSimbolos(double sizeTotal,double marco, double espacio, double superior, boolean puntosVisibles) {
+        super(sizeTotal);
         this.espacio=espacio;
         this.superior=superior;
         this.marco=marco;
         this.puntosVisibles=puntosVisibles;
     }
     
+    
+    
     public Group multiplicacion() {
         //Se define el tamaño de la figura..
-        size=1.2;
+        size=1.2*sizeTotal;
+        System.out.println(sizeTotal);
         //Se define el centro de la figura.
         xPoint = (200+espacio);
         yPoint = (150+superior);
+        ID = "*";
         //Se crean las líneas de la figura.
         MoveTo centroMulti = new MoveTo(xPoint, yPoint);
         LineTo line1Multi = new LineTo(xPoint-15*size, yPoint-15*size);
@@ -75,8 +81,8 @@ public class NumerosYSimbolos extends PuntosDeControl{
     }
     
     public Group division() {
-        
-        size=1.2;
+        ID = "/";
+        size=1.2*sizeTotal;
         amountOfSymbolsDivide = 1*size; //Variable para cantidad de números que irán en la división
         xPoint = (200+espacio);
         yPoint = (150+superior);
@@ -102,7 +108,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     
     public Group parentesis1() {
         
-        size=1.2;
+        size=1.2*sizeTotal;
         double amountOfSymbolsParen1 = (double) (1*size); //Para cambiar tamaño de acuerdo a la cantidad de operaciones en vertical
         xPoint = (200+espacio);
         yPoint = (150+superior);
@@ -126,7 +132,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     
     public Group parentesis2() {
         
-        size=1.2;
+        size=1.2*sizeTotal;
         double amountOfSymbolsParen2 = (double) (1*size); //Para cambiar tamaño de acuerdo a la cantidad de operaciones en vertical
         xPoint = (200+espacio);
         yPoint = (150+superior);
@@ -150,7 +156,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     
     public Group resta() {
         
-        size=1.2;
+        size=1.2*sizeTotal;
         xPoint = (200+espacio);
         yPoint = (150+superior);
 
@@ -175,7 +181,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     
     public Group suma() {
         
-        size = 1.2;
+        size = 1.2*sizeTotal;
         xPoint = (200+espacio);
         yPoint = (150+superior);
 
@@ -204,7 +210,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     
     public Group numero0() {
         
-        size=1.28;
+        size=1.28*sizeTotal;
         xPoint = (200+espacio);
         yPoint = (150+superior);
 
@@ -393,7 +399,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     protected void configuraArco (Arc arc) {
         arc.setStroke(Color.BLACK);
         arc.setFill(null);
-        arc.setStrokeWidth(4);
+        arc.setStrokeWidth(4*sizeTotal);
     }
     
     public Path getPath(){
