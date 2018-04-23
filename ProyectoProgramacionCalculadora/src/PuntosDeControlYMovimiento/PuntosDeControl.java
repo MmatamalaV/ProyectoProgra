@@ -9,6 +9,8 @@ import java.util.List;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
 
 /**
  *
@@ -18,17 +20,30 @@ public class PuntosDeControl{
     protected Group circle=new Group(); //Grupo donde se almacenarán los Circle que se irán creando.
     protected double marco; 
     protected boolean puntosVisibles;
+    protected double sizeTotal;
+
+    public PuntosDeControl(double sizeTotal) {
+        this.sizeTotal = sizeTotal;
+    }
+    
+    protected void iniciateCircleLineTo(LineTo line) {
+        createCircle(line.getX(), line.getY()+marco);
+    }
+    
+    protected void iniciateCircleMoveTo(MoveTo move) {
+        createCircle(move.getX(), move.getY()+marco);
+    }
     
     //Método que crea los círculos y los añade al Group "circle".
     protected void createCircle(double centerX, double centerY) {
         Circle circulo = new Circle();
         circulo.setCenterX(centerX);
         circulo.setCenterY(centerY);
-        circulo.setRadius(6);
+        circulo.setRadius(6*sizeTotal);
         circulo.setCache(true);
-        circulo.setStroke(Color.RED);
-        circulo.setFill(Color.BLACK);
-        circulo.setStrokeWidth(2);
+        circulo.setStroke(Color.BLACK);
+        circulo.setFill(Color.WHITE);
+        circulo.setStrokeWidth(2*sizeTotal);
         circle.getChildren().add(circulo);
     }
     
@@ -47,5 +62,4 @@ public class PuntosDeControl{
             }
         }
     }
-    
 }
