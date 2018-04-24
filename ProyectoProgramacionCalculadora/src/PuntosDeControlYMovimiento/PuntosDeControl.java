@@ -20,11 +20,8 @@ public class PuntosDeControl{
     protected Group circle=new Group(); //Grupo donde se almacenarán los Circle que se irán creando.
     protected double marco; 
     protected boolean puntosVisibles;
-    protected double sizeTotal;
 
-    public PuntosDeControl(double sizeTotal) {
-        this.sizeTotal = sizeTotal;
-    }
+    
     
     protected void iniciateCircleLineTo(LineTo line) {
         createCircle(line.getX(), line.getY()+marco);
@@ -39,11 +36,11 @@ public class PuntosDeControl{
         Circle circulo = new Circle();
         circulo.setCenterX(centerX);
         circulo.setCenterY(centerY);
-        circulo.setRadius(6*sizeTotal);
+        circulo.setRadius(6);
         circulo.setCache(true);
         circulo.setStroke(Color.BLACK);
         circulo.setFill(Color.WHITE);
-        circulo.setStrokeWidth(2*sizeTotal);
+        circulo.setStrokeWidth(2);
         circle.getChildren().add(circulo);
     }
     
