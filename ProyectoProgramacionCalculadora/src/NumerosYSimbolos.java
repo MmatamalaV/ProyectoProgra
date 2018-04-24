@@ -521,7 +521,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     
     public Group numero7(){
         ID = '7';
-        xPoint = (210+espacio);
+        xPoint = (212+espacio);
         yPoint = (200+superior);
         MoveTo start7 = new MoveTo();
         start7.setX(xPoint-50);
@@ -671,7 +671,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     
     public Group numero9(){
         ID = '9';
-        xPoint = (208+espacio);
+        xPoint = (212+espacio);
         yPoint = (200+superior);
         
         MoveTo start9 = new MoveTo();
