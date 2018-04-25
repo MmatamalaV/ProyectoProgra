@@ -30,6 +30,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     private double amountOfSymbolsDivide; //Cantidad de elementos que contiene una división.
     private final Path pathActual = new Path();
     private char ID; //Identificador del elemento. Dice qué es.
+    private int numDivision; //Indica qué división es la que se está haciendo.
     
 
     public NumerosYSimbolos(double marco, double espacio, double superior, boolean puntosVisibles) {
@@ -38,8 +39,6 @@ public class NumerosYSimbolos extends PuntosDeControl{
         this.marco=marco;
         this.puntosVisibles=puntosVisibles;
     }
-    
-    
     
     public Group multiplicacion() {
         //Se establece el ID de una multiplicación.
@@ -85,12 +84,13 @@ public class NumerosYSimbolos extends PuntosDeControl{
         return root;
     }
     
-    public Group division(double amountOfSymbolsDivide) {
+    public Group division(double amountOfSymbolsDivide, int numDivision) {
         ID = '/';
         size=1.2;
         this.amountOfSymbolsDivide=amountOfSymbolsDivide;
         xPoint = (200+espacio);
         yPoint = (80+superior);
+        this.numDivision = numDivision; //Número de la división. (Orden)
 
         MoveTo startDivide = new MoveTo(xPoint, yPoint);
         //Por cada número que aumente en amountOfSymbolsDivide, la linea de división aumenta en 90.
@@ -701,13 +701,9 @@ public class NumerosYSimbolos extends PuntosDeControl{
     public void setID(char ID) {
         this.ID = ID;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    //Retorna el numero de división.
+    public int getNumDivision() {
+        return numDivision;
+    }
+     
 }

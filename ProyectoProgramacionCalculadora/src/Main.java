@@ -110,7 +110,7 @@ public class Main extends Application {
        numerosFila1.setPadding(new Insets(0));// se define el  margen entre el  borde del panel y  los objetos que estan dentro en pixeles 
        Button button00 = new Button("Bajar");
        Button button0 = new Button(" 0 ");// en este caso el contenido se entrega en el contructor
-       Button buttonNn = new Button("Eliminar");
+       Button buttonNn = new Button("");
        HBox.setHgrow(button00, Priority.ALWAYS);// esto  se define la prioridad  en caso de aumentar el tamaño de la ventana  los objetos con prioridad llenaran  el espacio 
        HBox.setHgrow(button0, Priority.ALWAYS);
        HBox.setHgrow(buttonNn, Priority.ALWAYS);
@@ -218,26 +218,33 @@ public class Main extends Application {
             double n =0;
             if (divideStatus==0 || divideStatus==1){ //En caso que no haya división o que se esté en la parte superior de una, se añade una nueva división.
                 NumerosYSimbolos division = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-                centro.getChildren().add(division.division(1));
+                divisiones+=1;
+                centro.getChildren().add(division.division(1, divisiones));
                 enPantalla.add(division);
                 divideStatus=1;
-                divisiones+=1;
                 espacioSuperior-=140;
             }
             else if (divideStatus==2) { //En caso que esté en la parte de abajo de una división.
-                divisiones-=1;
                 if (divisiones==0) { //Si no hay más divisiones, vuelve a escribir de forma normal.
-                    contador();
                     divideStatus=0;
+                    contador();
                 }
                 else { //Si hay más divisiones, vuelve a la parte superior de la última división.
-                    contador();
                     divideStatus=1;
+                    contador();
                 }
-                
-                    enPantalla.get(enPantalla.size()-1-divisiones).setID('%'); //Cuando se cierra una división, se le cambia el ID para que no crezca.
-
+                //Busca la última división escrita, lo establcece como división cerrada.
+                for (int x = enPantalla.size()-1; x>=0; x--) {
+                    if (enPantalla.get(x).getID() == '/') {
+                        enPantalla.get(x).getNumDivision();
+                        if (enPantalla.get(x).getNumDivision()==divisiones) {
+                            enPantalla.get(x).setID('%');
+                        }
+                    }
                 }
+                rePaintDivide();
+                divisiones-=1;
+            }
             
 
             
@@ -430,11 +437,11 @@ public class Main extends Application {
        //Este botón elimina el último número escrito (Beta, falla con divisiones).
        buttonNn.setOnAction((ActionEvent event) ->
         {
-            if (enPantalla.size()>0) {
+            /*if (enPantalla.size()>0) {
                 centro.getChildren().remove(centro.getChildren().size()-1);
                 enPantalla.remove(centro.getChildren().size()-1);
                 espacioNumero-=90;
-            }   
+            }   */
         });
        
        //Este botón, en caso de estar arriba de una división, hace que se dibujen números o símbolos abajo de esta.
@@ -515,6 +522,7 @@ public class Main extends Application {
         double superiorDivision;
         double amountOfSymbols;
         int x = enPantalla.size()-1;
+        int divisionesActual;
         while (enPantalla.size()>x && x>=0) {
             //Se verifica que el elemento corresponda a una división abierta.
             if (enPantalla.get(x).getID()=='/') {
@@ -523,12 +531,13 @@ public class Main extends Application {
                 superiorDivision = enPantalla.get(x).getyPoint()-80;
                 //Se aumenta en 1 la de elementos en la división.
                 amountOfSymbols = enPantalla.get(x).getAmountOfSymbolsDivide()+1;
+                divisionesActual = enPantalla.get(x).getNumDivision();
                 //Se elimina la división actual.
                 enPantalla.remove(x);
                 centro.getChildren().remove(x+1);
                 //Se crea una nueva división que abarque más elementos.
                 NumerosYSimbolos division = new NumerosYSimbolos(0, espacioDivision,superiorDivision, puntosVisibles);
-                centro.getChildren().add(division.division(amountOfSymbols));
+                centro.getChildren().add(division.division(amountOfSymbols, divisionesActual));
                 enPantalla.add(division);
             }
             x--;
