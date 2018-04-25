@@ -17,17 +17,20 @@ import javafx.scene.shape.VLineTo;
 /**
  *
  * @author elias
+ * @numbers created by: Matias and Mario
+ * @numbersPorted by: elias
  */
 public class NumerosYSimbolos extends PuntosDeControl{
 
     private final double espacio;
     private final double superior;
-    private double size;
-    private double xPoint;
-    private double yPoint;
-    private double amountOfSymbolsDivide;
+    private double size; //Tamaño personalizado de los elementos para que todos calcen y tengan mismo tamaño.
+    private double xPoint; //Posición en X donde debe ser dibujado el elemento.
+    private double yPoint; //Posición en Y donde debe ser dibujado el elemento.
+    private double amountOfSymbolsDivide; //Cantidad de elementos que contiene una división.
     private final Path pathActual = new Path();
-    private char ID;
+    private char ID; //Identificador del elemento. Dice qué es.
+    private int numDivision; //Indica qué división es la que se está haciendo.
     
 
     public NumerosYSimbolos(double marco, double espacio, double superior, boolean puntosVisibles) {
@@ -37,13 +40,12 @@ public class NumerosYSimbolos extends PuntosDeControl{
         this.puntosVisibles=puntosVisibles;
     }
     
-    
-    
     public Group multiplicacion() {
+        //Se establece el ID de una multiplicación.
         ID = '*';
-        //Se define el tamaño de la figura..
+        //Se define el tamaño de la figura.
         size=1.2;
-        //Se define el centro de la figura.
+        //Se define la posición de la figura.
         xPoint = (200+espacio);
         yPoint = (150+superior);
         
@@ -58,12 +60,12 @@ public class NumerosYSimbolos extends PuntosDeControl{
         LineTo line7Multi = new LineTo(xPoint-20*size, yPoint);
         LineTo line8Multi = new LineTo(xPoint+20*size, yPoint);
 
+        //Se define el grosor de la figura.
         pathActual.setStrokeWidth(4*size);
-        //Se añaden las líneas de la figura a path.
+        //Se añaden las líneas de la figura a pathActual.
         pathActual.getElements().addAll(centroMulti, line1Multi,centroMulti, line2Multi, centroMulti, line3Multi, centroMulti, line4Multi, centroMulti, line5Multi, centroMulti, line6Multi, centroMulti, line7Multi, centroMulti, line8Multi);
         
         //Se crean los círculos con la ubicación de las líneas.
-        
         iniciateCircleMoveTo(centroMulti);
         iniciateCircleLineTo(line1Multi);
         iniciateCircleLineTo(line2Multi);
@@ -74,36 +76,34 @@ public class NumerosYSimbolos extends PuntosDeControl{
         iniciateCircleLineTo(line7Multi);
         iniciateCircleLineTo(line8Multi);
       
+        //Se crea un nuevo grupo llamado root, el cual contendrá a los puntos de control (círculos) y a la figura.
         Group root = new Group(pathActual, circle);
-
         circle.setVisible(puntosVisibles);
         
+        //Se regresa el grupo a la pizarra, donde serán agregadas.
         return root;
     }
     
-    public Group division() {
+    public Group division(double amountOfSymbolsDivide, int numDivision) {
         ID = '/';
         size=1.2;
-        amountOfSymbolsDivide = 1*size; //Variable para cantidad de números que irán en la división
+        this.amountOfSymbolsDivide=amountOfSymbolsDivide;
         xPoint = (200+espacio);
-        yPoint = (150+superior);
+        yPoint = (80+superior);
+        this.numDivision = numDivision; //Número de la división. (Orden)
 
         MoveTo startDivide = new MoveTo(xPoint, yPoint);
-        LineTo line1Divide = new LineTo(xPoint-33*amountOfSymbolsDivide, yPoint);
-        LineTo line2Divide = new LineTo(xPoint+33*amountOfSymbolsDivide, yPoint);
+        //Por cada número que aumente en amountOfSymbolsDivide, la linea de división aumenta en 90.
+        LineTo line2Divide = new LineTo(xPoint+90*(amountOfSymbolsDivide-1), yPoint);
 
-        pathActual.setStrokeWidth(4*size);
-    
-        pathActual.getElements().addAll(startDivide, line1Divide, startDivide, line2Divide);
+        pathActual.setStrokeWidth(4*size);   
+        pathActual.getElements().addAll(startDivide, startDivide, line2Divide);
         
         iniciateCircleMoveTo(startDivide);
-        iniciateCircleLineTo(line1Divide);
         iniciateCircleLineTo(line2Divide);
         
-        Group root = new Group(pathActual, circle);
-        
-        circle.setVisible(puntosVisibles);
-        
+        Group root = new Group(pathActual, circle);        
+        circle.setVisible(puntosVisibles);       
         return root;
     }
     
@@ -125,9 +125,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
         createCircle(arc2Paren1.getCenterX(), arc2Paren1.getCenterY()+42*amountOfSymbolsParen1);
 
         Group root = new Group(arc1Paren1, arc2Paren1, circle);
-
-        circle.setVisible(puntosVisibles);
-        
+        circle.setVisible(puntosVisibles);        
         return root;
     }
     
@@ -149,9 +147,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
         createCircle(arc2Paren2.getCenterX(), arc2Paren2.getCenterY()+42*amountOfSymbolsParen2);
 
         Group root = new Group(arc1Paren2, arc2Paren2, circle);
-
-        circle.setVisible(puntosVisibles);
-        
+        circle.setVisible(puntosVisibles);        
         return root;
     }
     
@@ -165,8 +161,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
         LineTo line1Minus = new LineTo(xPoint-20*size, yPoint);
         LineTo line2Minus = new LineTo(xPoint+20*size, yPoint);
 
-        pathActual.setStrokeWidth(4*size);
-        
+        pathActual.setStrokeWidth(4*size);        
         pathActual.getElements().addAll(startMinus, line1Minus, startMinus, line2Minus);
 
         iniciateCircleMoveTo(startMinus);
@@ -174,9 +169,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
         iniciateCircleLineTo(line2Minus);
       
         Group root = new Group(pathActual, circle);
-
         circle.setVisible(puntosVisibles);
-        
         return root;
     }
     
@@ -193,7 +186,6 @@ public class NumerosYSimbolos extends PuntosDeControl{
         LineTo line4Plus = new LineTo(xPoint, yPoint-20*size);
 
         pathActual.setStrokeWidth(4*size);
-
         pathActual.getElements().addAll(startPlus, line1Plus, startPlus, line2Plus, startPlus, line3Plus, startPlus, line4Plus);
        
         iniciateCircleMoveTo(startPlus);
@@ -203,16 +195,14 @@ public class NumerosYSimbolos extends PuntosDeControl{
         iniciateCircleLineTo(line4Plus);
 
         Group root = new Group(pathActual, circle);
-
         circle.setVisible(puntosVisibles);
-        
         return root;
     }
     
     public Group numero0() {
         ID = '0';
         size=1.28;
-        xPoint = (200+espacio);
+        xPoint = (190+espacio);
         yPoint = (150+superior);
 
         Arc arcZero = new Arc(xPoint, yPoint,25*size,40*size,90,90);
@@ -231,9 +221,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
         createCircle(arc3Zero.getCenterX()-25*size, arc3Zero.getCenterY());
         
         circle.setVisible(puntosVisibles);
-        
         Group root = new Group(arcZero, arc1Zero, arc2Zero, arc3Zero, circle);
-
         return root;
     }
     
@@ -255,15 +243,13 @@ public class NumerosYSimbolos extends PuntosDeControl{
         createCircle(p3.getX(),p3.getY()+marco);
         
         circle.setVisible(puntosVisibles);
-        
         Group root = new Group(pathActual, circle);
         return root;
-        
     }
     
     public Group numero2() {
         ID = '2';
-        xPoint = (180+espacio);
+        xPoint = (170+espacio);
         yPoint = (125+superior);
         int x = 0;
         MoveTo start2 = new MoveTo();
@@ -299,17 +285,14 @@ public class NumerosYSimbolos extends PuntosDeControl{
         createCircle(base.getX(),yPoint+75+marco);
 
         circle.setVisible(puntosVisibles);
-
         pathActual.getElements().addAll(start2,primerArco,segundoArco,diagonal,base);
-        
         Group root = new Group(pathActual, circle);
-        
         return root;
     }
     
     public Group numero3() {
         ID = '3';
-        xPoint = (180+espacio);
+        xPoint = (175+espacio);
         yPoint = (200+superior);
         
         MoveTo start3 = new MoveTo();
@@ -358,12 +341,9 @@ public class NumerosYSimbolos extends PuntosDeControl{
         
 
         circle.setVisible(puntosVisibles);
-
         
-        pathActual.getElements().addAll(start3,base,arco1,arco2,arco3,arco4,htop);
-        
-        Group root = new Group(pathActual, circle);
-        
+        pathActual.getElements().addAll(start3,base,arco1,arco2,arco3,arco4,htop);      
+        Group root = new Group(pathActual, circle);       
         return root;
     }
 
@@ -380,7 +360,6 @@ public class NumerosYSimbolos extends PuntosDeControl{
         LineTo line3 = new LineTo(xPoint+15*size, yPoint+30*size);
         
         pathActual.setStrokeWidth(4);
-
         pathActual.getElements().addAll(moveTo,line1, line2,moveTo2,line3);
         
         iniciateCircleMoveTo(moveTo);
@@ -389,12 +368,9 @@ public class NumerosYSimbolos extends PuntosDeControl{
         iniciateCircleMoveTo(moveTo2);
         iniciateCircleLineTo(line3);
         
-        circle.setVisible(puntosVisibles);
-        
+        circle.setVisible(puntosVisibles); 
         Group root = new Group(pathActual, circle);
-        
         return root;
-
     }
     
     public Group numero5(){
@@ -437,7 +413,6 @@ public class NumerosYSimbolos extends PuntosDeControl{
         htop.setX(xPoint+20);
         
         pathActual.setStrokeWidth(4);
-        
         pathActual.getElements().addAll(start5,arco1,base,arco2,arco3,hmid,vline,htop);
         
         createCircle(start5.getX(), start5.getY()+marco);
@@ -450,16 +425,13 @@ public class NumerosYSimbolos extends PuntosDeControl{
         createCircle(hmid.getX(), arco3.getY()+marco);
                 
         circle.setVisible(puntosVisibles);
-
         Group root = new Group(pathActual, circle);
-        
         return root;
-        
     }
     
     public Group numero6(){
         ID = '6';
-        xPoint = (208+espacio);
+        xPoint = (200+espacio);
         yPoint = (200+superior);
         
         MoveTo start6 = new MoveTo();
@@ -498,7 +470,6 @@ public class NumerosYSimbolos extends PuntosDeControl{
         arco5.setControlY(yPoint-90);
         
         pathActual.getElements().addAll(start6,arco1,arco2,arco3,arco4,arco5);
-        
         pathActual.setStrokeWidth(4);
         
         createCircle(start6.getX(), start6.getY()+marco);
@@ -508,20 +479,14 @@ public class NumerosYSimbolos extends PuntosDeControl{
         createCircle(arco4.getX(), arco4.getY()+marco);
         createCircle(arco5.getX(), arco5.getY()+marco);
         
-
-        
         circle.setVisible(puntosVisibles);
-        
         Group root = new Group(pathActual, circle);
-        
-        
         return root;
-        
     }
     
     public Group numero7(){
         ID = '7';
-        xPoint = (212+espacio);
+        xPoint = (215+espacio);
         yPoint = (200+superior);
         MoveTo start7 = new MoveTo();
         start7.setX(xPoint-50);
@@ -557,18 +522,14 @@ public class NumerosYSimbolos extends PuntosDeControl{
         createCircle(hMidLine2.getX(), diagonal2.getY()+marco);
         
         circle.setVisible(puntosVisibles);
-        
         pathActual.getElements().addAll(start7, diagonal1, hMidLine1, hMidLine2, hMidLine3, diagonal2, lineaTop);
-        
         Group root = new Group(pathActual, circle);
-        
         return root;
-        
     }
     
     public Group numero8(){
         ID = '8';
-        xPoint = (208+espacio);
+        xPoint = (215+espacio);
         yPoint = (200+superior);
         
         MoveTo start8 = new MoveTo();
@@ -641,37 +602,23 @@ public class NumerosYSimbolos extends PuntosDeControl{
         
         pathActual.setStrokeWidth(4);
         
-        //iniciateCircleMoveTo(start8);
-        //iniciateCircleLineTo(base);
-        //iniciateCircleLineTo(htop);
         createCircle(mid2.getX()+5, mid2.getY()+marco);
         createCircle(arco1.getX()+5, arco1.getY()+marco);
-        //createCircle(arco3.getX(), arco1.getY()+marco);
         createCircle(arco2.getX(), arco2.getY()+marco);
-        //createCircle(arco3.getX(), arco3.getY()+marco);
         createCircle(arco4.getX(), arco4.getY()+marco);
         createCircle(arco5.getX()+5, arco5.getY()+marco);
         createCircle(arco6.getX(), arco6.getY()+marco);
-        //createCircle(arco7.getX(), arco7.getY()+marco);
         createCircle(arco8.getX(), arco8.getY()+marco);
         
-        
-        
- 
         circle.setVisible(puntosVisibles);
-        
         pathActual.getElements().addAll(start8,arco1,base,arco2,arco3,mid1,arco4,arco5,htop,arco6,arco7,mid2,arco8);
-        
         Group root = new Group(pathActual, circle);
-        
         return root;
-        
-        
     }
     
     public Group numero9(){
         ID = '9';
-        xPoint = (212+espacio);
+        xPoint = (215+espacio);
         yPoint = (200+superior);
         
         MoveTo start9 = new MoveTo();
@@ -719,23 +666,44 @@ public class NumerosYSimbolos extends PuntosDeControl{
         createCircle(arco2.getX(), lineaV.getY());
  
         circle.setVisible(puntosVisibles);
-
         pathActual.getElements().addAll(start9, arco1, arco2, lineaV, lineaV2, arco3, arco4);
-        
         Group root = new Group(pathActual, circle);
-        
         return root;
-        
     }
 
+    //Sólo para arcos. Se configuran algunos detalles de los arcos, como el color, relleno y grosor.
     protected void configuraArco (Arc arc) {
         arc.setStroke(Color.BLACK);
         arc.setFill(null);
         arc.setStrokeWidth(4);
     }
-    
+    //Retorna el Path que contiene a un elemento y sus puntos de control.
     public Path getPath(){
         return pathActual;
     }
-    
+    //Retorna el identidficador del elemento.
+    public char getID() {
+        return ID;
+    }
+    //Retorna la posición en X de un elemento.
+    public double getxPoint() {
+        return xPoint;
+    }
+    //Retorna la posición en Y de un elemento.
+    public double getyPoint() {
+        return yPoint;
+    }
+    //Retorna la cantidad de elementos de una división.
+    public double getAmountOfSymbolsDivide() {
+        return amountOfSymbolsDivide;
+    }
+    //Permite cambiar el valor identificador de un elemento. Utilizado únicamente para división abierta y completa.
+    public void setID(char ID) {
+        this.ID = ID;
+    }
+    //Retorna el numero de división.
+    public int getNumDivision() {
+        return numDivision;
+    }
+     
 }

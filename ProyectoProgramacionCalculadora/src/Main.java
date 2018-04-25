@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+//modificado el 25 de abril a las 9:24
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +11,11 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -25,19 +28,28 @@ import javafx.stage.Stage;
 /**
  *
  * @author Matias.Erenchun
- * @editor elias avendano
+ * @author elias avendano
  */
 public class Main extends Application {
-    double espacioNumero=0;
-    double espacioSuperior=0;
-    int contador=0;
-    public boolean puntosVisibles = true;
-    private final double size = 0.5;
-    private final List enPantalla = new ArrayList();
-    
+    private double espacioNumero=0; //Espacio en X que indica a las figuras en qué posición deben dibujarse.
+    private double espacioSuperior=0; //Espacio en Y que indica a las figuras en qué posición deben dibujarse.
+    private boolean puntosVisibles = true;
+    private final double size = 1; //Tamaño de los elementos de dibujo en Pantalla.
+    private List<NumerosYSimbolos> enPantalla; //Lista de todos los elementos dibujados en Pantalla.
+    private Group centro;
+    private int divideStatus = 0; //Variable que sirve para saber en qué estado está una división.
+    //divideStatus = 1; Significa que se ha iniciado una nueva división y se está dibujando en la parte de arriba de esta.
+    //divideStatus = 2; Significa que se está dibujando en la parte inferior de uan división.
+    //divideStatus = 0; Significa que no hay división activa.
+    private int divisiones = 0; //Contador de Divisiones. Utilizado para tener control sobre el crecimiento de la línea de división.
+
+    public Main() {
+        this.enPantalla = new ArrayList<NumerosYSimbolos>();
+    }
+        
     @Override
     public void start(Stage primaryStage) {
-       List<NumerosYSimbolos> enPantalla = new ArrayList<>();
+       
        HBox contenerdorPrincipal = new HBox();
        
        //*******inicio numeros***************
@@ -96,9 +108,9 @@ public class Main extends Application {
        
        HBox numerosFila4 = new HBox();
        numerosFila1.setPadding(new Insets(0));// se define el  margen entre el  borde del panel y  los objetos que estan dentro en pixeles 
-       Button button00 = new Button("    ");
+       Button button00 = new Button("Bajar");
        Button button0 = new Button(" 0 ");// en este caso el contenido se entrega en el contructor
-       Button buttonNn = new Button("Eliminar");
+       Button buttonNn = new Button("");
        HBox.setHgrow(button00, Priority.ALWAYS);// esto  se define la prioridad  en caso de aumentar el tamaño de la ventana  los objetos con prioridad llenaran  el espacio 
        HBox.setHgrow(button0, Priority.ALWAYS);
        HBox.setHgrow(buttonNn, Priority.ALWAYS);
@@ -186,36 +198,67 @@ public class Main extends Application {
        //*******inicio Esena de dibujo***********
        Box box = new Box(100,100,100);
        BorderPane pane = new BorderPane();
-       box.setManaged(true);
+       box.setManaged(true);    
        //pane.setCenter(box);
        Path center = new Path();
        center.setManaged(false);
-       Group centro=new Group(center);
-       pane.setCenter(centro);
+       centro=new Group(center);
+       ScrollPane mainPane=new ScrollPane(centro);
+       
+       pane.setCenter(mainPane);
+       BorderPane.setAlignment(mainPane, Pos.CENTER);
        centro.setScaleX(size);
        centro.setScaleY(size);
        
        
+       //Botones y sus funcionalidades.
        
        buttonDiv.setOnAction((ActionEvent event) ->
         { 
             double n =0;
-            NumerosYSimbolos division = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(division.division());
-            //contador para el salto de linea en la pantalla
-            contador();
-            enPantalla.add(division);
+            if (divideStatus==0 || divideStatus==1){ //En caso que no haya división o que se esté en la parte superior de una, se añade una nueva división.
+                NumerosYSimbolos division = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+                divisiones+=1;
+                centro.getChildren().add(division.division(1, divisiones));
+                enPantalla.add(division);
+                divideStatus=1;
+                espacioSuperior-=140;
+            }
+            else if (divideStatus==2) { //En caso que esté en la parte de abajo de una división.
+                if (divisiones==0) { //Si no hay más divisiones, vuelve a escribir de forma normal.
+                    divideStatus=0;
+                    contador();
+                }
+                else { //Si hay más divisiones, vuelve a la parte superior de la última división.
+                    divideStatus=1;
+                    contador();
+                }
+                //Busca la última división escrita, lo establcece como división cerrada.
+                for (int x = enPantalla.size()-1; x>=0; x--) {
+                    if (enPantalla.get(x).getID() == '/') {
+                        enPantalla.get(x).getNumDivision();
+                        if (enPantalla.get(x).getNumDivision()==divisiones) {
+                            enPantalla.get(x).setID('%');
+                        }
+                    }
+                }
+                rePaintDivide();
+                divisiones-=1;
+            }
+            
+
             
         });
+       
        
        buttonPor.setOnAction((ActionEvent event) ->
         { 
             double n =0;
             NumerosYSimbolos multiplicacion = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
             centro.getChildren().add(multiplicacion.multiplicacion());
-            //contador para el salto de linea en la pantalla
             contador();
             enPantalla.add(multiplicacion);
+            tryDivide();
         });
        
        buttonPar1.setOnAction((ActionEvent event) ->
@@ -223,9 +266,11 @@ public class Main extends Application {
             double n =0;
             NumerosYSimbolos parentesis1 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
             centro.getChildren().add(parentesis1.parentesis1());
-            //contador para el salto de linea en la pantalla
             contador();
             enPantalla.add(parentesis1);
+            tryDivide();
+            
+            
         });
        
        buttonPar2.setOnAction((ActionEvent event) ->
@@ -233,19 +278,21 @@ public class Main extends Application {
             double n =0;
             NumerosYSimbolos parentesis2 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
             centro.getChildren().add(parentesis2.parentesis2());
-            //contador para el salto de linea en la pantalla
             contador();
             enPantalla.add(parentesis2);
+            tryDivide();
+            
         });
-       
+
        buttonMas.setOnAction((ActionEvent event) ->
         { 
             double n =0;
             NumerosYSimbolos suma = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
             centro.getChildren().add(suma.suma());
-            //contador para el salto de linea en la pantalla
             contador();
             enPantalla.add(suma);
+            tryDivide();
+            
         });
        
        buttonMenos.setOnAction((ActionEvent event) ->
@@ -253,9 +300,9 @@ public class Main extends Application {
             double n =0;
             NumerosYSimbolos resta = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
             centro.getChildren().add(resta.resta());
-            //contador para el salto de linea en la pantalla
             contador();
             enPantalla.add(resta);
+            tryDivide();
         });
        
        button0.setOnAction((ActionEvent event) ->
@@ -263,9 +310,9 @@ public class Main extends Application {
             double n =0;
             NumerosYSimbolos numero0 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
             centro.getChildren().add(numero0.numero0());
-            //contador para el salto de linea en la pantalla
             contador();
             enPantalla.add(numero0);
+            tryDivide();
         });
        
        button1.setOnAction((ActionEvent event) ->
@@ -273,9 +320,10 @@ public class Main extends Application {
             double n =0;
             NumerosYSimbolos numero1 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
             centro.getChildren().add(numero1.numero1());
-            //contador para el salto de linea en la pantalla
             contador();
             enPantalla.add(numero1);
+            tryDivide();
+            
         });
        
        button2.setOnAction((ActionEvent event) ->
@@ -283,107 +331,126 @@ public class Main extends Application {
             double n =0;
             NumerosYSimbolos numero2 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
             centro.getChildren().add(numero2.numero2());
-            //contador para el salto de linea en la pantalla
             contador();
             enPantalla.add(numero2);
+            tryDivide();
+            
         });
        
        button3.setOnAction((ActionEvent event) ->
-        { 
+       { 
             double n =0;
             NumerosYSimbolos numero3 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
             centro.getChildren().add(numero3.numero3());
-            //contador para el salto de linea en la pantalla
             contador();
             enPantalla.add(numero3);
+            tryDivide();
+            
         });
        
        button4.setOnAction((ActionEvent event) ->
-           
-           {
-               double n =0;
-                NumerosYSimbolos numero4 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-                centro.getChildren().add(numero4.numero4());
-                //contador para el salto de linea en la pantalla
-                contador();
-                enPantalla.add(numero4);
+       {
+            double n =0;
+            NumerosYSimbolos numero4 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+            centro.getChildren().add(numero4.numero4());
+            contador();
+            enPantalla.add(numero4);
+            tryDivide();
+                
                
-            });
+        });
        
        button5.setOnAction((ActionEvent event) ->
            
-           {
-               double n =0;
-                NumerosYSimbolos numero5 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-                centro.getChildren().add(numero5.numero5());
-                //contador para el salto de linea en la pantalla
-                contador();
-                enPantalla.add(numero5);
+        {
+            double n =0;
+            NumerosYSimbolos numero5 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+            centro.getChildren().add(numero5.numero5());
+            contador();
+            enPantalla.add(numero5);
+            tryDivide();
+                
                
-            });
+        });
        
        button6.setOnAction((ActionEvent event) ->
            
-           {
-               double n =0;
-                NumerosYSimbolos numero6 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-                centro.getChildren().add(numero6.numero6());
-                //contador para el salto de linea en la pantalla
-                contador();
-                enPantalla.add(numero6);
-               
-            });
+        {
+             double n =0;
+             NumerosYSimbolos numero6 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+             centro.getChildren().add(numero6.numero6());
+             contador();
+             enPantalla.add(numero6);
+             tryDivide();
+
+
+         });
        
        button7.setOnAction((ActionEvent event) ->
            
-           {
-               double n =0;
-                NumerosYSimbolos numero7 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-                centro.getChildren().add(numero7.numero7());
-                //contador para el salto de linea en la pantalla
-                contador();
-                enPantalla.add(numero7);
-               
-            });
+        {
+             double n =0;
+             NumerosYSimbolos numero7 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+             centro.getChildren().add(numero7.numero7());
+             contador();
+             enPantalla.add(numero7);
+             tryDivide();
+
+
+         });
        
        button8.setOnAction((ActionEvent event) ->
            
-           {
-               double n =0;
-                NumerosYSimbolos numero8 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-                centro.getChildren().add(numero8.numero8());
-                //contador para el salto de linea en la pantalla
-                contador();
-                enPantalla.add(numero8);
-               
-            });
+        {
+             double n =0;
+             NumerosYSimbolos numero8 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+             centro.getChildren().add(numero8.numero8());
+             contador();
+             enPantalla.add(numero8);
+             tryDivide();
+
+
+         });
        
        button9.setOnAction((ActionEvent event) ->
            
-           {
-               double n =0;
-                NumerosYSimbolos numero9 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-                centro.getChildren().add(numero9.numero9());
-                //contador para el salto de linea en la pantalla
-                contador();
-                enPantalla.add(numero9);
-               
-            });
+        {
+             double n =0;
+             NumerosYSimbolos numero9 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+             centro.getChildren().add(numero9.numero9());
+             contador();
+             enPantalla.add(numero9);
+
+             tryDivide();
+
+
+         });
        
+       //Este botón quita o pone los Puntos de Control.
        buttonNn2.setOnAction((ActionEvent event) ->
         { 
-            int tamano = enPantalla.size();
             puntosVisibles = puntosVisibles != true;
-            for (int x=0; x<tamano; x++)
+            for (int x=0; x<enPantalla.size(); x++)
                 enPantalla.get(x).visibleCircle(puntosVisibles);
         });
+       
+       //Este botón elimina el último número escrito (Beta, falla con divisiones).
        buttonNn.setOnAction((ActionEvent event) ->
         {
-            if (enPantalla.size()>0) {
+            /*if (enPantalla.size()>0) {
                 centro.getChildren().remove(centro.getChildren().size()-1);
                 enPantalla.remove(centro.getChildren().size()-1);
                 espacioNumero-=90;
-            }   
+            }   */
+        });
+       
+       //Este botón, en caso de estar arriba de una división, hace que se dibujen números o símbolos abajo de esta.
+       button00.setOnAction((ActionEvent event) ->
+        {
+            if (divideStatus==1) {
+                divideStatus=2;
+                espacioSuperior+=140;
+            }
         });
        
        
@@ -393,14 +460,14 @@ public class Main extends Application {
        sliderSubScene.setMax(10000);// se define el largo maximo del  slider
        sliderSubScene.setMin(-10000);
        sliderSubScene.valueProperty().bindBidirectional(centro.translateXProperty());//se le da el recorrido al Slider en este caso es el largo del box
-       pane.setBottom(sliderSubScene);
+       //pane.setBottom(sliderSubScene);
        
        Slider sliderSubScene2 = new Slider();
        sliderSubScene2.setMax(10000);// se define el largo maximo del  slider
        sliderSubScene2.setMin(-10000);
        sliderSubScene2.setOrientation(Orientation.VERTICAL);
        sliderSubScene2.valueProperty().bindBidirectional(centro.translateYProperty());//se le da el recorrido al Slider en este caso es el largo del box
-       pane.setLeft(sliderSubScene2);
+       //pane.setLeft(sliderSubScene2);
        
        
        
@@ -436,6 +503,7 @@ public class Main extends Application {
         primaryStage.show();//mostramos la pantalla
     }
     
+    //Método que aumenta en X para dejar espacio a los números.
     private void contador(){
         espacioNumero+=90;
         //contador+=200;
@@ -444,6 +512,45 @@ public class Main extends Application {
             contador=0;
             espacioNumero=0;
         }*/
+    }
+    /*Este método busca la úlima división escrita guiándose por su ID, obtiene sus datos de ubicación y cantidad
+    de simbolos escritos en esta, entonces elimina la actual, para dar paso a una nueva división la cual aumenta en tamaño con la variable
+    aumountOfSymbolsDivide.
+    */
+    private void rePaintDivide(){
+        double espacioDivision;
+        double superiorDivision;
+        double amountOfSymbols;
+        int x = enPantalla.size()-1;
+        int divisionesActual;
+        while (enPantalla.size()>x && x>=0) {
+            //Se verifica que el elemento corresponda a una división abierta.
+            if (enPantalla.get(x).getID()=='/') {
+                //Se obtienen las coordenadas iniciales de la división.
+                espacioDivision= enPantalla.get(x).getxPoint()-200;
+                superiorDivision = enPantalla.get(x).getyPoint()-80;
+                //Se aumenta en 1 la de elementos en la división.
+                amountOfSymbols = enPantalla.get(x).getAmountOfSymbolsDivide()+1;
+                divisionesActual = enPantalla.get(x).getNumDivision();
+                //Se elimina la división actual.
+                enPantalla.remove(x);
+                centro.getChildren().remove(x+1);
+                //Se crea una nueva división que abarque más elementos.
+                NumerosYSimbolos division = new NumerosYSimbolos(0, espacioDivision,superiorDivision, puntosVisibles);
+                centro.getChildren().add(division.division(amountOfSymbols, divisionesActual));
+                enPantalla.add(division);
+            }
+            x--;
+        }
+    }
+    //Este método verifica si acutalmente hay una división activa o no, para entonces dar paso a rePaintDivide o no.
+    private void tryDivide(){
+        if (divideStatus==0)
+            return;
+        if (divideStatus==1)
+            rePaintDivide();
+        if (divideStatus==2)
+            rePaintDivide();
     }
 
     /**
