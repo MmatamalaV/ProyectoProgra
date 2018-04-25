@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+//modificado el 25 de abril a las 9:24
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +11,11 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -195,14 +198,17 @@ public class Main extends Application {
        //*******inicio Esena de dibujo***********
        Box box = new Box(100,100,100);
        BorderPane pane = new BorderPane();
-       box.setManaged(true);
+       box.setManaged(true);    
        //pane.setCenter(box);
        Path center = new Path();
        center.setManaged(false);
        centro=new Group(center);
-       pane.setCenter(centro);
-       centro.setScaleX(size);
-       centro.setScaleY(size);
+       ScrollPane mainPane=new ScrollPane(centro);
+       
+       pane.setCenter(mainPane);
+       BorderPane.setAlignment(mainPane, Pos.CENTER);
+//       centro.setScaleX(size);
+//       centro.setScaleY(size);
        
        
        //Botones y sus funcionalidades.
