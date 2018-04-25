@@ -34,7 +34,7 @@ public class Main extends Application {
     private double espacioNumero=0; //Espacio en X que indica a las figuras en qué posición deben dibujarse.
     private double espacioSuperior=0; //Espacio en Y que indica a las figuras en qué posición deben dibujarse.
     private boolean puntosVisibles = true;
-    private final double size = 0.5; //Tamaño de los elementos de dibujo en Pantalla.
+    private final double size = 1; //Tamaño de los elementos de dibujo en Pantalla.
     private List<NumerosYSimbolos> enPantalla; //Lista de todos los elementos dibujados en Pantalla.
     private Group centro;
     private int divideStatus = 0; //Variable que sirve para saber en qué estado está una división.
@@ -207,8 +207,8 @@ public class Main extends Application {
        
        pane.setCenter(mainPane);
        BorderPane.setAlignment(mainPane, Pos.CENTER);
-//       centro.setScaleX(size);
-//       centro.setScaleY(size);
+       centro.setScaleX(size);
+       centro.setScaleY(size);
        
        
        //Botones y sus funcionalidades.
