@@ -19,14 +19,14 @@ import javafx.scene.shape.MoveTo;
 public class PuntosDeControl{
     protected Group circle=new Group(); //Grupo donde se almacenarán los Circle que se irán creando.
     protected double marco; 
-    protected boolean puntosVisibles;
+    protected boolean puntosVisibles; //Indica si los puntos deben ser visibles o no.
 
     
-    
+    //Método que sirve para crear un círculo que se ubica en la posición de un LineTo.
     protected void iniciateCircleLineTo(LineTo line) {
         createCircle(line.getX(), line.getY()+marco);
     }
-    
+    //Método que sirve para crear un círculo que se ubica en la posición de un MoveTo.
     protected void iniciateCircleMoveTo(MoveTo move) {
         createCircle(move.getX(), move.getY()+marco);
     }
@@ -44,11 +44,12 @@ public class PuntosDeControl{
         circle.getChildren().add(circulo);
     }
     
+    //Método que cambia de estado la visibilidad de los círculos.
     public void visibleCircle(Boolean visible) {
         circle.setVisible(visible);
     }
     
-    //Método que remueve elementos duplicados de una lista.
+    //Método que remueve elementos duplicados de una lista. (Sin usar aún, se piensa usar para automizar algunos pasos)
     protected void remueveDuplicados(List list){
         for(int i=0;i<list.size();i++){
             for(int j=i+1;j<list.size();j++){
