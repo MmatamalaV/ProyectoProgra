@@ -166,7 +166,7 @@ public class Main extends Application {
        
        HBox simbolos4 = new HBox();
        simbolos4.setPadding(new Insets(0));// se define el  margen entre el  borde del panel y  los objetos que estan dentro en pixeles 
-       Button buttonNn2 = new Button(" Mostrar/Esconder Puntos de Control ");
+       Button buttonNn2 = new Button(" Esconder Puntos de Control ");
        //Button buttonDiv = new Button(" / ");// en este caso el contenido se entrega en el contructor
        
        HBox.setHgrow(buttonNn2, Priority.ALWAYS);// esto  se define la prioridad  en caso de aumentar el tamaño de la ventana  los objetos con prioridad llenaran  el espacio 
@@ -200,12 +200,11 @@ public class Main extends Application {
        
        
        //Botones y sus funcionalidades.
-       
        buttonDiv.setOnAction((ActionEvent event) ->
         { 
             double n =0;
             if (divideStatus==0 || divideStatus==1){ //En caso que no haya división o que se esté en la parte superior de una, se añade una nueva división.
-                NumerosYSimbolos division = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+                NumerosYSimbolos division = new NumerosYSimbolos(n, espacioNumero-30,espacioSuperior, puntosVisibles);
                 divisiones+=1;
                 centro.getChildren().add(division.division(1, divisiones));
                 enPantalla.add(division);
@@ -232,6 +231,8 @@ public class Main extends Application {
                 }
                 rePaintDivide();
                 divisiones-=1;
+                buttonDiv.setText("/");
+                
             }
             
 
@@ -415,11 +416,21 @@ public class Main extends Application {
          });
        
        //Este botón quita o pone los Puntos de Control.
+       //Va cambiando el texto del botón según el estado de puntosVisibles.
        buttonNn2.setOnAction((ActionEvent event) ->
         { 
-            puntosVisibles = puntosVisibles != true;
-            for (int x=0; x<enPantalla.size(); x++)
-                enPantalla.get(x).visibleCircle(puntosVisibles);
+            if (puntosVisibles==true) {
+                puntosVisibles=false;
+                for (int x=0; x<enPantalla.size(); x++)
+                    enPantalla.get(x).visibleCircle(puntosVisibles);
+                buttonNn2.setText("Mostrar Puntos de Control");
+            }
+            else {
+                puntosVisibles=true;
+                for (int x=0; x<enPantalla.size(); x++)
+                    enPantalla.get(x).visibleCircle(puntosVisibles);
+                buttonNn2.setText("Esconder Puntos de Control");
+            }
         });
        
        //Este botón elimina el último número escrito (Beta, falla con divisiones).
@@ -438,8 +449,10 @@ public class Main extends Application {
             if (divideStatus==1) {
                 divideStatus=2;
                 espacioSuperior+=140;
+                buttonDiv.setText("Cierra División");
             }
         });
+        
        
        
        //-------------------------------------//

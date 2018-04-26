@@ -40,7 +40,7 @@ public class PuntosDeControl{
         circulo.setCache(true);
         circulo.setStroke(Color.BLACK);
         circulo.setFill(Color.WHITE);
-        circulo.setStrokeWidth(2);
+        circulo.setStrokeWidth(1);
         circle.getChildren().add(circulo);
     }
     
