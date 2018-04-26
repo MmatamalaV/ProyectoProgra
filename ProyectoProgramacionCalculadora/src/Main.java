@@ -201,10 +201,12 @@ public class Main extends Application {
        
        //Botones y sus funcionalidades.
        buttonDiv.setOnAction((ActionEvent event) ->
-        { 
+        {
+            espacioNumero+=90;
+            rePaintDivide();
             double n =0;
             if (divideStatus==0 || divideStatus==1){ //En caso que no haya división o que se esté en la parte superior de una, se añade una nueva división.
-                NumerosYSimbolos division = new NumerosYSimbolos(n, espacioNumero-30,espacioSuperior, puntosVisibles);
+                NumerosYSimbolos division = new NumerosYSimbolos(n, espacioNumero-40,espacioSuperior, puntosVisibles);
                 divisiones+=1;
                 centro.getChildren().add(division.division(1, divisiones));
                 enPantalla.add(division);
