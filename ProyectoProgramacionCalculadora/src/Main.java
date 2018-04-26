@@ -130,7 +130,7 @@ public class Main extends Application {
        //------------------------------//
        VBox simbolos1 = new VBox();
        simbolos1.setPadding(new Insets(0));// se define el  margen entre el  borde del panel y  los objetos que estan dentro en pixeles 
-       Button buttonPar1 = new Button(" ( ");
+       Button buttonPar1 = new Button("   (   ");
        Button buttonMas = new Button(" + ");// en este caso el contenido se entrega en el contructor
        Button buttonPor = new Button(" * ");
        HBox.setHgrow(buttonPar1, Priority.ALWAYS);// esto  se define la prioridad  en caso de aumentar el tamaño de la ventana  los objetos con prioridad llenaran  el espacio 
@@ -146,7 +146,7 @@ public class Main extends Application {
        
        VBox simbolos2 = new VBox();
        simbolos2.setPadding(new Insets(0));// se define el  margen entre el  borde del panel y  los objetos que estan dentro en pixeles 
-       Button buttonPar2= new Button(" ) ");
+       Button buttonPar2= new Button("  )  ");
        Button buttonMenos = new Button(" - ");// en este caso el contenido se entrega en el contructor
        Button buttonDiv = new Button(" / ");// en este caso el contenido se entrega en el contructor
        HBox.setHgrow(buttonPar2, Priority.ALWAYS);// esto  se define la prioridad  en caso de aumentar el tamaño de la ventana  los objetos con prioridad llenaran  el espacio 
@@ -423,13 +423,13 @@ public class Main extends Application {
                 puntosVisibles=false;
                 for (int x=0; x<enPantalla.size(); x++)
                     enPantalla.get(x).visibleCircle(puntosVisibles);
-                buttonNn2.setText("Mostrar Puntos de Control");
+                buttonNn2.setText(" Mostrar  Puntos  de  Control ");
             }
             else {
                 puntosVisibles=true;
                 for (int x=0; x<enPantalla.size(); x++)
                     enPantalla.get(x).visibleCircle(puntosVisibles);
-                buttonNn2.setText("Esconder Puntos de Control");
+                buttonNn2.setText("Esconder  Puntos  de  Control");
             }
         });
        
