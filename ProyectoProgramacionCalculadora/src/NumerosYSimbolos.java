@@ -251,7 +251,6 @@ public class NumerosYSimbolos extends PuntosDeControl{
         ID = '2';
         xPoint = (170+espacio);
         yPoint = (125+superior);
-        int x = 0;
         MoveTo start2 = new MoveTo();
         start2.setX(xPoint);
         start2.setY(yPoint);
@@ -668,6 +667,51 @@ public class NumerosYSimbolos extends PuntosDeControl{
         circle.setVisible(puntosVisibles);
         pathActual.getElements().addAll(start9, arco1, arco2, lineaV, lineaV2, arco3, arco4);
         Group root = new Group(pathActual, circle);
+        return root;
+    }
+    
+    
+    public Group cos() {
+        ID = 'c';
+        xPoint = (170+espacio);
+        yPoint = (125+superior);
+        MoveTo start2 = new MoveTo();
+        start2.setX(xPoint);
+        start2.setY(yPoint);
+        
+        HLineTo base = new HLineTo();
+        base.setX(xPoint+50);
+        
+        LineTo diagonal = new LineTo();
+        diagonal.setX(xPoint);
+        diagonal.setY(yPoint+75);
+        
+        QuadCurveTo primerArco = new QuadCurveTo();
+        primerArco.setX(xPoint+25);
+        primerArco.setY(yPoint-25);
+        primerArco.setControlX(xPoint);
+        primerArco.setControlY(yPoint-25);
+        
+        
+        QuadCurveTo segundoArco = new QuadCurveTo();
+        segundoArco.setX(xPoint+50);
+        segundoArco.setY(yPoint);
+        segundoArco.setControlX(xPoint+50);
+        segundoArco.setControlY(yPoint-25);
+        
+        pathActual.setStrokeWidth(4);
+        
+        createCircle(start2.getX(), start2.getY()+marco);
+        createCircle(primerArco.getX(), primerArco.getY()+marco);
+        createCircle(segundoArco.getX(), segundoArco.getY()+marco);
+        createCircle(diagonal.getX(), diagonal.getY()+marco);
+        createCircle(base.getX(),yPoint+75+marco);
+
+        circle.setVisible(puntosVisibles);
+        pathActual.getElements().addAll(start2,primerArco,segundoArco,diagonal,base);
+        
+        Group root = new Group(pathActual, circle);
+
         return root;
     }
 

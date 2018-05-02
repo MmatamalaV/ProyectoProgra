@@ -13,6 +13,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -101,7 +102,7 @@ public class Main extends Application {
        Button button9 = new Button(" 9 ");
        Button button6 = new Button(" 6 ");// en este caso el contenido se entrega en el contructor
        Button button3 = new Button(" 3 ");
-       Button buttonEliminar = new Button(" ");
+       Button buttonEliminar = new Button(" CE ");
        HBox.setHgrow(button9, Priority.ALWAYS);// esto  se define la prioridad  en caso de aumentar el tamaño de la ventana  los objetos con prioridad llenaran  el espacio 
        HBox.setHgrow(button6, Priority.ALWAYS);
        HBox.setHgrow(button3, Priority.ALWAYS);
@@ -161,6 +162,22 @@ public class Main extends Application {
         //------------------------------//
        
         cajaDeSimbolos.getChildren().addAll(simbolos1,simbolos2);
+        
+        VBox trigonometria = new VBox();
+        trigonometria.setPadding(new Insets(0));// se define el  margen entre el  borde del panel y  los objetos que estan dentro en pixeles 
+        Button buttonSen= new Button("  sen  ");
+        Button buttonCos = new Button("  cos  ");// en este caso el contenido se entrega en el contructor
+        Button buttonTan = new Button("  tan  ");// en este caso el contenido se entrega en el contructor
+        HBox.setHgrow(buttonPar2, Priority.ALWAYS);// esto  se define la prioridad  en caso de aumentar el tamaño de la ventana  los objetos con prioridad llenaran  el espacio 
+        HBox.setHgrow(buttonMenos, Priority.ALWAYS);
+        HBox.setHgrow(buttonDiv, Priority.ALWAYS);
+        buttonPar2.setMaxWidth(Double.MAX_VALUE);
+        buttonMenos.setMaxWidth(Double.MAX_VALUE);
+        buttonDiv.setMaxWidth(Double.MAX_VALUE);
+        
+        trigonometria.getChildren().addAll(buttonSen, buttonCos, buttonTan);
+        cajaDeSimbolos.getChildren().addAll(trigonometria);
+        
 
         //------------------------------//
        
@@ -195,8 +212,9 @@ public class Main extends Application {
        
        pane.setCenter(mainPane);
        BorderPane.setAlignment(mainPane, Pos.CENTER);
-       centro.setScaleX(size);
-       centro.setScaleY(size);
+       centro.setScaleX(1);
+       centro.setScaleY(1);
+       
        
        
        //Botones y sus funcionalidades.
@@ -216,11 +234,11 @@ public class Main extends Application {
             else if (divideStatus==2) { //En caso que esté en la parte de abajo de una división.
                 if (divisiones==0) { //Si no hay más divisiones, vuelve a escribir de forma normal.
                     divideStatus=0;
-                    contador();
+                    contador(false);
                 }
                 else { //Si hay más divisiones, vuelve a la parte superior de la última división.
                     divideStatus=1;
-                    contador();
+                    contador(false);
                 }
                 //Busca la última división escrita, lo establcece como división cerrada.
                 for (int x = enPantalla.size()-1; x>=0; x--) {
@@ -247,7 +265,7 @@ public class Main extends Application {
             double n =0;
             NumerosYSimbolos multiplicacion = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
             centro.getChildren().add(multiplicacion.multiplicacion());
-            contador();
+            contador(false);
             enPantalla.add(multiplicacion);
             tryDivide();
         });
@@ -257,7 +275,7 @@ public class Main extends Application {
             double n =0;
             NumerosYSimbolos parentesis1 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
             centro.getChildren().add(parentesis1.parentesis1());
-            contador();
+            contador(false);
             enPantalla.add(parentesis1);
             tryDivide();
             
@@ -269,7 +287,7 @@ public class Main extends Application {
             double n =0;
             NumerosYSimbolos parentesis2 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
             centro.getChildren().add(parentesis2.parentesis2());
-            contador();
+            contador(false);
             enPantalla.add(parentesis2);
             tryDivide();
             
@@ -280,7 +298,7 @@ public class Main extends Application {
             double n =0;
             NumerosYSimbolos suma = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
             centro.getChildren().add(suma.suma());
-            contador();
+            contador(false);
             enPantalla.add(suma);
             tryDivide();
             
@@ -291,7 +309,7 @@ public class Main extends Application {
             double n =0;
             NumerosYSimbolos resta = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
             centro.getChildren().add(resta.resta());
-            contador();
+            contador(false);
             enPantalla.add(resta);
             tryDivide();
         });
@@ -301,7 +319,7 @@ public class Main extends Application {
             double n =0;
             NumerosYSimbolos numero0 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
             centro.getChildren().add(numero0.numero0());
-            contador();
+            contador(false);
             enPantalla.add(numero0);
             tryDivide();
         });
@@ -311,7 +329,7 @@ public class Main extends Application {
             double n =0;
             NumerosYSimbolos numero1 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
             centro.getChildren().add(numero1.numero1());
-            contador();
+            contador(false);
             enPantalla.add(numero1);
             tryDivide();
             
@@ -322,7 +340,7 @@ public class Main extends Application {
             double n =0;
             NumerosYSimbolos numero2 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
             centro.getChildren().add(numero2.numero2());
-            contador();
+            contador(false);
             enPantalla.add(numero2);
             tryDivide();
             
@@ -333,7 +351,7 @@ public class Main extends Application {
             double n =0;
             NumerosYSimbolos numero3 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
             centro.getChildren().add(numero3.numero3());
-            contador();
+            contador(false);
             enPantalla.add(numero3);
             tryDivide();
             
@@ -344,7 +362,7 @@ public class Main extends Application {
             double n =0;
             NumerosYSimbolos numero4 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
             centro.getChildren().add(numero4.numero4());
-            contador();
+            contador(false);
             enPantalla.add(numero4);
             tryDivide();
                 
@@ -357,7 +375,7 @@ public class Main extends Application {
             double n =0;
             NumerosYSimbolos numero5 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
             centro.getChildren().add(numero5.numero5());
-            contador();
+            contador(false);
             enPantalla.add(numero5);
             tryDivide();
                 
@@ -370,7 +388,7 @@ public class Main extends Application {
              double n =0;
              NumerosYSimbolos numero6 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
              centro.getChildren().add(numero6.numero6());
-             contador();
+             contador(false);
              enPantalla.add(numero6);
              tryDivide();
 
@@ -383,7 +401,7 @@ public class Main extends Application {
              double n =0;
              NumerosYSimbolos numero7 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
              centro.getChildren().add(numero7.numero7());
-             contador();
+             contador(false);
              enPantalla.add(numero7);
              tryDivide();
 
@@ -396,7 +414,7 @@ public class Main extends Application {
              double n =0;
              NumerosYSimbolos numero8 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
              centro.getChildren().add(numero8.numero8());
-             contador();
+             contador(false);
              enPantalla.add(numero8);
              tryDivide();
 
@@ -409,13 +427,26 @@ public class Main extends Application {
              double n =0;
              NumerosYSimbolos numero9 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
              centro.getChildren().add(numero9.numero9());
-             contador();
+             contador(false);
              enPantalla.add(numero9);
 
              tryDivide();
 
 
          });
+       
+       buttonCos.setOnAction((ActionEvent event) ->
+           
+        {
+            double n =0;
+            NumerosYSimbolos cos = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+            centro.getChildren().add(cos.cos());
+            contador(true);
+            enPantalla.add(cos);
+            tryDivide();
+                
+               
+        });
        
        //Este botón quita o pone los Puntos de Control.
        //Va cambiando el texto del botón según el estado de puntosVisibles.
@@ -425,25 +456,42 @@ public class Main extends Application {
                 puntosVisibles=false;
                 for (int x=0; x<enPantalla.size(); x++)
                     enPantalla.get(x).visibleCircle(puntosVisibles);
-                buttonNn2.setText(" Mostrar  Puntos  de  Control ");
+                buttonNn2.setText(" Mostrar Puntos de Control ");
             }
             else {
                 puntosVisibles=true;
                 for (int x=0; x<enPantalla.size(); x++)
                     enPantalla.get(x).visibleCircle(puntosVisibles);
-                buttonNn2.setText("Esconder  Puntos  de  Control");
+                buttonNn2.setText("Esconder Puntos de Control");
             }
         });
        
        //Este botón elimina el último número escrito (Beta, falla con divisiones).
-       buttonEliminar.setOnAction((ActionEvent event) ->
+       /*buttonEliminar.setOnAction((ActionEvent event) ->
         {
-            /*if (enPantalla.size()>0) {
+            if (enPantalla.size()>0) {
                 centro.getChildren().remove(centro.getChildren().size()-1);
                 enPantalla.remove(centro.getChildren().size()-1);
                 espacioNumero-=90;
-            }   */
+            }   
+        });*/
+        buttonEliminar.setOnAction((ActionEvent event) ->
+        {
+            Node elemento = centro.getChildren().get(0);
+            centro.getChildren().removeAll(centro.getChildren());
+            centro.getChildren().add(elemento);
+            enPantalla.removeAll(enPantalla);
+            divideStatus=0;
+            divisiones=0;
+            espacioNumero=0;
+            espacioSuperior=0;
+            buttonDiv.setText("/");
+            puntosVisibles=true;
+                for (int x=0; x<enPantalla.size(); x++)
+                    enPantalla.get(x).visibleCircle(puntosVisibles);
+                buttonNn2.setText("Esconder Puntos de Control");
         });
+        
        
        //Este botón, en caso de estar arriba de una división, hace que se dibujen números o símbolos abajo de esta.
        buttonBajar.setOnAction((ActionEvent event) ->
@@ -509,8 +557,12 @@ public class Main extends Application {
     }
     
     //Método que aumenta en X para dejar espacio a los números.
-    private void contador(){
-        espacioNumero+=90;
+    private void contador(boolean saltaTres){
+        if (saltaTres==false)
+            espacioNumero+=90;
+        else
+            espacioNumero+=270;
+        
         //contador+=200;
         /*if(contador>14000){
             espacioSuperior+=120;
