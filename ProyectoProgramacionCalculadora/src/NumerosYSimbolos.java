@@ -119,7 +119,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
 
         configuraArco(arc1Paren1);
         configuraArco(arc2Paren1);
-        
+    
         createCircle(arc1Paren1.getCenterX(), arc1Paren1.getCenterY()-42*amountOfSymbolsParen1);
         createCircle(arc2Paren1.getCenterX()-7.5*amountOfSymbolsParen1, arc2Paren1.getCenterY());
         createCircle(arc2Paren1.getCenterX(), arc2Paren1.getCenterY()+42*amountOfSymbolsParen1);
@@ -141,7 +141,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
 
         configuraArco(arc1Paren2);
         configuraArco(arc2Paren2);
-        
+
         createCircle(arc1Paren2.getCenterX(), arc1Paren2.getCenterY()-42*amountOfSymbolsParen2);
         createCircle(arc2Paren2.getCenterX()+7.5*amountOfSymbolsParen2, arc2Paren2.getCenterY());
         createCircle(arc2Paren2.getCenterX(), arc2Paren2.getCenterY()+42*amountOfSymbolsParen2);
@@ -209,7 +209,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
         Arc arc1Zero = new Arc(xPoint, yPoint,25*size,40*size,180,90);
         Arc arc2Zero = new Arc(xPoint, yPoint,25*size,40*size,270,90);
         Arc arc3Zero = new Arc(xPoint, yPoint,25*size,40*size,360,90);
-        
+       
         configuraArco(arcZero);
         configuraArco(arc1Zero);
         configuraArco(arc2Zero);
@@ -713,6 +713,275 @@ public class NumerosYSimbolos extends PuntosDeControl{
         Group root = new Group(pathActual, circle);
 
         return root;
+    }
+    
+    public Group dibujarC()
+    {
+        ID = 'c';
+        xPoint = (200+espacio);
+        yPoint = (200+superior);
+        
+        MoveTo startC = new MoveTo();
+        startC.setX((xPoint-50));
+        startC.setY((yPoint-30));
+        
+        
+        
+        QuadCurveTo arco1 = new QuadCurveTo();
+        arco1.setControlX((xPoint-50));
+        arco1.setControlY((yPoint-60));
+        arco1.setX((xPoint-25));
+        arco1.setY((yPoint-60));
+        
+        
+        
+        QuadCurveTo arco2 = new QuadCurveTo();
+        arco2.setControlX((xPoint));
+        arco2.setControlY((yPoint-60));
+        arco2.setX((xPoint));
+        arco2.setY((yPoint-40));
+        
+        
+        
+        QuadCurveTo arco3 = new QuadCurveTo();
+        arco3.setControlX((xPoint));
+        arco3.setControlY((yPoint-60));
+        arco3.setX((xPoint-25));
+        arco3.setY((yPoint-60));
+        
+        
+        
+        QuadCurveTo arco4 = new QuadCurveTo();
+        arco4.setControlX((xPoint-50));
+        arco4.setControlY((yPoint-60));
+        arco4.setX((xPoint-50));
+        arco4.setY((yPoint-30));
+        
+        
+        
+        QuadCurveTo arco5 = new QuadCurveTo();
+        arco5.setControlX((xPoint-50));
+        arco5.setControlY((yPoint));
+        arco5.setX((xPoint-25));
+        arco5.setY((yPoint));
+        
+        
+        
+        QuadCurveTo arco6 = new QuadCurveTo();
+        arco6.setControlX((xPoint));
+        arco6.setControlY((yPoint));
+        arco6.setX((xPoint));
+        arco6.setY((yPoint-20));
+        
+        pathActual.setStrokeWidth(4);
+        
+        createCircle(startC.getX(), startC.getY()+marco);
+        createCircle(arco1.getX(), arco1.getY()+marco);
+        createCircle(arco2.getX(), arco2.getY()+marco);
+        createCircle(arco3.getX(), arco3.getY()+marco);
+        createCircle(arco4.getX(),arco4.getY()+marco);
+        createCircle(arco5.getX(),arco5.getY()+marco);
+        createCircle(arco6.getX(),arco6.getY()+marco);
+
+        circle.setVisible(puntosVisibles);
+        pathActual.getElements().addAll(startC,arco1,arco2,arco3,arco4,arco5, arco6);
+        
+        Group root = new Group(pathActual, circle);
+
+        return root;
+        
+    }
+  
+    public Group dibujarE()
+    {
+        ID = 'e';
+        xPoint = (200+espacio);
+        yPoint = (200+superior);
+        MoveTo startE = new MoveTo();
+        startE.setX((xPoint-50));
+        startE.setY((yPoint-35));
+        
+        
+        
+        LineTo midE = new LineTo();
+        midE.setX((xPoint));
+        midE.setY((yPoint-35));
+        
+        
+        
+        QuadCurveTo arco1 = new QuadCurveTo();
+        arco1.setControlX((xPoint));
+        arco1.setControlY((yPoint-60));
+        arco1.setX((xPoint-25));
+        arco1.setY((yPoint-60));
+        
+        
+        
+        QuadCurveTo arco2 = new QuadCurveTo();
+        arco2.setControlX((xPoint-50));
+        arco2.setControlY((yPoint-60));
+        arco2.setX((xPoint-50));
+        arco2.setY((yPoint-35));
+        
+       
+        
+        QuadCurveTo arco3 = new QuadCurveTo();
+        arco3.setControlX((xPoint-50));
+        arco3.setControlY((yPoint));
+        arco3.setX((xPoint-25));
+        arco3.setY((yPoint));
+        
+        
+        
+        QuadCurveTo arco4 = new QuadCurveTo();
+        arco4.setControlX((xPoint));
+        arco4.setControlY((yPoint));
+        arco4.setX((xPoint));
+        arco4.setY((yPoint-20));
+        
+       
+        
+        
+        pathActual.setStrokeWidth(4);
+        
+        createCircle(startE.getX(), startE.getY()+marco);
+        createCircle(midE.getX(), midE.getY()+marco);
+        createCircle(arco1.getX(), arco1.getY()+marco);
+        createCircle(arco2.getX(), arco2.getY()+marco);
+        createCircle(arco3.getX(), arco3.getY()+marco);
+        createCircle(arco4.getX(),arco4.getY()+marco);
+        
+        
+       
+
+        circle.setVisible(puntosVisibles);
+        pathActual.getElements().addAll(startE,midE,arco1,arco2,arco3,arco4);
+        
+        Group root = new Group(pathActual, circle);
+
+        return root;
+    }
+  
+    public Group dibujarA()
+    {
+        ID = 'a';
+        xPoint = (200+espacio);
+        yPoint = (200+superior);
+        
+        MoveTo startA = new MoveTo();
+        startA.setX((xPoint-50));
+        startA.setY((yPoint-50));
+        
+        
+         
+        QuadCurveTo arco1 = new QuadCurveTo();
+        arco1.setControlX((xPoint-50));
+        arco1.setControlY((yPoint-60));
+        arco1.setX((xPoint-30));
+        arco1.setY((yPoint-60));
+        
+        
+        
+        LineTo top = new LineTo();
+        top.setX((xPoint-20));
+        top.setY((yPoint-60));
+        
+        
+        
+        QuadCurveTo arco2 = new QuadCurveTo();
+        arco2.setControlX((xPoint-10));
+        arco2.setControlY((yPoint-60));
+        arco2.setX((xPoint-10));
+        arco2.setY((yPoint-50));
+        
+        
+        
+        LineTo verti1 = new LineTo();
+        verti1.setX((xPoint-10));
+        verti1.setY((yPoint-40));
+        
+        
+        
+        LineTo verti2 = new LineTo();
+        verti2.setX((xPoint-10));
+        verti2.setY((yPoint-15));
+        
+        
+        
+        QuadCurveTo hori1 = new QuadCurveTo();
+        hori1.setControlX((xPoint-10));
+        hori1.setControlY((yPoint-5));
+        hori1.setX((xPoint-20));
+        hori1.setY((yPoint));
+        
+        
+        
+        LineTo base = new LineTo();
+        base.setX((xPoint-40));
+        base.setY((yPoint));
+        
+        
+        
+        QuadCurveTo arco3 = new QuadCurveTo();
+        arco3.setControlX((xPoint-50));
+        arco3.setControlY((yPoint));
+        arco3.setX((xPoint-50));
+        arco3.setY((yPoint-20));
+        
+        
+        
+        QuadCurveTo arco4 = new QuadCurveTo();
+        arco4.setControlX((xPoint-50));
+        arco4.setControlY((yPoint-40));
+        arco4.setX((xPoint-30));
+        arco4.setY((yPoint-40));
+        
+        
+        
+        
+        LineTo mid = new LineTo();
+        mid.setX((xPoint-10));
+        mid.setY((yPoint-40));
+        
+        
+        
+        LineTo verti3 = new LineTo();
+        verti3.setX((xPoint-10));
+        verti3.setY((yPoint-15));
+        
+        
+        
+        QuadCurveTo arco5 = new QuadCurveTo();
+        arco5.setControlX((xPoint-10));
+        arco5.setControlY((yPoint-5));
+        arco5.setX((xPoint));
+        arco5.setY((yPoint));
+        
+        
+        pathActual.setStrokeWidth(4);
+        
+        createCircle(startA.getX(), startA.getY()+marco);
+        createCircle(arco1.getX(), arco1.getY()+marco);
+        createCircle(top.getX(), top.getY()+marco);
+        createCircle(arco2.getX(), arco2.getY()+marco);
+        createCircle(verti1.getX(), verti1.getY()+marco);
+        createCircle(verti2.getX(), verti2.getY()+marco);
+        createCircle(hori1.getX(), hori1.getY()+marco);
+        createCircle(base.getX(), base.getY()+marco);
+        createCircle(arco3.getX(), arco3.getY()+marco);
+        createCircle(arco4.getX(),arco4.getY()+marco);
+        createCircle(mid.getX(), mid.getY()+marco);
+        createCircle(verti3.getX(), verti3.getY()+marco);
+        createCircle(arco5.getX(),arco5.getY()+marco);
+       
+
+        circle.setVisible(puntosVisibles);
+        pathActual.getElements().addAll(startA,arco1,top,arco2,verti1,verti2,hori1,base,arco3,arco4,mid,verti3,arco5);
+        
+        Group root = new Group(pathActual, circle);
+
+        return root;
+       
     }
 
     //Sólo para arcos. Se configuran algunos detalles de los arcos, como el color, relleno y grosor.

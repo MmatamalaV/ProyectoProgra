@@ -513,6 +513,7 @@ public class Main extends Application {
        sliderSubScene.valueProperty().bindBidirectional(centro.translateXProperty());//se le da el recorrido al Slider en este caso es el largo del box
        //pane.setBottom(sliderSubScene);
        
+      
        Slider sliderSubScene2 = new Slider();
        sliderSubScene2.setMax(10000);// se define el largo maximo del  slider
        sliderSubScene2.setMin(-10000);
