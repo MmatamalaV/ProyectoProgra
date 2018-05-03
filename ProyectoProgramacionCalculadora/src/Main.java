@@ -168,15 +168,30 @@ public class Main extends Application {
         Button buttonSen= new Button("  sen  ");
         Button buttonCos = new Button("  cos  ");// en este caso el contenido se entrega en el contructor
         Button buttonTan = new Button("  tan  ");// en este caso el contenido se entrega en el contructor
-        HBox.setHgrow(buttonPar2, Priority.ALWAYS);// esto  se define la prioridad  en caso de aumentar el tamaño de la ventana  los objetos con prioridad llenaran  el espacio 
-        HBox.setHgrow(buttonMenos, Priority.ALWAYS);
-        HBox.setHgrow(buttonDiv, Priority.ALWAYS);
-        buttonPar2.setMaxWidth(Double.MAX_VALUE);
-        buttonMenos.setMaxWidth(Double.MAX_VALUE);
-        buttonDiv.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(buttonSen, Priority.ALWAYS);// esto  se define la prioridad  en caso de aumentar el tamaño de la ventana  los objetos con prioridad llenaran  el espacio 
+        HBox.setHgrow(buttonCos, Priority.ALWAYS);
+        HBox.setHgrow(buttonTan, Priority.ALWAYS);
+        buttonSen.setMaxWidth(Double.MAX_VALUE);
+        buttonCos.setMaxWidth(Double.MAX_VALUE);
+        buttonTan.setMaxWidth(Double.MAX_VALUE);
         
         trigonometria.getChildren().addAll(buttonSen, buttonCos, buttonTan);
         cajaDeSimbolos.getChildren().addAll(trigonometria);
+        
+        VBox tamanos = new VBox();
+        trigonometria.setPadding(new Insets(0));// se define el  margen entre el  borde del panel y  los objetos que estan dentro en pixeles 
+        Button buttonTam1= new Button(" tam1 ");
+        Button buttonTam2 = new Button(" tam2 ");// en este caso el contenido se entrega en el contructor
+        Button buttonTam3 = new Button(" tam3 ");// en este caso el contenido se entrega en el contructor
+        HBox.setHgrow(buttonTam1, Priority.ALWAYS);// esto  se define la prioridad  en caso de aumentar el tamaño de la ventana  los objetos con prioridad llenaran  el espacio 
+        HBox.setHgrow(buttonTam2, Priority.ALWAYS);
+        HBox.setHgrow(buttonTam3, Priority.ALWAYS);
+        buttonTam1.setMaxWidth(Double.MAX_VALUE);
+        buttonTam2.setMaxWidth(Double.MAX_VALUE);
+        buttonTam3.setMaxWidth(Double.MAX_VALUE);
+        
+        tamanos.getChildren().addAll(buttonTam1, buttonTam2, buttonTam3);
+        cajaDeSimbolos.getChildren().addAll(tamanos);
         
 
         //------------------------------//
@@ -209,14 +224,10 @@ public class Main extends Application {
        center.setManaged(false);
        centro=new Group(center);
        ScrollPane mainPane=new ScrollPane(centro);
-       
+
        pane.setCenter(mainPane);
        BorderPane.setAlignment(mainPane, Pos.CENTER);
-       centro.setScaleX(1);
-       centro.setScaleY(1);
-       
-       
-       
+
        //Botones y sus funcionalidades.
        buttonDiv.setOnAction((ActionEvent event) ->
         {
@@ -448,14 +459,41 @@ public class Main extends Application {
                
         });
        
+       buttonSen.setOnAction((ActionEvent event) ->
+           
+        {
+            double n =0;
+            NumerosYSimbolos sen = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+            centro.getChildren().add(sen.sen());
+            contador(true);
+            enPantalla.add(sen);
+            tryDivide();
+                
+               
+        });
+       
+       buttonTan.setOnAction((ActionEvent event) ->
+           
+        {
+            double n =0;
+            NumerosYSimbolos tan = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+            centro.getChildren().add(tan.tan());
+            contador(true);
+            enPantalla.add(tan);
+            tryDivide();
+                
+               
+        });
+       
        //Este botón quita o pone los Puntos de Control.
        //Va cambiando el texto del botón según el estado de puntosVisibles.
        buttonNn2.setOnAction((ActionEvent event) ->
         { 
             if (puntosVisibles==true) {
                 puntosVisibles=false;
-                for (int x=0; x<enPantalla.size(); x++)
+                for (int x=0; x<enPantalla.size(); x++) {
                     enPantalla.get(x).visibleCircle(puntosVisibles);
+                }
                 buttonNn2.setText(" Mostrar Puntos de Control ");
             }
             else {
@@ -502,6 +540,27 @@ public class Main extends Application {
                 buttonDiv.setText("Cierra División");
             }
         });
+       
+       buttonTam1.setOnAction((ActionEvent event) ->
+        {
+            for (int x=0; x<enPantalla.size(); x++) {
+                    enPantalla.get(x).setSize(1);
+                }
+        });
+       
+       buttonTam2.setOnAction((ActionEvent event) ->
+        {
+            for (int x=0; x<enPantalla.size(); x++) {
+                    enPantalla.get(x).setSize(0.5);
+                }
+        });
+       
+       buttonTam3.setOnAction((ActionEvent event) ->
+        {
+            for (int x=0; x<enPantalla.size(); x++) {
+                    enPantalla.get(x).setSize(2);
+                }
+        });
         
        
        
@@ -513,7 +572,6 @@ public class Main extends Application {
        sliderSubScene.valueProperty().bindBidirectional(centro.translateXProperty());//se le da el recorrido al Slider en este caso es el largo del box
        //pane.setBottom(sliderSubScene);
        
-      
        Slider sliderSubScene2 = new Slider();
        sliderSubScene2.setMax(10000);// se define el largo maximo del  slider
        sliderSubScene2.setMin(-10000);
