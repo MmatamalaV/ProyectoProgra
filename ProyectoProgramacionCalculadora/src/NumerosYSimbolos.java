@@ -861,6 +861,48 @@ public class NumerosYSimbolos extends PuntosDeControl{
 
         return root;
     }
+    
+    public Group dibujarT()
+    {
+        ID = 't';
+        xPoint = (200+espacio);
+        yPoint = (200+superior);
+        
+        MoveTo startT = new MoveTo();
+        startT.setX(xPoint-50);
+        startT.setY(yPoint-70);
+        
+        LineTo linea1 = new LineTo();
+        linea1.setX(xPoint-25);
+        linea1.setY(yPoint-70);
+        
+        LineTo linea2 = new LineTo();
+        linea2.setX(xPoint);
+        linea2.setY(yPoint-70);
+        
+        LineTo linea3 = new LineTo();
+        linea3.setX(xPoint-25);
+        linea3.setY(yPoint-70);
+        
+        LineTo linea4 = new LineTo();
+        linea4.setX(xPoint-25);
+        linea4.setY(yPoint);
+        
+         pathActual.setStrokeWidth(4);
+        
+        createCircle(startT.getX(), startT.getY()+marco);
+        createCircle(linea1.getX(), linea1.getY()+marco);
+        createCircle(linea2.getX(), linea2.getY()+marco);
+        createCircle(linea3.getX(), linea3.getY()+marco);
+        createCircle(linea4.getX(), linea4.getY()+marco);
+        
+        circle.setVisible(puntosVisibles);
+        pathActual.getElements().addAll(startT,linea1,linea2,linea3,linea4);
+        
+        Group root = new Group(pathActual, circle);
+
+        return root;
+    }
   
     public Group dibujarA()
     {
@@ -983,6 +1025,8 @@ public class NumerosYSimbolos extends PuntosDeControl{
         return root;
        
     }
+    
+    
 
     //Sólo para arcos. Se configuran algunos detalles de los arcos, como el color, relleno y grosor.
     protected void configuraArco (Arc arc) {
