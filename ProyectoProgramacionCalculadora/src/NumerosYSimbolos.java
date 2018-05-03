@@ -375,7 +375,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     
     public Group numero5(){
         ID = '5';
-        xPoint = (208+espacio);
+        xPoint = (200+espacio);
         yPoint = (200+superior);
         
         MoveTo start5 = new MoveTo();
