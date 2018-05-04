@@ -524,10 +524,10 @@ public class Main extends Application {
             espacioNumero=0;
             espacioSuperior=0;
             buttonDiv.setText("/");
-            puntosVisibles=true;
+            /*puntosVisibles=true;
                 for (int x=0; x<enPantalla.size(); x++)
                     enPantalla.get(x).visibleCircle(puntosVisibles);
-                buttonNn2.setText("Esconder Puntos de Control");
+                buttonNn2.setText("Esconder Puntos de Control");*/
         });
         
        
