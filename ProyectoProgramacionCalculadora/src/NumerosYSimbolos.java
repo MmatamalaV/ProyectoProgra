@@ -676,7 +676,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
         ID = 'c';
         dibujarC();
         espacio+=90;
-        dibujarC();
+        dibujarO();
         espacio+=90;
         dibujarC();
         
@@ -692,7 +692,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
         espacio+=90;
         dibujarE();
         espacio+=90;
-        dibujarE();
+        dibujarN();
         
         pathActual.setStrokeWidth(4);
         root.getChildren().addAll(pathActual, circle);
@@ -706,7 +706,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
         espacio+=90;
         dibujarA();
         espacio+=90;
-        dibujarA();
+        dibujarN();
         
         pathActual.setStrokeWidth(4);
         root.getChildren().addAll(pathActual, circle);
@@ -998,9 +998,8 @@ public class NumerosYSimbolos extends PuntosDeControl{
     }
     
     
-    public Group dibujarO()
+    public void dibujarO()
     {
-        ID = 'o';
         xPoint = (200+espacio);
         yPoint = (200+superior);
         
@@ -1042,15 +1041,11 @@ public class NumerosYSimbolos extends PuntosDeControl{
         createCircle(arco4.getX(), arco4.getY()+marco);
         
         pathActual.getElements().addAll(startO,arco1,arco2,arco3,arco4);
-        Group root = new Group(pathActual, circle);
-        
-        return root;
   
     }
     
-    public Group dibujarN()
+    public void dibujarN()
     {
-        ID = 'n';
         xPoint = (200+espacio);
         yPoint = (200+superior);
         
@@ -1084,10 +1079,6 @@ public class NumerosYSimbolos extends PuntosDeControl{
         createCircle(line3.getX(), line3.getY()+marco);
         
         pathActual.getElements().addAll(startN,line1,line2,arco1,line3);
-        Group root = new Group(pathActual, circle);
-        
-        return root;
-  
     }
     
     public void setSize(double size){
