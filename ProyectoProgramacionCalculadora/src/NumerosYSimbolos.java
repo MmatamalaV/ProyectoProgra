@@ -702,7 +702,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     
     public Group tan() {
         ID = 't';
-        dibujarA();
+        dibujarT();
         espacio+=90;
         dibujarA();
         espacio+=90;
@@ -845,9 +845,8 @@ public class NumerosYSimbolos extends PuntosDeControl{
         
     }
     
-    public Group dibujarT()
+    public void dibujarT()
     {
-        ID = 't';
         xPoint = (200+espacio);
         yPoint = (200+superior);
         
@@ -878,13 +877,9 @@ public class NumerosYSimbolos extends PuntosDeControl{
         createCircle(linea2.getX(), linea2.getY()+marco);
         createCircle(linea3.getX(), linea3.getY()+marco);
         createCircle(linea4.getX(), linea4.getY()+marco);
-        
-        circle.setVisible(puntosVisibles);
+
         pathActual.getElements().addAll(startT,linea1,linea2,linea3,linea4);
         
-        Group root = new Group(pathActual, circle);
-
-        return root;
     }
   
     public void dibujarA()
@@ -997,12 +992,12 @@ public class NumerosYSimbolos extends PuntosDeControl{
         createCircle(verti3.getX(), verti3.getY()+marco);
         createCircle(arco5.getX(),arco5.getY()+marco);
        
-
-        circle.setVisible(puntosVisibles);
         pathActual.getElements().addAll(startA,arco1,top,arco2,verti1,verti2,hori1,base,arco3,arco4,mid,verti3,arco5);
 
        
     }
+    
+    
     
     public void setSize(double size){
         root.setScaleX(size);
