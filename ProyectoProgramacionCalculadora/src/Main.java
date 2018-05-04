@@ -530,6 +530,7 @@ public class Main extends Application {
                 buttonNn2.setText("Esconder Puntos de Control");*/
         });
         
+        
        
        //Este botón, en caso de estar arriba de una división, hace que se dibujen números o símbolos abajo de esta.
        buttonBajar.setOnAction((ActionEvent event) ->
