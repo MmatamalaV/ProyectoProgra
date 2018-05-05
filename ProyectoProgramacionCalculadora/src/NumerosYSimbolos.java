@@ -1137,6 +1137,70 @@ public class NumerosYSimbolos extends PuntosDeControl{
         pathActual.getElements().addAll(startS,arco1,arco2,arco3,arco4,arco5,arco6);
     }
     
+    public Group dibujarFactorial() {
+        ID = '!';
+        size=1;
+        xPoint = (200+espacio);
+        yPoint = (200+superior);
+
+        MoveTo startPuntoFactorial = new MoveTo();
+        startPuntoFactorial.setX(xPoint-25);
+        startPuntoFactorial.setY(yPoint-5);
+        
+        LineTo line1 = new LineTo();
+        line1.setX(xPoint-25);
+        line1.setY(yPoint-15);
+        
+        MoveTo startBarraFactorial = new MoveTo();
+        startBarraFactorial.setX(xPoint-25);
+        startBarraFactorial.setY(yPoint-25);
+        
+        LineTo line2 = new LineTo();
+        line2.setX(xPoint-25);
+        line2.setY(yPoint-95);
+
+        pathActual.setStrokeWidth(4*size);        
+        pathActual.getElements().addAll(startPuntoFactorial, line1, startBarraFactorial, line2);
+
+        iniciateCircleMoveTo(startPuntoFactorial);
+        iniciateCircleLineTo(line1);
+        iniciateCircleMoveTo(startBarraFactorial);
+        iniciateCircleLineTo(line2);
+      
+        root.getChildren().addAll(pathActual, circle);
+        circle.setVisible(puntosVisibles);
+        return root;
+    }
+    
+     public Group dibujarElevado() {
+        ID = '^';
+        size=1;
+        xPoint = (200+espacio);
+        yPoint = (200+superior);
+
+        MoveTo startElevado = new MoveTo();
+        startElevado.setX(xPoint-40);
+        startElevado.setY(yPoint-70);
+        
+        LineTo line1 = new LineTo();
+        line1.setX(xPoint-25);
+        line1.setY(yPoint-95);
+        
+        LineTo line2 = new LineTo();
+        line2.setX(xPoint-10);
+        line2.setY(yPoint-70);
+    
+        pathActual.setStrokeWidth(4*size);        
+        pathActual.getElements().addAll(startElevado, line1, line2);
+
+        iniciateCircleMoveTo(startElevado);
+        iniciateCircleLineTo(line1);
+        iniciateCircleLineTo(line2);
+      
+        root.getChildren().addAll(pathActual, circle);
+        circle.setVisible(puntosVisibles);
+        return root;
+     }
     public void setSize(double size){
         root.setScaleX(size);
         root.setScaleY(size);
