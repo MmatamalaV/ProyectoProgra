@@ -1,7 +1,6 @@
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -10,6 +9,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
@@ -178,20 +178,20 @@ public class Pantalla{
         trigonometria.getChildren().addAll(buttonSen, buttonCos, buttonTan);
         cajaDeSimbolos.getChildren().addAll(trigonometria);
         
-        VBox tamanos = new VBox();
-        trigonometria.setPadding(new Insets(0));// se define el  margen entre el  borde del panel y  los objetos que estan dentro en pixeles 
-        Button buttonTam1= new Button(" tam1 ");
-        Button buttonTam2 = new Button(" tam2 ");// en este caso el contenido se entrega en el contructor
-        Button buttonTam3 = new Button(" tam3 ");// en este caso el contenido se entrega en el contructor
-        HBox.setHgrow(buttonTam1, Priority.ALWAYS);// esto  se define la prioridad  en caso de aumentar el tamaño de la ventana  los objetos con prioridad llenaran  el espacio 
-        HBox.setHgrow(buttonTam2, Priority.ALWAYS);
-        HBox.setHgrow(buttonTam3, Priority.ALWAYS);
-        buttonTam1.setMaxWidth(Double.MAX_VALUE);
-        buttonTam2.setMaxWidth(Double.MAX_VALUE);
-        buttonTam3.setMaxWidth(Double.MAX_VALUE);
-        
-        tamanos.getChildren().addAll(buttonTam1, buttonTam2, buttonTam3);
-        cajaDeSimbolos.getChildren().addAll(tamanos);
+//        VBox tamanos = new VBox();
+//        trigonometria.setPadding(new Insets(0));// se define el  margen entre el  borde del panel y  los objetos que estan dentro en pixeles 
+//        Button buttonTam1= new Button(" tam1 ");
+//        Button buttonTam2 = new Button(" tam2 ");// en este caso el contenido se entrega en el contructor
+//        Button buttonTam3 = new Button(" tam3 ");// en este caso el contenido se entrega en el contructor
+//        HBox.setHgrow(buttonTam1, Priority.ALWAYS);// esto  se define la prioridad  en caso de aumentar el tamaño de la ventana  los objetos con prioridad llenaran  el espacio 
+//        HBox.setHgrow(buttonTam2, Priority.ALWAYS);
+//        HBox.setHgrow(buttonTam3, Priority.ALWAYS);
+//        buttonTam1.setMaxWidth(Double.MAX_VALUE);
+//        buttonTam2.setMaxWidth(Double.MAX_VALUE);
+//        buttonTam3.setMaxWidth(Double.MAX_VALUE);
+//        
+//        tamanos.getChildren().addAll(buttonTam1, buttonTam2, buttonTam3);
+//        cajaDeSimbolos.getChildren().addAll(tamanos);
         
 
         //------------------------------//
@@ -227,7 +227,41 @@ public class Pantalla{
 
        pane.setCenter(mainPane);
        BorderPane.setAlignment(mainPane, Pos.CENTER);
-
+       
+       //** comboboxes **//
+       
+       HBox boxes=new HBox();
+            
+            ComboBox size=new ComboBox();
+                size.getItems().addAll(
+                    "50%",
+                    "100%",
+                    "200%"
+                );
+            size.getSelectionModel().select("100%");
+        
+            ComboBox typeKeyboard =new ComboBox();
+                typeKeyboard.getItems().addAll(
+                    "Basica",
+                    "Cientifica"
+                );
+            typeKeyboard.getSelectionModel().selectFirst();
+            
+            ComboBox base =new ComboBox();
+                base.getItems().addAll(
+                    "Decimal",
+                    "Binario"
+                );
+            base.getSelectionModel().selectFirst();
+            base.setVisible(false);
+        
+        boxes.getChildren().addAll(size,typeKeyboard,base);
+       pane.setTop(boxes);
+       
+       size.setOnAction(e -> SetSize(size.getValue().toString()));
+       typeKeyboard.setOnAction(e -> SetTypeKeyboard(typeKeyboard.getValue().toString(),base));
+       base.setOnAction(e -> SetBase(base.getValue().toString()));
+       
        //Botones y sus funcionalidades.
        buttonDiv.setOnAction((ActionEvent event) ->
         {
@@ -541,26 +575,6 @@ public class Pantalla{
             }
         });
        
-       buttonTam1.setOnAction((ActionEvent event) ->
-        {
-            for (int x=0; x<enPantalla.size(); x++) {
-                    enPantalla.get(x).setSize(1);
-                }
-        });
-       
-       buttonTam2.setOnAction((ActionEvent event) ->
-        {
-            for (int x=0; x<enPantalla.size(); x++) {
-                    enPantalla.get(x).setSize(0.5);
-                }
-        });
-       
-       buttonTam3.setOnAction((ActionEvent event) ->
-        {
-            for (int x=0; x<enPantalla.size(); x++) {
-                    enPantalla.get(x).setSize(2);
-                }
-        });
         
        
        
@@ -670,5 +684,48 @@ public class Pantalla{
             rePaintDivide();
     }
 
+    
+    //** aqui va todo lo de los cambios de tamaño **//
+    private void SetSize(String toString) {
+        switch (toString){
+            
+            case "100%":
+                for (int x=0; x<enPantalla.size(); x++) {
+                    enPantalla.get(x).setSize(1);
+                }
+            break;
+            
+            case "50%":
+                for (int x=0; x<enPantalla.size(); x++) {
+                    enPantalla.get(x).setSize(0.5);
+                }
+            break;
+                
+            case "200%":
+                for (int x=0; x<enPantalla.size(); x++) {
+                    enPantalla.get(x).setSize(2);
+                }
+            break;
+        }
+    }
+    
+    //** aqui va todo lo de los cambios de base **//
+    private void SetBase(String toString) {
+        
+    }
+
+    //** aqui va todo lo de los cambios de teclado **//
+    private void SetTypeKeyboard(String toString,ComboBox base) {
+        switch(toString){
+            case "Basica":
+                base.setVisible(false);
+                base.getSelectionModel().selectFirst();
+            break;
+            
+            case "Cientifica":
+                base.setVisible(true);
+            break;
+        }
+    }
 }
     
