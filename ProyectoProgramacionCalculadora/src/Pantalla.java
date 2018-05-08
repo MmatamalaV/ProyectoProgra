@@ -35,9 +35,9 @@ public class Pantalla{
     private double espacioNumero=0; //Espacio en X que indica a las figuras en qué posición deben dibujarse.
     private double espacioSuperior=0; //Espacio en Y que indica a las figuras en qué posición deben dibujarse.
     private boolean puntosVisibles = true;
-    private final double size = 1; //Tamaño de los elementos de dibujo en Pantalla.
     private List<NumerosYSimbolos> enPantalla; //Lista de todos los elementos dibujados en Pantalla.
     private Group centro;
+    private Group grupoPantalla;
     private int divideStatus = 0; //Variable que sirve para saber en qué estado está una división.
     //divideStatus = 1; Significa que se ha iniciado una nueva división y se está dibujando en la parte de arriba de esta.
     //divideStatus = 2; Significa que se está dibujando en la parte inferior de uan división.
@@ -222,8 +222,12 @@ public class Pantalla{
        //pane.setCenter(box);
        Path center = new Path();
        center.setManaged(false);
+       
        centro=new Group(center);
-       ScrollPane mainPane=new ScrollPane(centro);
+
+       grupoPantalla=new Group(centro);
+       
+       ScrollPane mainPane=new ScrollPane(grupoPantalla);
 
        pane.setCenter(mainPane);
        BorderPane.setAlignment(mainPane, Pos.CENTER);
@@ -232,13 +236,13 @@ public class Pantalla{
        
        HBox boxes=new HBox();
             
-            ComboBox size=new ComboBox();
-                size.getItems().addAll(
+            ComboBox selectSize=new ComboBox();
+                selectSize.getItems().addAll(
                     "50%",
                     "100%",
                     "200%"
                 );
-            size.getSelectionModel().select("100%");
+            selectSize.getSelectionModel().select("100%");
         
             ComboBox typeKeyboard =new ComboBox();
                 typeKeyboard.getItems().addAll(
@@ -255,10 +259,10 @@ public class Pantalla{
             base.getSelectionModel().selectFirst();
             base.setVisible(false);
         
-        boxes.getChildren().addAll(size,typeKeyboard,base);
+        boxes.getChildren().addAll(selectSize,typeKeyboard,base);
        pane.setTop(boxes);
        
-       size.setOnAction(e -> SetSize(size.getValue().toString()));
+       selectSize.setOnAction(e -> SetSize(selectSize.getValue().toString()));
        typeKeyboard.setOnAction(e -> SetTypeKeyboard(typeKeyboard.getValue().toString(),base));
        base.setOnAction(e -> SetBase(base.getValue().toString()));
        
@@ -558,10 +562,10 @@ public class Pantalla{
             espacioNumero=0;
             espacioSuperior=0;
             buttonDiv.setText("/");
-            puntosVisibles=true;
+            /*puntosVisibles=true;
                 for (int x=0; x<enPantalla.size(); x++)
                     enPantalla.get(x).visibleCircle(puntosVisibles);
-                buttonNn2.setText("Esconder Puntos de Control");
+                buttonNn2.setText("Esconder Puntos de Control");*/
         });
         
        
@@ -690,21 +694,17 @@ public class Pantalla{
         switch (toString){
             
             case "100%":
-                for (int x=0; x<enPantalla.size(); x++) {
-                    enPantalla.get(x).setSize(1);
-                }
+                setScaleNumbers(1);
             break;
             
             case "50%":
-                for (int x=0; x<enPantalla.size(); x++) {
-                    enPantalla.get(x).setSize(0.5);
-                }
+                setScaleNumbers(0.5);
+                
             break;
                 
             case "200%":
-                for (int x=0; x<enPantalla.size(); x++) {
-                    enPantalla.get(x).setSize(2);
-                }
+                setScaleNumbers(2);
+                
             break;
         }
     }
@@ -726,6 +726,11 @@ public class Pantalla{
                 base.setVisible(true);
             break;
         }
+    }
+    
+    private void setScaleNumbers(double size){
+        centro.setScaleX(size);
+        centro.setScaleY(size);
     }
 }
     
