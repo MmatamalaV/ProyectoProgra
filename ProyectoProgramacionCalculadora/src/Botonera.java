@@ -17,7 +17,7 @@ import javafx.scene.layout.VBox;
  * @author mario
  */
 public class Botonera {
-    Pantalla pantalla= Pantalla.getSingletonInstance();
+    
     
     
     HBox basico(){
@@ -173,6 +173,7 @@ public class Botonera {
         HBox.setHgrow(simbolos1, Priority.ALWAYS);
         HBox.setHgrow(simbolos2, Priority.ALWAYS);
        
+        /*
         button7.setOnAction((ActionEvent event) ->
 
          {
@@ -183,7 +184,7 @@ public class Botonera {
              pantalla.addEnPantalla(num7);
              pantalla.tryDivide();
           });
-
+          */
        return contenerdorPrincipal;
        
     }

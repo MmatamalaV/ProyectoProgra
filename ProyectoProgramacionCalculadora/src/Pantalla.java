@@ -47,7 +47,6 @@ public class Pantalla{
     Botonera botones=new Botonera();
     HBox contenerdorPrincipal =new HBox();
     BorderPane BpanePrueba=new BorderPane();
-    private static Pantalla pantalla;
 
     public Pantalla() {
         this.enPantalla = new ArrayList<NumerosYSimbolos>();
@@ -578,17 +577,6 @@ public class Pantalla{
     private void setScaleNumbers(double size){
         centro.setScaleX(size);
         centro.setScaleY(size);
-    }
-    
-    public static Pantalla getSingletonInstance() {
-        if (pantalla == null){
-            pantalla = new Pantalla();
-        }
-        else{
-            System.out.println("error");
-        }
-        
-        return pantalla;
     }
     
     void agregarACentro(Group n){
