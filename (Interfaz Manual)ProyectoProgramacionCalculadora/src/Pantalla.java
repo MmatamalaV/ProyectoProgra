@@ -43,6 +43,7 @@ public class Pantalla{
     //divideStatus = 2; Significa que se está dibujando en la parte inferior de uan división.
     //divideStatus = 0; Significa que no hay división activa.
     private int divisiones = 0; //Contador de Divisiones. Utilizado para tener control sobre el crecimiento de la línea de división.
+    private List<String> decimal;
     //contenedor de los simbolos
     HBox cajaDeSimbolos = new HBox();
     VBox simbolos = new VBox();
@@ -53,6 +54,7 @@ public class Pantalla{
 
     public Pantalla() {
         this.enPantalla = new ArrayList<NumerosYSimbolos>();
+        this.decimal = new ArrayList<>();
         inicio();
     }
 
@@ -310,10 +312,10 @@ public class Pantalla{
                 }
                 //Busca la última división escrita, lo establcece como división cerrada.
                 for (int x = enPantalla.size()-1; x>=0; x--) {
-                    if (enPantalla.get(x).getID() == '/') {
+                    if (enPantalla.get(x).getID() == "/") {
                         enPantalla.get(x).getNumDivision();
                         if (enPantalla.get(x).getNumDivision()==divisiones) {
-                            enPantalla.get(x).setID('%');
+                            enPantalla.get(x).setID("%");
                         }
                     }
                 }
@@ -516,6 +518,7 @@ public class Pantalla{
             enPantalla.add(cos);
             enPantalla.add(paren1);
             tryDivide();
+            toBinary();
                 
                
         });
@@ -716,7 +719,7 @@ public class Pantalla{
         int divisionesActual;
         while (enPantalla.size()>x && x>=0) {
             //Se verifica que el elemento corresponda a una división abierta.
-            if (enPantalla.get(x).getID()=='/') {
+            if (enPantalla.get(x).getID()=="/") {
                 //Se obtienen las coordenadas iniciales de la división.
                 espacioDivision= enPantalla.get(x).getxPoint()-200;
                 superiorDivision = enPantalla.get(x).getyPoint()-80;
@@ -787,6 +790,46 @@ public class Pantalla{
                 
             break;
         }
+    }
+    
+    private void toBinary(){
+        
+        for (int x=0; x<enPantalla.size(); x++){
+            if ("number".equals(enPantalla.get(x).getType())){
+                decimal.add(enPantalla.get(x).getID());
+            }
+            
+            else {
+                convertertoBinary();
+                
+            }
+        }
+    }
+    
+    private void convertertoBinary(){
+        
+        Integer numeroLista = 0;
+        
+        for (int x=0; x<decimal.size(); x++){
+            numeroLista=numeroLista*10;
+            numeroLista += Integer.parseInt(decimal.get(x));
+        }
+        String base2="";
+        while(numeroLista>0) {
+            base2=(numeroLista%2)+base2;
+            numeroLista/=2;  
+        }
+        
+        decimal.clear();
+        
+        System.out.println(base2);
+        /*char[] numeros = base2.toCharArray();
+        
+        for (int x=0;x<numeros.length;x++){
+            decimal.add(String.valueOf(numeros[x]));
+        }
+        
+        System.out.println(decimal + "hola");*/
     }
     
     private void setScaleNumbers(double size){

@@ -29,8 +29,9 @@ public class NumerosYSimbolos extends PuntosDeControl{
     private double yPoint; //Posición en Y donde debe ser dibujado el elemento.
     private double amountOfSymbolsDivide; //Cantidad de elementos que contiene una división.
     private final Path pathActual = new Path();
-    private char ID; //Identificador del elemento. Dice qué es.
+    private String ID; //Identificador del elemento. Dice qué es.
     private int numDivision; //Indica qué división es la que se está haciendo.
+    private String type = "symbol"; //Para identificar si es símbolo o número.
     Group root = new Group();
     
 
@@ -50,7 +51,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     
     public Group multiplicacion() {
         //Se establece el ID de una multiplicación.
-        ID = '*';
+        ID = "*";
         //Se define el tamaño de la figura.
         size=1.2;
         //Se define la posición de la figura.
@@ -91,7 +92,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     }
     
     public Group division(double amountOfSymbolsDivide, int numDivision) {
-        ID = '/';
+        ID = "/";
         size=1.2;
         this.amountOfSymbolsDivide=amountOfSymbolsDivide;
         xPoint = (200+espacio);
@@ -114,7 +115,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     }
     
     public Group parentesis1() {
-        ID = '(';
+        ID = "(";
         size=1.2;
         double amountOfSymbolsParen1 = (double) (1*size); //Para cambiar tamaño de acuerdo a la cantidad de operaciones en vertical
         xPoint = (200+espacio);
@@ -137,7 +138,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     }
     
     public Group parentesis2() {
-        ID = ')';
+        ID = ")";
         size=1.2;
         double amountOfSymbolsParen2 = (double) (1*size); //Para cambiar tamaño de acuerdo a la cantidad de operaciones en vertical
         xPoint = (200+espacio);
@@ -160,7 +161,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     }
     
     public Group resta() {
-        ID = '-';
+        ID = "-";
         size=1.2;
         xPoint = (200+espacio);
         yPoint = (150+superior);
@@ -181,7 +182,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     }
     
     public Group suma() {
-        ID = '+';
+        ID = "+";
         size = 1.2;
         xPoint = (200+espacio);
         yPoint = (150+superior);
@@ -206,7 +207,8 @@ public class NumerosYSimbolos extends PuntosDeControl{
     }
     
     public Group numero0() {
-        ID = '0';
+        type = "number";
+        ID = "0";
         size=1.28;
         xPoint = (190+espacio);
         yPoint = (150+superior);
@@ -232,7 +234,8 @@ public class NumerosYSimbolos extends PuntosDeControl{
     }
     
     public Group numero1(){
-        ID = '1';
+        type = "number";
+        ID = "1";
         xPoint = (215+espacio);
         yPoint = (200+superior);
         
@@ -253,7 +256,8 @@ public class NumerosYSimbolos extends PuntosDeControl{
     }
     
     public Group numero2() {
-        ID = '2';
+        type = "number";
+        ID = "2";
         xPoint = (170+espacio);
         yPoint = (125+superior);
         MoveTo start2 = new MoveTo();
@@ -293,7 +297,8 @@ public class NumerosYSimbolos extends PuntosDeControl{
     }
     
     public Group numero3() {
-        ID = '3';
+        type = "number";
+        ID = "3";
         xPoint = (175+espacio);
         yPoint = (200+superior);
         
@@ -349,7 +354,8 @@ public class NumerosYSimbolos extends PuntosDeControl{
     }
 
     public Group numero4() {
-        ID = '4';
+        type = "number";
+        ID = "4";
         size=1.7;
         xPoint = (195+espacio);
         yPoint = (150+superior);
@@ -374,7 +380,8 @@ public class NumerosYSimbolos extends PuntosDeControl{
     }
     
     public Group numero5(){
-        ID = '5';
+        type = "number";
+        ID = "5";
         xPoint = (200+espacio);
         yPoint = (200+superior);
         
@@ -429,7 +436,8 @@ public class NumerosYSimbolos extends PuntosDeControl{
     }
     
     public Group numero6(){
-        ID = '6';
+        type = "number";
+        ID = "6";
         xPoint = (200+espacio);
         yPoint = (200+superior);
         
@@ -483,7 +491,8 @@ public class NumerosYSimbolos extends PuntosDeControl{
     }
     
     public Group numero7(){
-        ID = '7';
+        type = "number";
+        ID = "7";
         xPoint = (215+espacio);
         yPoint = (200+superior);
         MoveTo start7 = new MoveTo();
@@ -525,7 +534,8 @@ public class NumerosYSimbolos extends PuntosDeControl{
     }
     
     public Group numero8(){
-        ID = '8';
+        type = "number";
+        ID = "8";
         xPoint = (215+espacio);
         yPoint = (200+superior);
         
@@ -613,7 +623,8 @@ public class NumerosYSimbolos extends PuntosDeControl{
     }
     
     public Group numero9(){
-        ID = '9';
+        type = "number";
+        ID = "9";
         xPoint = (215+espacio);
         yPoint = (200+superior);
         
@@ -667,7 +678,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     
     
     public Group cos() {
-        ID = 'c';
+        ID = "cos";
         dibujarC();
         espacio+=90;
         dibujarO();
@@ -681,7 +692,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     }
     
     public Group sen() {
-        ID = 's';
+        ID = "sen";
         dibujarS();
         espacio+=90;
         dibujarE();
@@ -694,7 +705,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     }
     
     public Group tan() {
-        ID = 't';
+        ID = "tan";
         dibujarT();
         espacio+=90;
         dibujarA();
@@ -710,7 +721,6 @@ public class NumerosYSimbolos extends PuntosDeControl{
     
     public void dibujarC()
     {
-        ID = 'c';
         xPoint = (200+espacio);
         yPoint = (200+superior);
         
@@ -781,7 +791,6 @@ public class NumerosYSimbolos extends PuntosDeControl{
   
     public void dibujarE()
     {
-        ID = 'e';
         xPoint = (200+espacio);
         yPoint = (200+superior);
         MoveTo startE = new MoveTo();
@@ -877,7 +886,6 @@ public class NumerosYSimbolos extends PuntosDeControl{
   
     public void dibujarA()
     {
-        ID = 'a';
         xPoint = (200+espacio);
         yPoint = (200+superior);
         
@@ -1131,7 +1139,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     }
     
     public Group dibujarFactorial() {
-        ID = '!';
+        ID = "!";
         size=1;
         xPoint = (200+espacio);
         yPoint = (200+superior);
@@ -1166,7 +1174,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
     }
     
      public Group dibujarElevado() {
-        ID = '^';
+        ID = "^";
         size=1;
         xPoint = (200+espacio);
         yPoint = (200+superior);
@@ -1209,7 +1217,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
         return pathActual;
     }
     //Retorna el identidficador del elemento.
-    public char getID() {
+    public String getID() {
         return ID;
     }
     //Retorna la posición en X de un elemento.
@@ -1225,12 +1233,16 @@ public class NumerosYSimbolos extends PuntosDeControl{
         return amountOfSymbolsDivide;
     }
     //Permite cambiar el valor identificador de un elemento. Utilizado únicamente para división abierta y completa.
-    public void setID(char ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
     //Retorna el numero de división.
     public int getNumDivision() {
         return numDivision;
     }
-     
+
+    public String getType() {
+        return type;
+    }
+
 }
