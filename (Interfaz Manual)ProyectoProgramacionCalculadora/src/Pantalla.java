@@ -619,14 +619,7 @@ public class Pantalla{
         });*/
         buttonEliminar.setOnAction((ActionEvent event) ->
         {
-            Node elemento = centro.getChildren().get(0);
-            centro.getChildren().removeAll(centro.getChildren());
-            centro.getChildren().add(elemento);
-            enPantalla.removeAll(enPantalla);
-            divideStatus=0;
-            divisiones=0;
-            espacioNumero=0;
-            espacioSuperior=0;
+            reinicia();
             buttonDiv.setText("/");
             /*puntosVisibles=true;
                 for (int x=0; x<enPantalla.size(); x++)
@@ -788,11 +781,15 @@ public class Pantalla{
                 base.setVisible(false);
                 base.getSelectionModel().selectFirst();
                 cajaDeSimbolos.getChildren().removeAll(trigonometria, simbolos);
+                primaryStage.setTitle("Cancer de Piel");
+                reinicia();
             break;
             
             case "Cientifica":
                 base.setVisible(true);
                 cajaDeSimbolos.getChildren().addAll(trigonometria, simbolos);
+                primaryStage.setTitle("Cancer de Piel 100tifik0");
+                reinicia();
                 
             break;
         }
@@ -843,6 +840,17 @@ public class Pantalla{
     private void setScaleNumbers(double size){
         centro.setScaleX(size);
         centro.setScaleY(size);
+    }
+    
+    private void reinicia(){
+        Node elemento = centro.getChildren().get(0);
+            centro.getChildren().removeAll(centro.getChildren());
+            centro.getChildren().add(elemento);
+            enPantalla.removeAll(enPantalla);
+            divideStatus=0;
+            divisiones=0;
+            espacioNumero=0;
+            espacioSuperior=0;
     }
 }
     
