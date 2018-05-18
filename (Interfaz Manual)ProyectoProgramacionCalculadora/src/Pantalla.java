@@ -34,7 +34,7 @@ public class Pantalla{
 
     private double espacioNumero=0; //Espacio en X que indica a las figuras en qué posición deben dibujarse.
     private double espacioSuperior=0; //Espacio en Y que indica a las figuras en qué posición deben dibujarse.
-    private boolean puntosVisibles = true;
+    private boolean puntosVisibles = false;
     private List<NumerosYSimbolos> enPantalla; //Lista de todos los elementos dibujados en Pantalla.
     private Group centro;
     private Group grupoPantalla;
@@ -219,15 +219,15 @@ public class Pantalla{
        
        HBox simbolos4 = new HBox();
        simbolos4.setPadding(new Insets(0));// se define el  margen entre el  borde del panel y  los objetos que estan dentro en pixeles 
-       Button buttonNn2 = new Button(" Esconder Puntos de Control ");
+       Button button = new Button("=");
        //Button buttonDiv = new Button(" / ");// en este caso el contenido se entrega en el contructor
        
-       HBox.setHgrow(buttonNn2, Priority.ALWAYS);// esto  se define la prioridad  en caso de aumentar el tamaño de la ventana  los objetos con prioridad llenaran  el espacio 
+       HBox.setHgrow(button, Priority.ALWAYS);// esto  se define la prioridad  en caso de aumentar el tamaño de la ventana  los objetos con prioridad llenaran  el espacio 
        //HBox.setHgrow(buttonDiv, Priority.ALWAYS);
-       buttonNn2.setMaxWidth(Double.MAX_VALUE);
+       button.setMaxWidth(Double.MAX_VALUE);
        //buttonDiv.setMaxWidth(Double.MAX_VALUE);
       
-       simbolos4.getChildren().addAll(buttonNn2);
+       simbolos4.getChildren().addAll(button);
        
        //-------------------------------------//
        
@@ -281,6 +281,12 @@ public class Pantalla{
             base.setVisible(false);
         
         boxes.getChildren().addAll(selectSize,typeKeyboard,base);
+        
+        Button buttonNn2 = new Button(" Mostrar Puntos de Control ");
+        HBox.setHgrow(buttonNn2, Priority.ALWAYS);
+        buttonNn2.setMaxWidth(Double.MAX_VALUE);
+        boxes.getChildren().add(buttonNn2);
+        
        pane.setTop(boxes);
        
        selectSize.setOnAction(e -> SetSize(selectSize.getValue().toString()));
