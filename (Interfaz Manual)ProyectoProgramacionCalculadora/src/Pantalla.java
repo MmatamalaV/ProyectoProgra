@@ -285,8 +285,9 @@ public class Pantalla{
        
        selectSize.setOnAction(e -> SetSize(selectSize.getValue().toString()));
        typeKeyboard.setOnAction(e -> SetTypeKeyboard(typeKeyboard.getValue().toString(),base));
-       base.setOnAction(e -> SetBase(base.getValue().toString()));
+       base.setOnAction(e -> toBinary());
        
+       //SetBase(base.getValue().toString(); Antes
        //Botones y sus funcionalidades.
        buttonDiv.setOnAction((ActionEvent event) ->
         {
@@ -518,11 +519,10 @@ public class Pantalla{
             enPantalla.add(cos);
             enPantalla.add(paren1);
             tryDivide();
-            toBinary();
                 
                
         });
-       
+                
        buttonSen.setOnAction((ActionEvent event) ->
            
         {
@@ -755,7 +755,7 @@ public class Pantalla{
             
             case "100%":
                 setScaleNumbers(1);
-               
+                           
             break;
             
             case "50%":
@@ -772,7 +772,7 @@ public class Pantalla{
     
     //** aqui va todo lo de los cambios de base **//
     private void SetBase(String toString) {
-        
+        toBinary();
     }
 
     //** aqui va todo lo de los cambios de teclado **//
@@ -793,17 +793,19 @@ public class Pantalla{
     }
     
     private void toBinary(){
-        
+        NumerosYSimbolos cos = new NumerosYSimbolos(0, espacioNumero,espacioSuperior, puntosVisibles);
+        enPantalla.add(cos); 
         for (int x=0; x<enPantalla.size(); x++){
             if ("number".equals(enPantalla.get(x).getType())){
                 decimal.add(enPantalla.get(x).getID());
             }
             
-            else {
+            else{
                 convertertoBinary();
                 
             }
         }
+        enPantalla.remove(cos);
     }
     
     private void convertertoBinary(){
