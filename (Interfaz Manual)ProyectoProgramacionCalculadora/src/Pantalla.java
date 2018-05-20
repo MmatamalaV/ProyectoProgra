@@ -245,6 +245,8 @@ public class Pantalla{
        center.setManaged(false);
        
        centro=new Group(center);
+       centro.setScaleX(0.5);
+       centro.setScaleY(0.5);
 
        grupoPantalla=new Group(centro);
        
@@ -753,17 +755,17 @@ public class Pantalla{
         switch (toString){
             
             case "100%":
-                setScaleNumbers(1);
+                setScaleNumbers(0.5);
                            
             break;
             
             case "50%":
-                setScaleNumbers(0.5);
+                setScaleNumbers(0.25);
                 
             break;
                 
             case "200%":
-                setScaleNumbers(2);
+                setScaleNumbers(1);
                 
             break;
         }
