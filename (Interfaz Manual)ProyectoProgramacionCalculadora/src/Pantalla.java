@@ -48,8 +48,14 @@ public class Pantalla{
     HBox cajaDeSimbolos = new HBox();
     VBox simbolos = new VBox();
     VBox trigonometria = new VBox();
-    
-    
+    HBox contenedorNumeros = new HBox();
+    VBox numerosColumna1 = new VBox();//creamos el Hbox
+    VBox numerosColumna2 = new VBox();
+    VBox numerosColumna3 = new VBox();
+    HBox binarioRow1=new HBox();
+    HBox binarioRow2=new HBox();
+    VBox binario= new VBox();
+            
     Stage primaryStage=new Stage();
 
     public Pantalla() {
@@ -63,8 +69,8 @@ public class Pantalla{
         HBox contenerdorPrincipal = new HBox();
        
        //*******inicio numeros***************
-       HBox contenedorNumeros = new HBox();
-       VBox numerosColumna1 = new VBox();//creamos el Hbox
+       
+       
        numerosColumna1.setPadding(new Insets(0));// se define el  margen entre el  borde del panel y  los objetos que estan dentro en pixeles 
        Button button7 = new Button(" 7 ");
        Button button4 = new Button(" 4 ");// en este caso el contenido se entrega en el contructor
@@ -87,7 +93,7 @@ public class Pantalla{
        
        //------------------------------//
        
-        VBox numerosColumna2 = new VBox();
+        
        numerosColumna2.setPadding(new Insets(0));// se define el  margen entre el  borde del panel y  los objetos que estan dentro en pixeles 
        Button button8 = new Button(" 8 ");
        Button button5 = new Button(" 5 ");// en este caso el contenido se entrega en el contructor
@@ -105,7 +111,7 @@ public class Pantalla{
        
        //------------------------------//
        
-       VBox numerosColumna3 = new VBox();
+       
        numerosColumna3.setPadding(new Insets(0));// se define el  margen entre el  borde del panel y  los objetos que estan dentro en pixeles 
        Button button9 = new Button(" 9 ");
        Button button6 = new Button(" 6 ");// en este caso el contenido se entrega en el contructor
@@ -185,7 +191,7 @@ public class Pantalla{
         trigonometria.getChildren().addAll(buttonSen, buttonCos, buttonTan);
          
         
-        trigonometria.setPadding(new Insets(0));// se define el  margen entre el  borde del panel y  los objetos que estan dentro en pixeles 
+        simbolos.setPadding(new Insets(0));// se define el  margen entre el  borde del panel y  los objetos que estan dentro en pixeles 
         Button buttonGorrito= new Button("  ^  ");
         Button buttonGrados = new Button("  °  ");// en este caso el contenido se entrega en el contructor
         Button buttonFactorial = new Button("  !  ");// en este caso el contenido se entrega en el contructor
@@ -198,23 +204,6 @@ public class Pantalla{
         
         simbolos.getChildren().addAll(buttonGorrito, buttonGrados, buttonFactorial);
         
-        
-//        VBox tamanos = new VBox();
-//        trigonometria.setPadding(new Insets(0));// se define el  margen entre el  borde del panel y  los objetos que estan dentro en pixeles 
-//        Button buttonTam1= new Button(" tam1 ");
-//        Button buttonTam2 = new Button(" tam2 ");// en este caso el contenido se entrega en el contructor
-//        Button buttonTam3 = new Button(" tam3 ");// en este caso el contenido se entrega en el contructor
-//        HBox.setHgrow(buttonTam1, Priority.ALWAYS);// esto  se define la prioridad  en caso de aumentar el tamaño de la ventana  los objetos con prioridad llenaran  el espacio 
-//        HBox.setHgrow(buttonTam2, Priority.ALWAYS);
-//        HBox.setHgrow(buttonTam3, Priority.ALWAYS);
-//        buttonTam1.setMaxWidth(Double.MAX_VALUE);
-//        buttonTam2.setMaxWidth(Double.MAX_VALUE);
-//        buttonTam3.setMaxWidth(Double.MAX_VALUE);
-//        
-//        tamanos.getChildren().addAll(buttonTam1, buttonTam2, buttonTam3);
-//        cajaDeSimbolos.getChildren().addAll(tamanos);
-        
-
         //------------------------------//
        
        HBox simbolos4 = new HBox();
@@ -234,6 +223,29 @@ public class Pantalla{
        
        contenedorSimbolos.getChildren().addAll(cajaDeSimbolos,simbolos4);
        
+       
+        binarioRow1.setPadding(new Insets(0));
+        Button button0Bin = new Button(" 0 ");
+        HBox.setHgrow(button0Bin, Priority.ALWAYS);
+        button0Bin.setMaxWidth(Double.MAX_VALUE); 
+        
+        Button button1Bin = new Button(" 1 ");
+        HBox.setHgrow(button1Bin, Priority.ALWAYS);
+        button1Bin.setMaxWidth(Double.MAX_VALUE);
+ 
+       binarioRow1.getChildren().addAll(button0Bin,button1Bin);
+       
+       Button buttonBajarBin = new Button("Bajar");
+       buttonBajarBin.setMaxWidth(Double.MAX_VALUE);
+       HBox.setHgrow(buttonBajarBin, Priority.ALWAYS);
+       
+       Button buttonEliminarBin = new Button(" CE ");
+       HBox.setHgrow(buttonEliminarBin, Priority.ALWAYS);
+       buttonEliminarBin.setMaxWidth(Double.MAX_VALUE);
+       
+       binarioRow2.getChildren().addAll(buttonBajarBin,buttonEliminarBin);
+       
+       binario.getChildren().addAll(binarioRow1,binarioRow2);
        //*******fin numeros***************
        
        //*******inicio Esena de dibujo***********
@@ -293,7 +305,7 @@ public class Pantalla{
        
        selectSize.setOnAction(e -> SetSize(selectSize.getValue().toString()));
        typeKeyboard.setOnAction(e -> SetTypeKeyboard(typeKeyboard.getValue().toString(),base));
-       base.setOnAction(e -> toBinary());
+       base.setOnAction(e -> SetBase(base.getValue().toString()));
        
        //SetBase(base.getValue().toString(); Antes
        //Botones y sus funcionalidades.
@@ -640,8 +652,41 @@ public class Pantalla{
             }
         });
        
-        
+        button0Bin.setOnAction((ActionEvent event) ->
+        { 
+            double n =0;
+            NumerosYSimbolos numero0 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+            centro.getChildren().add(numero0.numero0());
+            contador(false);
+            enPantalla.add(numero0);
+            tryDivide();
+        });
        
+       button1Bin.setOnAction((ActionEvent event) ->
+        { 
+            double n =0;
+            NumerosYSimbolos numero1 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+            centro.getChildren().add(numero1.numero1());
+            contador(false);
+            enPantalla.add(numero1);
+            tryDivide();
+            
+        });
+       
+       buttonEliminarBin.setOnAction((ActionEvent event) ->
+        {
+            reinicia();
+            buttonDiv.setText("/");
+        });
+       
+       buttonBajarBin.setOnAction((ActionEvent event) ->
+        {
+            if (divideStatus==1) {
+                divideStatus=2;
+                espacioSuperior+=140;
+                buttonDiv.setText("Cierra División");
+            }
+        });
        
        //-------------------------------------//
        
@@ -773,7 +818,22 @@ public class Pantalla{
     
     //** aqui va todo lo de los cambios de base **//
     private void SetBase(String toString) {
-        toBinary();
+        
+        switch(toString){
+            
+            case "Decimal":
+                contenedorNumeros.getChildren().removeAll(binario);
+                contenedorNumeros.getChildren().addAll(numerosColumna1,numerosColumna2,numerosColumna3);
+                System.out.println("decimal");
+                break;
+                
+            case "Binario":
+                contenedorNumeros.getChildren().removeAll(numerosColumna1,numerosColumna2,numerosColumna3);
+                contenedorNumeros.getChildren().addAll(binario);
+                System.out.println("binario");
+                break;
+        }
+        
     }
 
     //** aqui va todo lo de los cambios de teclado **//
