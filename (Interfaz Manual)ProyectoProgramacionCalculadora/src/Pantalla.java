@@ -830,6 +830,10 @@ public class Pantalla{
             case "Binario":
                 contenedorNumeros.getChildren().removeAll(numerosColumna1,numerosColumna2,numerosColumna3);
                 contenedorNumeros.getChildren().addAll(binario);
+                binario.setTranslateX(130);
+                binario.setTranslateY(54);
+                binario.setScaleX(2);
+                binario.setScaleY(2);
                 System.out.println("binario");
                 break;
         }
