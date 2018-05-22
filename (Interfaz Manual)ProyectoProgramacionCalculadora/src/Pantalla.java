@@ -49,14 +49,12 @@ public class Pantalla{
     VBox simbolos = new VBox();
     VBox trigonometria = new VBox();
     HBox contenedorNumeros = new HBox();
-    VBox numerosColumna1 = new VBox();//creamos el Hbox
-    VBox numerosColumna2 = new VBox();
-    VBox numerosColumna3 = new VBox();
     HBox binarioRow1=new HBox();
     HBox binarioRow2=new HBox();
     VBox binario= new VBox();
-            
+    HBox contenerdorPrincipal = new HBox();         
     Stage primaryStage=new Stage();
+    VBox contenedorSimbolos = new VBox();
 
     public Pantalla() {
         this.enPantalla = new ArrayList<NumerosYSimbolos>();
@@ -66,7 +64,10 @@ public class Pantalla{
 
     public void inicio(){
         
-        HBox contenerdorPrincipal = new HBox();
+        
+        VBox numerosColumna1 = new VBox();//creamos el Hbox
+        VBox numerosColumna2 = new VBox();
+        VBox numerosColumna3 = new VBox();  
        
        //*******inicio numeros***************
        
@@ -136,7 +137,7 @@ public class Pantalla{
        
        //*******inicio simbolos***********
        
-       VBox contenedorSimbolos = new VBox();
+       
        //------------------------------//
        
         
@@ -717,6 +718,11 @@ public class Pantalla{
        HBox.setHgrow(numerosColumna3, Priority.ALWAYS);
        HBox.setHgrow(simbolos1, Priority.ALWAYS);
        HBox.setHgrow(simbolos2, Priority.ALWAYS);
+       HBox.setHgrow(trigonometria, Priority.ALWAYS);
+       HBox.setHgrow(simbolos, Priority.ALWAYS);
+       HBox.setHgrow(binarioRow1, Priority.ALWAYS);
+       HBox.setHgrow(binarioRow2, Priority.ALWAYS);
+       HBox.setHgrow(binario, Priority.ALWAYS);
        
        BorderPane BpanePrueba = new BorderPane();
        BpanePrueba.setBottom(contenerdorPrincipal);
@@ -822,19 +828,13 @@ public class Pantalla{
         switch(toString){
             
             case "Decimal":
-                contenedorNumeros.getChildren().removeAll(binario);
-                contenedorNumeros.getChildren().addAll(numerosColumna1,numerosColumna2,numerosColumna3);
-                System.out.println("decimal");
+                contenerdorPrincipal.getChildren().removeAll(binario,contenedorSimbolos);
+                contenerdorPrincipal.getChildren().addAll(contenedorNumeros,contenedorSimbolos);
                 break;
                 
             case "Binario":
-                contenedorNumeros.getChildren().removeAll(numerosColumna1,numerosColumna2,numerosColumna3);
-                contenedorNumeros.getChildren().addAll(binario);
-                binario.setTranslateX(130);
-                binario.setTranslateY(54);
-                binario.setScaleX(2);
-                binario.setScaleY(2);
-                System.out.println("binario");
+                contenerdorPrincipal.getChildren().removeAll(contenedorNumeros,contenedorSimbolos);
+                contenerdorPrincipal.getChildren().addAll(binario,contenedorSimbolos);
                 break;
         }
         
