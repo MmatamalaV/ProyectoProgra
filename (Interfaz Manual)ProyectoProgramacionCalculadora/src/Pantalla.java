@@ -49,12 +49,11 @@ public class Pantalla{
     VBox simbolos = new VBox();
     VBox trigonometria = new VBox();
     HBox contenedorNumeros = new HBox();
-    HBox binarioRow1=new HBox();
-    HBox binarioRow2=new HBox();
-    VBox binario= new VBox();
+    HBox binario= new HBox();
     HBox contenerdorPrincipal = new HBox();         
     Stage primaryStage=new Stage();
     VBox contenedorSimbolos = new VBox();
+    Button bases=new Button("Base");
 
     public Pantalla() {
         this.enPantalla = new ArrayList<NumerosYSimbolos>();
@@ -68,7 +67,9 @@ public class Pantalla{
         VBox numerosColumna1 = new VBox();//creamos el Hbox
         VBox numerosColumna2 = new VBox();
         VBox numerosColumna3 = new VBox();  
-       
+        VBox binarioColum1 = new VBox();  
+        VBox binarioColum2 = new VBox();  
+        
        //*******inicio numeros***************
        
        
@@ -225,16 +226,20 @@ public class Pantalla{
        contenedorSimbolos.getChildren().addAll(cajaDeSimbolos,simbolos4);
        
        
-        binarioRow1.setPadding(new Insets(0));
+        binarioColum1.setPadding(new Insets(0));
         Button button0Bin = new Button(" 0 ");
         HBox.setHgrow(button0Bin, Priority.ALWAYS);
+        VBox.setVgrow(button0Bin, Priority.ALWAYS);
         button0Bin.setMaxWidth(Double.MAX_VALUE); 
+        button0Bin.setMaxHeight(Double.MAX_VALUE); 
         
         Button button1Bin = new Button(" 1 ");
         HBox.setHgrow(button1Bin, Priority.ALWAYS);
+        VBox.setVgrow(button1Bin, Priority.ALWAYS);
         button1Bin.setMaxWidth(Double.MAX_VALUE);
+        button1Bin.setMaxHeight(Double.MAX_VALUE);
  
-       binarioRow1.getChildren().addAll(button0Bin,button1Bin);
+       
        
        Button buttonBajarBin = new Button("Bajar");
        buttonBajarBin.setMaxWidth(Double.MAX_VALUE);
@@ -244,9 +249,9 @@ public class Pantalla{
        HBox.setHgrow(buttonEliminarBin, Priority.ALWAYS);
        buttonEliminarBin.setMaxWidth(Double.MAX_VALUE);
        
-       binarioRow2.getChildren().addAll(buttonBajarBin,buttonEliminarBin);
-       
-       binario.getChildren().addAll(binarioRow1,binarioRow2);
+       binarioColum1.getChildren().addAll(button0Bin,buttonBajarBin);
+       binarioColum2.getChildren().addAll(button1Bin,buttonEliminarBin);
+       binario.getChildren().addAll(binarioColum1,binarioColum2);
        //*******fin numeros***************
        
        //*******inicio Esena de dibujo***********
@@ -264,7 +269,7 @@ public class Pantalla{
        grupoPantalla=new Group(centro);
        
        ScrollPane mainPane=new ScrollPane(grupoPantalla);
-
+//       mainPane.getm
        pane.setCenter(mainPane);
        BorderPane.setAlignment(mainPane, Pos.CENTER);
        
@@ -295,7 +300,19 @@ public class Pantalla{
             base.getSelectionModel().selectFirst();
             base.setVisible(false);
         
-        boxes.getChildren().addAll(selectSize,typeKeyboard,base);
+        Button zoom=new Button("Zoom");
+        Button tipo=new Button("Tipo");
+        bases.setVisible(false);
+        
+        zoom.setDisable(true);
+        zoom.setOpacity(1);
+        tipo.setDisable(true);
+        tipo.setOpacity(1);
+        bases.setDisable(true);
+        bases.setOpacity(1);
+        
+            
+        boxes.getChildren().addAll(zoom,selectSize,tipo,typeKeyboard,bases,base);
         
         Button buttonNn2 = new Button(" Mostrar Puntos de Control ");
         HBox.setHgrow(buttonNn2, Priority.ALWAYS);
@@ -720,8 +737,8 @@ public class Pantalla{
        HBox.setHgrow(simbolos2, Priority.ALWAYS);
        HBox.setHgrow(trigonometria, Priority.ALWAYS);
        HBox.setHgrow(simbolos, Priority.ALWAYS);
-       HBox.setHgrow(binarioRow1, Priority.ALWAYS);
-       HBox.setHgrow(binarioRow2, Priority.ALWAYS);
+       HBox.setHgrow(binarioColum1, Priority.ALWAYS);
+       HBox.setHgrow(binarioColum2, Priority.ALWAYS);
        HBox.setHgrow(binario, Priority.ALWAYS);
        
        BorderPane BpanePrueba = new BorderPane();
@@ -733,7 +750,8 @@ public class Pantalla{
         //StackPane root = new StackPane();
         
         primaryStage.setTitle("Cancer de Piel");//titulo de la ventana 
-        
+        primaryStage.setMinWidth(900);
+        primaryStage.setMinHeight(700);
         Scene scene = new Scene (BpanePrueba,800,600);//constructor de la ventana
         
         BpanePrueba.setMinSize(800, 600);
@@ -848,6 +866,7 @@ public class Pantalla{
                 base.getSelectionModel().selectFirst();
                 cajaDeSimbolos.getChildren().removeAll(trigonometria, simbolos);
                 primaryStage.setTitle("Cancer de Piel");
+                bases.setVisible(false);
                 reinicia();
             break;
             
@@ -855,6 +874,7 @@ public class Pantalla{
                 base.setVisible(true);
                 cajaDeSimbolos.getChildren().addAll(trigonometria, simbolos);
                 primaryStage.setTitle("Cancer de Piel 100tifik0");
+                bases.setVisible(true);
                 reinicia();
                 
             break;
