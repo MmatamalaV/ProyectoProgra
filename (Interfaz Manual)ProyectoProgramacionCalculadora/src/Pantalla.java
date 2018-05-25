@@ -853,6 +853,7 @@ public class Pantalla{
             case "Binario":
                 contenerdorPrincipal.getChildren().removeAll(contenedorNumeros,contenedorSimbolos);
                 contenerdorPrincipal.getChildren().addAll(binario,contenedorSimbolos);
+                toBinary();
                 break;
         }
         
@@ -882,19 +883,22 @@ public class Pantalla{
     }
     
     private void toBinary(){
-        NumerosYSimbolos cos = new NumerosYSimbolos(0, espacioNumero,espacioSuperior, puntosVisibles);
-        enPantalla.add(cos); 
         for (int x=0; x<enPantalla.size(); x++){
             if ("number".equals(enPantalla.get(x).getType())){
                 decimal.add(enPantalla.get(x).getID());
             }
-            
-            else{
-                convertertoBinary();
-                
+
+            if ("symbol".equals(enPantalla.get(x).getType()) || x==enPantalla.size()-1){
+                if (x>1){
+                    if ("number".equals(enPantalla.get(x-1).getType()) || x==enPantalla.size()-1){
+                        convertertoBinary(); 
+                    }
+                }                
+                else {
+                    convertertoBinary(); 
+                }
             }
         }
-        enPantalla.remove(cos);
     }
     
     private void convertertoBinary(){
