@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
@@ -55,6 +56,9 @@ public class Pantalla{
     VBox contenedorSimbolos = new VBox();
     Button bases=new Button("Base");
     double n =0;
+    ScrollPane textBox=new ScrollPane();
+    
+    Label texto;
 
     public Pantalla() {
         this.enPantalla = new ArrayList<NumerosYSimbolos>();
@@ -377,6 +381,8 @@ public class Pantalla{
             contador(false);
             enPantalla.add(multiplicacion);
             tryDivide();
+            decimal.add(multiplicacion.getID());
+            agregarTexto();
         });
        
        buttonPar1.setOnAction((ActionEvent event) ->
@@ -387,7 +393,8 @@ public class Pantalla{
             contador(false);
             enPantalla.add(parentesis1);
             tryDivide();
-            
+            decimal.add(parentesis1.getID());
+            agregarTexto();
             
         });
        
@@ -399,7 +406,8 @@ public class Pantalla{
             contador(false);
             enPantalla.add(parentesis2);
             tryDivide();
-            
+            decimal.add(parentesis2.getID());
+            agregarTexto();
         });
 
        buttonMas.setOnAction((ActionEvent event) ->
@@ -410,7 +418,8 @@ public class Pantalla{
             contador(false);
             enPantalla.add(suma);
             tryDivide();
-            
+            decimal.add(suma.getID());
+            agregarTexto();
         });
        
        buttonMenos.setOnAction((ActionEvent event) ->
@@ -421,60 +430,69 @@ public class Pantalla{
             contador(false);
             enPantalla.add(resta);
             tryDivide();
+            decimal.add(resta.getID());
+            agregarTexto();
         });
        
        button0.setOnAction((ActionEvent event) ->
         { 
             
-            NumerosYSimbolos numero0 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(numero0.dibujo("0"));
+            NumerosYSimbolos numero = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+            centro.getChildren().add(numero.dibujo("0"));
             contador(false);
-            enPantalla.add(numero0);
+            enPantalla.add(numero);
             tryDivide();
+            decimal.add(numero.getID());
+            agregarTexto();
         });
        
        button1.setOnAction((ActionEvent event) ->
         { 
             
-            NumerosYSimbolos numero1 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(numero1.dibujo("1"));
+            NumerosYSimbolos numero = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+            centro.getChildren().add(numero.dibujo("1"));
             contador(false);
-            enPantalla.add(numero1);
+            enPantalla.add(numero);
             tryDivide();
+            decimal.add(numero.getID());
+            agregarTexto();
             
         });
        
        button2.setOnAction((ActionEvent event) ->
         { 
             
-            NumerosYSimbolos numero2 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(numero2.dibujo("2"));
+            NumerosYSimbolos numero = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+            centro.getChildren().add(numero.dibujo("2"));
             contador(false);
-            enPantalla.add(numero2);
+            enPantalla.add(numero);
             tryDivide();
-            
+            decimal.add(numero.getID());
+            agregarTexto();
         });
        
        button3.setOnAction((ActionEvent event) ->
        { 
             
-            NumerosYSimbolos numero3 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(numero3.dibujo("3"));
+            NumerosYSimbolos numero = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+            centro.getChildren().add(numero.dibujo("3"));
             contador(false);
-            enPantalla.add(numero3);
+            enPantalla.add(numero);
             tryDivide();
-            
+            decimal.add(numero.getID());
+            agregarTexto();
         });
        
        button4.setOnAction((ActionEvent event) ->
        {
             
-            NumerosYSimbolos numero4 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(numero4.dibujo("4"));
+            NumerosYSimbolos numero = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+            centro.getChildren().add(numero.dibujo("4"));
             contador(false);
-            enPantalla.add(numero4);
+            enPantalla.add(numero);
             tryDivide();
-                
+            decimal.add(numero.getID());
+            agregarTexto();
                
         });
        
@@ -482,38 +500,40 @@ public class Pantalla{
            
         {
             
-            NumerosYSimbolos numero5 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(numero5.dibujo("5"));
+            NumerosYSimbolos numero = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+            centro.getChildren().add(numero.dibujo("5"));
             contador(false);
-            enPantalla.add(numero5);
+            enPantalla.add(numero);
             tryDivide();
-                
-               
+            decimal.add(numero.getID());
+            agregarTexto();
         });
        
        button6.setOnAction((ActionEvent event) ->
            
         {
              
-             NumerosYSimbolos numero6 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-             centro.getChildren().add(numero6.dibujo("6"));
+             NumerosYSimbolos numero = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+             centro.getChildren().add(numero.dibujo("6"));
              contador(false);
-             enPantalla.add(numero6);
+             enPantalla.add(numero);
              tryDivide();
-
-
+             decimal.add(numero.getID());
+            agregarTexto();
+             
          });
        
        button7.setOnAction((ActionEvent event) ->
            
         {
              
-             NumerosYSimbolos numero7 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-             centro.getChildren().add(numero7.dibujo("7"));
-             contador(false);
-             enPantalla.add(numero7);
-             tryDivide();
-
+            NumerosYSimbolos numero = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+            centro.getChildren().add(numero.dibujo("7"));
+            contador(false);
+            enPantalla.add(numero);
+            tryDivide();
+            decimal.add(numero.getID());
+            agregarTexto();
 
          });
        
@@ -521,12 +541,13 @@ public class Pantalla{
            
         {
              
-             NumerosYSimbolos numero8 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-             centro.getChildren().add(numero8.dibujo("8"));
-             contador(false);
-             enPantalla.add(numero8);
-             tryDivide();
-
+            NumerosYSimbolos numero = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+            centro.getChildren().add(numero.dibujo("8"));
+            contador(false);
+            enPantalla.add(numero);
+            tryDivide();
+            decimal.add(numero.getID());
+            agregarTexto();
 
          });
        
@@ -534,13 +555,13 @@ public class Pantalla{
            
         {
              
-             NumerosYSimbolos numero9 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-             centro.getChildren().add(numero9.dibujo("9"));
-             contador(false);
-             enPantalla.add(numero9);
-
-             tryDivide();
-
+            NumerosYSimbolos numero = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
+            centro.getChildren().add(numero.dibujo("9"));
+            contador(false);
+            enPantalla.add(numero);
+            tryDivide();
+            decimal.add(numero.getID());
+            agregarTexto();
 
          });
        
@@ -557,6 +578,9 @@ public class Pantalla{
             enPantalla.add(cos);
             enPantalla.add(paren1);
             tryDivide();
+            decimal.add(cos.getID());
+            decimal.add(paren1.getID());
+            agregarTexto();
                 
                
         });
@@ -574,7 +598,9 @@ public class Pantalla{
             enPantalla.add(sen);
             enPantalla.add(paren1);
             tryDivide();
-                
+            decimal.add(sen.getID());
+            decimal.add(paren1.getID());
+            agregarTexto();
                
         });
        
@@ -591,7 +617,9 @@ public class Pantalla{
             enPantalla.add(tan);
             enPantalla.add(paren1);
             tryDivide();
-                
+            decimal.add(tan.getID());
+            decimal.add(paren1.getID());
+            agregarTexto();
                
         });
        
@@ -604,7 +632,8 @@ public class Pantalla{
             contador(false);
             enPantalla.add(gorrito);
             tryDivide();
-                
+            decimal.add(gorrito.getID());
+            agregarTexto();
                
         });
        
@@ -617,7 +646,8 @@ public class Pantalla{
             contador(false);
             enPantalla.add(factorial);
             tryDivide();
-                
+            decimal.add(factorial.getID());
+            agregarTexto();    
                
         });
        
@@ -742,7 +772,16 @@ public class Pantalla{
        HBox.setHgrow(binario, Priority.ALWAYS);
        
        BorderPane BpanePrueba = new BorderPane();
-       BpanePrueba.setBottom(contenerdorPrincipal);
+       
+       VBox bottom =new VBox();
+       texto=new Label("");
+       texto.setStyle("-fx-font-size:20px;");
+       textBox.setContent(texto);
+       textBox.setMinHeight(50);
+       texto.setMaxWidth(Double.MAX_VALUE);
+       texto.setAlignment(Pos.CENTER_LEFT);
+       bottom.getChildren().addAll(contenerdorPrincipal,textBox);
+       BpanePrueba.setBottom(bottom);
        //BpanePrueba.setCenter(pantallaDibujo);
        BpanePrueba.setCenter(pane);
       
@@ -869,6 +908,8 @@ public class Pantalla{
                 primaryStage.setTitle("Cancer de Piel");
                 bases.setVisible(false);
                 reinicia();
+                texto.setText("");
+                this.decimal = new ArrayList<>();
             break;
             
             case "Cientifica":
@@ -877,7 +918,8 @@ public class Pantalla{
                 primaryStage.setTitle("Cancer de Piel 100tifik0");
                 bases.setVisible(true);
                 reinicia();
-                
+                texto.setText("");
+                this.decimal = new ArrayList<>();
             break;
         }
     }
@@ -941,6 +983,15 @@ public class Pantalla{
             divisiones=0;
             espacioNumero=0;
             espacioSuperior=0;
+    }
+    
+    void agregarTexto(){
+        String listString="";
+        for (String s : decimal)
+        {
+            listString += s;
+        }
+        texto.setText(listString);
     }
 }
     
