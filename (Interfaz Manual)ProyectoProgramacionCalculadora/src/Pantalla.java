@@ -54,6 +54,7 @@ public class Pantalla{
     Stage primaryStage=new Stage();
     VBox contenedorSimbolos = new VBox();
     Button bases=new Button("Base");
+    double n =0;
 
     public Pantalla() {
         this.enPantalla = new ArrayList<NumerosYSimbolos>();
@@ -331,7 +332,6 @@ public class Pantalla{
         {
             espacioNumero+=90;
             rePaintDivide();
-            double n =0;
             if (divideStatus==0 || divideStatus==1){ //En caso que no haya división o que se esté en la parte superior de una, se añade una nueva división.
                 NumerosYSimbolos division = new NumerosYSimbolos(n, espacioNumero-40,espacioSuperior, puntosVisibles);
                 divisiones+=1;
@@ -371,9 +371,9 @@ public class Pantalla{
        
        buttonPor.setOnAction((ActionEvent event) ->
         { 
-            double n =0;
+            
             NumerosYSimbolos multiplicacion = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(multiplicacion.multiplicacion());
+            centro.getChildren().add(multiplicacion.dibujo("*"));
             contador(false);
             enPantalla.add(multiplicacion);
             tryDivide();
@@ -381,9 +381,9 @@ public class Pantalla{
        
        buttonPar1.setOnAction((ActionEvent event) ->
         { 
-            double n =0;
+            
             NumerosYSimbolos parentesis1 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(parentesis1.parentesis1());
+            centro.getChildren().add(parentesis1.dibujo("("));
             contador(false);
             enPantalla.add(parentesis1);
             tryDivide();
@@ -393,9 +393,9 @@ public class Pantalla{
        
        buttonPar2.setOnAction((ActionEvent event) ->
         { 
-            double n =0;
+            
             NumerosYSimbolos parentesis2 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(parentesis2.parentesis2());
+            centro.getChildren().add(parentesis2.dibujo(")"));
             contador(false);
             enPantalla.add(parentesis2);
             tryDivide();
@@ -404,9 +404,9 @@ public class Pantalla{
 
        buttonMas.setOnAction((ActionEvent event) ->
         { 
-            double n =0;
+            
             NumerosYSimbolos suma = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(suma.suma());
+            centro.getChildren().add(suma.dibujo("+"));
             contador(false);
             enPantalla.add(suma);
             tryDivide();
@@ -415,9 +415,9 @@ public class Pantalla{
        
        buttonMenos.setOnAction((ActionEvent event) ->
         { 
-            double n =0;
+            
             NumerosYSimbolos resta = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(resta.resta());
+            centro.getChildren().add(resta.dibujo("-"));
             contador(false);
             enPantalla.add(resta);
             tryDivide();
@@ -425,9 +425,9 @@ public class Pantalla{
        
        button0.setOnAction((ActionEvent event) ->
         { 
-            double n =0;
+            
             NumerosYSimbolos numero0 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(numero0.numero0());
+            centro.getChildren().add(numero0.dibujo("0"));
             contador(false);
             enPantalla.add(numero0);
             tryDivide();
@@ -435,9 +435,9 @@ public class Pantalla{
        
        button1.setOnAction((ActionEvent event) ->
         { 
-            double n =0;
+            
             NumerosYSimbolos numero1 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(numero1.numero1());
+            centro.getChildren().add(numero1.dibujo("1"));
             contador(false);
             enPantalla.add(numero1);
             tryDivide();
@@ -446,9 +446,9 @@ public class Pantalla{
        
        button2.setOnAction((ActionEvent event) ->
         { 
-            double n =0;
+            
             NumerosYSimbolos numero2 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(numero2.numero2());
+            centro.getChildren().add(numero2.dibujo("2"));
             contador(false);
             enPantalla.add(numero2);
             tryDivide();
@@ -457,9 +457,9 @@ public class Pantalla{
        
        button3.setOnAction((ActionEvent event) ->
        { 
-            double n =0;
+            
             NumerosYSimbolos numero3 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(numero3.numero3());
+            centro.getChildren().add(numero3.dibujo("3"));
             contador(false);
             enPantalla.add(numero3);
             tryDivide();
@@ -468,9 +468,9 @@ public class Pantalla{
        
        button4.setOnAction((ActionEvent event) ->
        {
-            double n =0;
+            
             NumerosYSimbolos numero4 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(numero4.numero4());
+            centro.getChildren().add(numero4.dibujo("4"));
             contador(false);
             enPantalla.add(numero4);
             tryDivide();
@@ -481,9 +481,9 @@ public class Pantalla{
        button5.setOnAction((ActionEvent event) ->
            
         {
-            double n =0;
+            
             NumerosYSimbolos numero5 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(numero5.numero5());
+            centro.getChildren().add(numero5.dibujo("5"));
             contador(false);
             enPantalla.add(numero5);
             tryDivide();
@@ -494,9 +494,9 @@ public class Pantalla{
        button6.setOnAction((ActionEvent event) ->
            
         {
-             double n =0;
+             
              NumerosYSimbolos numero6 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-             centro.getChildren().add(numero6.numero6());
+             centro.getChildren().add(numero6.dibujo("6"));
              contador(false);
              enPantalla.add(numero6);
              tryDivide();
@@ -507,9 +507,9 @@ public class Pantalla{
        button7.setOnAction((ActionEvent event) ->
            
         {
-             double n =0;
+             
              NumerosYSimbolos numero7 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-             centro.getChildren().add(numero7.numero7());
+             centro.getChildren().add(numero7.dibujo("7"));
              contador(false);
              enPantalla.add(numero7);
              tryDivide();
@@ -520,9 +520,9 @@ public class Pantalla{
        button8.setOnAction((ActionEvent event) ->
            
         {
-             double n =0;
+             
              NumerosYSimbolos numero8 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-             centro.getChildren().add(numero8.numero8());
+             centro.getChildren().add(numero8.dibujo("8"));
              contador(false);
              enPantalla.add(numero8);
              tryDivide();
@@ -533,9 +533,9 @@ public class Pantalla{
        button9.setOnAction((ActionEvent event) ->
            
         {
-             double n =0;
+             
              NumerosYSimbolos numero9 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-             centro.getChildren().add(numero9.numero9());
+             centro.getChildren().add(numero9.dibujo("9"));
              contador(false);
              enPantalla.add(numero9);
 
@@ -547,12 +547,12 @@ public class Pantalla{
          buttonCos.setOnAction((ActionEvent event) ->
            
         {
-            double n =0;
+            
             NumerosYSimbolos cos = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(cos.cos());
+            centro.getChildren().add(cos.dibujo("cos"));
             contador(true);
             NumerosYSimbolos paren1 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(paren1.parentesis1());
+            centro.getChildren().add(paren1.dibujo("("));
             contador(false);
             enPantalla.add(cos);
             enPantalla.add(paren1);
@@ -564,12 +564,12 @@ public class Pantalla{
        buttonSen.setOnAction((ActionEvent event) ->
            
         {
-            double n =0;
+            
             NumerosYSimbolos sen = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(sen.sen());
+            centro.getChildren().add(sen.dibujo("sen"));
             contador(true);
             NumerosYSimbolos paren1 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(paren1.parentesis1());
+            centro.getChildren().add(paren1.dibujo("("));
             contador(false);
             enPantalla.add(sen);
             enPantalla.add(paren1);
@@ -581,12 +581,12 @@ public class Pantalla{
        buttonTan.setOnAction((ActionEvent event) ->
            
         {
-            double n =0;
+            
             NumerosYSimbolos tan = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(tan.tan());
+            centro.getChildren().add(tan.dibujo("tan"));
             contador(true);
             NumerosYSimbolos paren1 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(paren1.parentesis1());
+            centro.getChildren().add(paren1.dibujo("("));
             contador(false);
             enPantalla.add(tan);
             enPantalla.add(paren1);
@@ -598,9 +598,9 @@ public class Pantalla{
        buttonGorrito.setOnAction((ActionEvent event) ->
            
         {
-            double n =0;
+            
             NumerosYSimbolos gorrito = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(gorrito.dibujarElevado());
+            centro.getChildren().add(gorrito.dibujo("^"));
             contador(false);
             enPantalla.add(gorrito);
             tryDivide();
@@ -611,9 +611,9 @@ public class Pantalla{
        buttonFactorial.setOnAction((ActionEvent event) ->
            
         {
-            double n =0;
+            
             NumerosYSimbolos factorial = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(factorial.dibujarFactorial());
+            centro.getChildren().add(factorial.dibujo("!"));
             contador(false);
             enPantalla.add(factorial);
             tryDivide();
@@ -672,9 +672,9 @@ public class Pantalla{
        
         button0Bin.setOnAction((ActionEvent event) ->
         { 
-            double n =0;
+            
             NumerosYSimbolos numero0 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(numero0.numero0());
+            centro.getChildren().add(numero0.dibujo("0"));
             contador(false);
             enPantalla.add(numero0);
             tryDivide();
@@ -682,9 +682,9 @@ public class Pantalla{
        
        button1Bin.setOnAction((ActionEvent event) ->
         { 
-            double n =0;
+            
             NumerosYSimbolos numero1 = new NumerosYSimbolos(n, espacioNumero,espacioSuperior, puntosVisibles);
-            centro.getChildren().add(numero1.numero1());
+            centro.getChildren().add(numero1.dibujo("1"));
             contador(false);
             enPantalla.add(numero1);
             tryDivide();
