@@ -22,6 +22,8 @@ import javafx.scene.shape.VLineTo;
  */
 public class NumerosYSimbolos extends PuntosDeControl{
 
+    
+    
     private double espacio;
     private final double superior;
     private double size; //Tamaño personalizado de los elementos para que todos calcen y tengan mismo tamaño.
@@ -727,21 +729,21 @@ public class NumerosYSimbolos extends PuntosDeControl{
         }
         return null;
     }
-//*********************************************************************************************************************//
-    public Group division(double amountOfSymbolsDivide, int numDivision) {
+    
+    public Group division(double endPoint) {
         ID = "/";
         size=1.2;
         this.amountOfSymbolsDivide=amountOfSymbolsDivide;
-        xPoint = (200+espacio);
-        yPoint = (80+superior);
+        xPoint = (155+espacio);
+        yPoint = (superior);
         this.numDivision = numDivision; //Número de la división. (Orden)
 
-        MoveTo startDivide = new MoveTo(xPoint, yPoint);
+        MoveTo startDivide = new MoveTo(xPoint, yPoint+150);
         //Por cada número que aumente en amountOfSymbolsDivide, la linea de división aumenta en 90.
-        LineTo line2Divide = new LineTo(xPoint+90*(amountOfSymbolsDivide-1), yPoint);
+        LineTo line2Divide = new LineTo(xPoint+90, yPoint+150);
 
         pathActual.setStrokeWidth(4*size);   
-        pathActual.getElements().addAll(startDivide, startDivide, line2Divide);
+        pathActual.getElements().addAll(startDivide, line2Divide);
         
         iniciateCircleMoveTo(startDivide);
         iniciateCircleLineTo(line2Divide);
@@ -750,8 +752,141 @@ public class NumerosYSimbolos extends PuntosDeControl{
         configura();      
         return root;
     }
-//*********************************************************************************************************************//
+    
+    public Group multiplicacion() {
+        //Se establece el ID de una multiplicación.
+        ID = "*";
+        //Se define el tamaño de la figura.
+        size=1.2;
+        //Se define la posición de la figura.
+        xPoint = (200+espacio);
+        yPoint = (150+superior);
+        
+        //Se crean las líneas de la figura.
+        MoveTo centroMulti = new MoveTo(xPoint, yPoint);
+        LineTo line1Multi = new LineTo(xPoint-15*size, yPoint-15*size);
+        LineTo line2Multi = new LineTo(xPoint+15*size, yPoint+15*size);
+        LineTo line3Multi = new LineTo(xPoint, yPoint-20*size);
+        LineTo line4Multi = new LineTo(xPoint, yPoint+20*size);
+        LineTo line5Multi = new LineTo(xPoint+15*size, yPoint-15*size);
+        LineTo line6Multi = new LineTo(xPoint-15*size, yPoint+15*size);
+        LineTo line7Multi = new LineTo(xPoint-20*size, yPoint);
+        LineTo line8Multi = new LineTo(xPoint+20*size, yPoint);
 
+        //Se añaden las líneas de la figura a pathActual.
+        pathActual.getElements().addAll(centroMulti, line1Multi,centroMulti, line2Multi, centroMulti, line3Multi, centroMulti, line4Multi, centroMulti, line5Multi, centroMulti, line6Multi, centroMulti, line7Multi, centroMulti, line8Multi);
+        
+        //Se crean los círculos con la ubicación de las líneas.
+        iniciateCircleMoveTo(centroMulti);
+        iniciateCircleLineTo(line1Multi);
+        iniciateCircleLineTo(line2Multi);
+        iniciateCircleLineTo(line3Multi);
+        iniciateCircleLineTo(line4Multi);
+        iniciateCircleLineTo(line5Multi);
+        iniciateCircleLineTo(line6Multi);
+        iniciateCircleLineTo(line7Multi);
+        iniciateCircleLineTo(line8Multi);
+      
+        //Se crea un nuevo grupo llamado root, el cual contendrá a los puntos de control (círculos) y a la figura.
+        root.getChildren().addAll(pathActual, circle);
+        configura();
+        
+        //Se regresa el grupo a la pizarra, donde serán agregadas.
+        return root;
+    }
+    
+    public Group parentesis1() {
+        ID = "(";
+        size=1.2;
+        double amountOfSymbolsParen1 = (double) (1*size); //Para cambiar tamaño de acuerdo a la cantidad de operaciones en vertical
+        xPoint = (200+espacio);
+        yPoint = (150+superior);
+
+        Arc arc1Paren1 = new Arc(xPoint, yPoint,8*amountOfSymbolsParen1,42*amountOfSymbolsParen1,90,90);
+        Arc arc2Paren1 = new Arc(xPoint, yPoint,8*amountOfSymbolsParen1,42*amountOfSymbolsParen1,180,90);
+
+        configuraArco(arc1Paren1);
+        configuraArco(arc2Paren1);
+        
+        createCircle(arc1Paren1.getCenterX(), arc1Paren1.getCenterY()-42*amountOfSymbolsParen1);
+        createCircle(arc2Paren1.getCenterX()-7.5*amountOfSymbolsParen1, arc2Paren1.getCenterY());
+        createCircle(arc2Paren1.getCenterX(), arc2Paren1.getCenterY()+42*amountOfSymbolsParen1);
+        
+        configura();
+        root.getChildren().addAll(arc1Paren1, arc2Paren1, circle);
+                
+        return root;
+    }
+    
+    public Group parentesis2() {
+        ID = ")";
+        size=1.2;
+        double amountOfSymbolsParen2 = (double) (1*size); //Para cambiar tamaño de acuerdo a la cantidad de operaciones en vertical
+        xPoint = (200+espacio);
+        yPoint = (150+superior);
+
+        Arc arc1Paren2 = new Arc(xPoint, yPoint,8*amountOfSymbolsParen2,42*amountOfSymbolsParen2,270,90);
+        Arc arc2Paren2 = new Arc(xPoint, yPoint,8*amountOfSymbolsParen2,42*amountOfSymbolsParen2,360,90);
+
+        configuraArco(arc1Paren2);
+        configuraArco(arc2Paren2);
+        
+        createCircle(arc1Paren2.getCenterX(), arc1Paren2.getCenterY()-42*amountOfSymbolsParen2);
+        createCircle(arc2Paren2.getCenterX()+7.5*amountOfSymbolsParen2, arc2Paren2.getCenterY());
+        createCircle(arc2Paren2.getCenterX(), arc2Paren2.getCenterY()+42*amountOfSymbolsParen2);
+
+        
+        root.getChildren().addAll(arc1Paren2, arc2Paren2, circle);
+        configura();
+        return root;
+    }
+    
+    public Group resta() {
+        ID = "-";
+        size=1.2;
+        xPoint = (200+espacio);
+        yPoint = (150+superior);
+
+        MoveTo startMinus = new MoveTo(xPoint, yPoint);
+        LineTo line1Minus = new LineTo(xPoint-20*size, yPoint);
+        LineTo line2Minus = new LineTo(xPoint+20*size, yPoint);
+      
+        pathActual.getElements().addAll(startMinus, line1Minus, startMinus, line2Minus);
+
+        iniciateCircleMoveTo(startMinus);
+        iniciateCircleLineTo(line1Minus);
+        iniciateCircleLineTo(line2Minus);
+      
+        root.getChildren().addAll(pathActual, circle);
+        configura();
+        return root;
+    }
+    
+    public Group suma() {
+        ID = "+";
+        size = 1.2;
+        xPoint = (200+espacio);
+        yPoint = (150+superior);
+
+        MoveTo startPlus = new MoveTo(xPoint, yPoint);
+        LineTo line1Plus = new LineTo(xPoint+20*size, yPoint);
+        LineTo line2Plus = new LineTo(xPoint-20*size, yPoint);
+        LineTo line3Plus = new LineTo(xPoint, yPoint+20*size);
+        LineTo line4Plus = new LineTo(xPoint, yPoint-20*size);
+
+        pathActual.getElements().addAll(startPlus, line1Plus, startPlus, line2Plus, startPlus, line3Plus, startPlus, line4Plus);
+       
+        iniciateCircleMoveTo(startPlus);
+        iniciateCircleLineTo(line1Plus);
+        iniciateCircleLineTo(line2Plus);
+        iniciateCircleLineTo(line3Plus);
+        iniciateCircleLineTo(line4Plus);
+
+        root.getChildren().addAll(pathActual, circle);
+        configura();
+        return root;
+    }
+    
     public void dibujarC()
     {
         xPoint = (200+espacio);
@@ -821,7 +956,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
         pathActual.getElements().addAll(startC,arco1,arco2,arco3,arco4,arco5, arco6);
   
     }
-//*********************************************************************************************************************//
+  
     public void dibujarE()
     {
         xPoint = (200+espacio);
@@ -879,7 +1014,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
         pathActual.getElements().addAll(startE,midE,arco1,arco2,arco3,arco4);
         
     }
-//*********************************************************************************************************************//
+    
     public void dibujarT()
     {
         xPoint = (200+espacio);
@@ -916,7 +1051,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
         pathActual.getElements().addAll(startT,linea1,linea2,linea3,linea4);
         
     }
-//*********************************************************************************************************************//
+  
     public void dibujarA()
     {
         xPoint = (200+espacio);
@@ -1030,7 +1165,8 @@ public class NumerosYSimbolos extends PuntosDeControl{
 
        
     }
-//*********************************************************************************************************************//    
+    
+    
     public void dibujarO()
     {
         xPoint = (200+espacio);
@@ -1076,7 +1212,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
         pathActual.getElements().addAll(startO,arco1,arco2,arco3,arco4);
   
     }
-//*********************************************************************************************************************//    
+    
     public void dibujarN()
     {
         xPoint = (200+espacio);
@@ -1113,7 +1249,7 @@ public class NumerosYSimbolos extends PuntosDeControl{
         
         pathActual.getElements().addAll(startN,line1,line2,arco1,line3);
     }
-//*********************************************************************************************************************//   
+    
     public void dibujarS()
     {
         xPoint = (200+espacio);
@@ -1169,56 +1305,48 @@ public class NumerosYSimbolos extends PuntosDeControl{
         
         pathActual.getElements().addAll(startS,arco1,arco2,arco3,arco4,arco5,arco6);
     }
-//*********************************************************************************************************************//    
     public void setSize(double size){
         root.setScaleX(size);
         root.setScaleY(size);
     }
-//*********************************************************************************************************************//
+
     //Sólo para arcos. Se configuran algunos detalles de los arcos, como el color, relleno y grosor.
     protected void configuraArco (Arc arc) {
         arc.setStroke(Color.BLACK);
         arc.setFill(null);
         arc.setStrokeWidth(4);
     }
-//*********************************************************************************************************************//
     //Retorna el Path que contiene a un elemento y sus puntos de control.
     public Path getPath(){
         return pathActual;
     }
-//*********************************************************************************************************************//
     //Retorna el identidficador del elemento.
     public String getID() {
         return ID;
     }
-//*********************************************************************************************************************//
     //Retorna la posición en X de un elemento.
     public double getxPoint() {
         return xPoint;
     }
-//*********************************************************************************************************************//
     //Retorna la posición en Y de un elemento.
     public double getyPoint() {
         return yPoint;
     }
-//*********************************************************************************************************************//
     //Retorna la cantidad de elementos de una división.
     public double getAmountOfSymbolsDivide() {
         return amountOfSymbolsDivide;
     }
-//*********************************************************************************************************************//
     //Permite cambiar el valor identificador de un elemento. Utilizado únicamente para división abierta y completa.
     public void setID(String ID) {
         this.ID = ID;
     }
-//*********************************************************************************************************************//
     //Retorna el numero de división.
     public int getNumDivision() {
         return numDivision;
     }
-//*********************************************************************************************************************//
+
     public String getType() {
         return type;
     }
-//*********************************************************************************************************************//
+
 }
