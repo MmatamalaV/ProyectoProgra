@@ -19,8 +19,8 @@ import javafx.scene.shape.VLineTo;
 /**
  *
  * @author elias
- * numbers created by: Matias and Mario
- * numbersPorted by: elias
+ * @numbers created by: Matias and Mario
+ * @numbersPorted by: elias
  */
 public class NumerosYSimbolos extends PuntosDeControl{
 
@@ -74,11 +74,22 @@ public class NumerosYSimbolos extends PuntosDeControl{
         LineTo line1 = new LineTo();
         MoveTo moveTo = new MoveTo();
         LineTo line2 = new LineTo();
+        MoveTo p1=new MoveTo();
+        MoveTo moveTo2;
+        LineTo line3 ;
+        LineTo p2= new LineTo();
+        LineTo p3= new LineTo();
+        LineTo p4= new LineTo();
+        LineTo p5= new LineTo();
+        LineTo p6= new LineTo();
+        LineTo p7= new LineTo();
+        LineTo p8= new LineTo();
                 
         
         HLineTo htop = new HLineTo();   
         LineTo htop1 = new LineTo();   
-        
+        //las expresiones trigonometricas son de 
+        //los numeros son de 
         switch(id){
     //------------------------------------------------------------------------------------------------------------------//
             case "*":
@@ -241,9 +252,9 @@ public class NumerosYSimbolos extends PuntosDeControl{
                 xPoint = (215+espacio);
                 yPoint = (200+superior);
 
-                MoveTo p1=new MoveTo(xPoint,yPoint);
-                LineTo p2= new LineTo(xPoint,yPoint-100);
-                LineTo p3= new LineTo(xPoint-50,yPoint-50);
+                p1=new MoveTo(xPoint,yPoint);
+                p2= new LineTo(xPoint,yPoint-100);
+                p3= new LineTo(xPoint-50,yPoint-50);
 
 
                 pathActual.getElements().addAll(p1,p2,p3);
@@ -356,8 +367,8 @@ public class NumerosYSimbolos extends PuntosDeControl{
                 moveTo.setX(xPoint-15*size); moveTo.setY(yPoint-30*size);
                 line1.setX(xPoint-15*size); line1.setY(yPoint);
                 line2.setX(xPoint+15*size); line2.setY(yPoint);
-                MoveTo moveTo2 = new MoveTo(xPoint+15*size, yPoint-30*size);
-                LineTo line3 = new LineTo(xPoint+15*size, yPoint+30*size);
+                moveTo2 = new MoveTo(xPoint+15*size, yPoint-30*size);
+                line3 = new LineTo(xPoint+15*size, yPoint+30*size);
 
                 pathActual.getElements().addAll(moveTo,line1, line2,moveTo2,line3);
 
@@ -759,8 +770,121 @@ public class NumerosYSimbolos extends PuntosDeControl{
                 configura();
                 return root;
     //------------------------------------------------------------------------------------------------------------------//
+            case "A":
+                type = "number";
+                ID = "A";
+                xPoint = (215+espacio);
+                yPoint = (200+superior);
+
+                p1.setX(xPoint-50);p1.setY(yPoint);
+                p2.setX(xPoint-30);p2.setY(yPoint-100);
+                p3.setX(xPoint-20);p3.setY(yPoint-100);
+                p4.setX(xPoint);p4.setY(yPoint);
+                p5.setX(xPoint-10);p5.setY(yPoint-50);
+                p6.setX(xPoint-40);p6.setY(yPoint-50);
+
+
+                pathActual.getElements().addAll(p1,p2,p3,p4,p5,p6);
+
+                createCircle(p1.getX(),p1.getY()+marco);
+                createCircle(p2.getX(),p2.getY()+marco);
+                createCircle(p3.getX(),p3.getY()+marco);
+                createCircle(p4.getX(),p4.getY()+marco);
+                createCircle(p5.getX(),p5.getY()+marco);
+                createCircle(p6.getX(),p6.getY()+marco);
+
+                root.getChildren().addAll(pathActual, circle);
+                configura();
+                return root;
+    //------------------------------------------------------------------------------------------------------------------//
+            case "C":
+                type = "number";
+                ID = "C";
+                xPoint = (200+espacio);
+                yPoint = (200+superior);
+
+                MoveTo startC = new MoveTo();
+                startC.setX((xPoint-50));
+                startC.setY((yPoint-50));
+
+                arco1.setControlX((xPoint-50));
+                arco1.setControlY((yPoint-100));
+                arco1.setX((xPoint-25));
+                arco1.setY((yPoint-100));
+                
+                arco2.setControlX((xPoint));
+                arco2.setControlY((yPoint-100));
+                arco2.setX((xPoint));
+                arco2.setY((yPoint-70));
+
+                arco3.setControlX((xPoint));
+                arco3.setControlY((yPoint-100));
+                arco3.setX((xPoint-25));
+                arco3.setY((yPoint-100));
+
+                arco4.setControlX((xPoint-50));
+                arco4.setControlY((yPoint-100));
+                arco4.setX((xPoint-50));
+                arco4.setY((yPoint-50));
+
+                arco5.setControlX((xPoint-50));
+                arco5.setControlY((yPoint));
+                arco5.setX((xPoint-25));
+                arco5.setY((yPoint));
+
+                arco6.setControlX((xPoint));
+                arco6.setControlY((yPoint));
+                arco6.setX((xPoint));
+                arco6.setY((yPoint-30));
+
+                createCircle(startC.getX(), startC.getY()+marco);
+                createCircle(arco1.getX(), arco1.getY()+marco);
+                createCircle(arco2.getX(), arco2.getY()+marco);
+                createCircle(arco3.getX(), arco3.getY()+marco);
+                createCircle(arco4.getX(),arco4.getY()+marco);
+                createCircle(arco5.getX(),arco5.getY()+marco);
+                createCircle(arco6.getX(),arco6.getY()+marco);
+
+                pathActual.getElements().addAll(startC,arco1,arco2,arco3,arco4,arco5,arco6);
+
+                root.getChildren().addAll(pathActual, circle);
+                configura();
+                return root;
+    //------------------------------------------------------------------------------------------------------------------//
+            case "E":
+                type = "number";
+                ID = "E";
+                xPoint = (200+espacio);
+                yPoint = (200+superior);
+                
+                p1.setX(xPoint-50); p1.setY(yPoint);
+                p2.setX(xPoint); p2.setY(yPoint);
+                p3.setX(xPoint-50); p3.setY(yPoint);
+                p4.setX(xPoint-50); p4.setY(yPoint-50);
+                p5.setX(xPoint); p5.setY(yPoint-50);
+                p6.setX(xPoint-50); p6.setY(yPoint-50);
+                p7.setX(xPoint-50); p7.setY(yPoint-100);
+                p8.setX(xPoint); p8.setY(yPoint-100);
+                
+                pathActual.getElements().addAll(p1,p2,p3,p4,p5,p6,p7,p8);
+
+                createCircle(p1.getX(),p1.getY()+marco);
+                createCircle(p2.getX(),p2.getY()+marco);
+                createCircle(p3.getX(),p3.getY()+marco);
+                createCircle(p4.getX(),p4.getY()+marco);
+                createCircle(p5.getX(),p5.getY()+marco);
+                createCircle(p6.getX(),p6.getY()+marco);
+                createCircle(p7.getX(),p7.getY()+marco);
+                createCircle(p8.getX(),p8.getY()+marco);
+
+                root.getChildren().addAll(pathActual, circle);
+                configura();
+                return root;
+    //------------------------------------------------------------------------------------------------------------------//
         }
-        return null;
+        Group grup0=new Group();
+        System.out.println("el simbolo o letra "+id+" no se puede dibujar");
+        return grup0;
     }
     
     public Group division(int level, double finalDiv) {

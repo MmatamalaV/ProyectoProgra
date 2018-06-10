@@ -67,17 +67,20 @@ public class Pantalla{
     Label texto= new Label("");
     ScrollPane textBox=new ScrollPane();
     int tipoCalculadora=0;//0=basica 1=cientifica
-    int baseCalculadora=0;//0=decimal 1=binaria
+    int baseCalculadora=0;//0=decimal 1=binaria 2=hexadecimal
     MenuItem cincuenta;
     MenuItem cien;
     MenuItem docientos;
     MenuItem basica;
     MenuItem tipoDecimal;
     MenuItem tipoBinario;
+    MenuItem tipoHexadec;
     MenuItem mostrar;
     MenuItem ocultar;
     private String sabe;
     Conversor conversor = new Conversor();
+    VBox hexColum1=new VBox();
+    VBox hexColum2=new VBox();
     
     
     public Pantalla() {
@@ -165,7 +168,6 @@ public class Pantalla{
        //------------------------------//
        
        contenedorNumeros.getChildren().addAll(numerosColumna1,numerosColumna2,numerosColumna3);
-       
        //*******fin numeros***************
        
        //*******inicio simbolos***********
@@ -331,8 +333,35 @@ public class Pantalla{
        binarioColum2.getChildren().addAll(button1Bin,buttonEliminarBin);
        binario.getChildren().addAll(binarioColum1,binarioColum2);
        //*******fin numeros***************
+       //*******Inicio hexadecimal********//
        
-       //*******inicio Esena de dibujo***********
+       
+       Button btnA=new Button("A");
+       Button btnC=new Button("C");
+       Button btnE=new Button("E");
+       
+       HBox.setHgrow(btnA, Priority.ALWAYS);
+       HBox.setHgrow(btnC, Priority.ALWAYS);
+       HBox.setHgrow(btnE, Priority.ALWAYS);
+       btnA.setMaxWidth(Double.MAX_VALUE);
+       btnC.setMaxWidth(Double.MAX_VALUE);
+       btnE.setMaxWidth(Double.MAX_VALUE);
+       
+       hexColum1.getChildren().addAll(btnA,btnC,btnE);
+       
+       Button btnB=new Button("B");
+       Button btnD=new Button("D");
+       Button btnF=new Button("F");
+       
+       HBox.setHgrow(btnB, Priority.ALWAYS);
+       HBox.setHgrow(btnD, Priority.ALWAYS);
+       HBox.setHgrow(btnF, Priority.ALWAYS);
+       btnB.setMaxWidth(Double.MAX_VALUE);
+       btnD.setMaxWidth(Double.MAX_VALUE);
+       btnF.setMaxWidth(Double.MAX_VALUE);
+       
+       hexColum2.getChildren().addAll(btnB,btnD,btnF);
+      //*******inicio Esena de dibujo***********
        Box box = new Box(100,100,100);
        BorderPane pane = new BorderPane();
        box.setManaged(true);    
@@ -372,7 +401,8 @@ public class Pantalla{
                 Menu cientifica = new Menu("Científica");
                     tipoDecimal = new MenuItem("Tipo Decimal");
                     tipoBinario = new MenuItem("Tipo Binario");
-                cientifica.getItems().addAll(tipoDecimal,tipoBinario);
+                    tipoHexadec = new MenuItem("Tipo Hexadecimal");
+                cientifica.getItems().addAll(tipoDecimal,tipoBinario,tipoHexadec);
             menu2.getItems().addAll(basica,cientifica);
             
             basica.setDisable(true);
@@ -380,6 +410,7 @@ public class Pantalla{
             basica.setOnAction(e -> SetTypeKeyboard(basica.getText()));
             tipoDecimal.setOnAction(e->SetBase(tipoDecimal.getText()));
             tipoBinario.setOnAction(e->SetBase(tipoBinario.getText()));
+            tipoHexadec.setOnAction(e->SetBase(tipoHexadec.getText()));
             
             Menu menu3 = new Menu("Puntos de Control");
                 mostrar= new MenuItem("Mostrar Puntos de Control");
@@ -668,6 +699,31 @@ public class Pantalla{
             numberToStrig(); 
         });
        //-------------------------------------//
+       btnA.setOnAction((ActionEvent event) ->
+        {
+            dibujar("A"); 
+        });
+       btnB.setOnAction((ActionEvent event) ->
+        {
+            dibujar("B"); 
+        });
+       btnC.setOnAction((ActionEvent event) ->
+        {
+            dibujar("C"); 
+        });
+       btnD.setOnAction((ActionEvent event) ->
+        {
+            dibujar("D"); 
+        });
+       btnE.setOnAction((ActionEvent event) ->
+        {
+            dibujar("E"); 
+        });
+       btnF.setOnAction((ActionEvent event) ->
+        {
+            dibujar("F"); 
+        });
+       //-------------------------------------//
        
        Slider sliderSubScene = new Slider();
        sliderSubScene.setMax(10000);// se define el largo maximo del  slider
@@ -691,6 +747,8 @@ public class Pantalla{
        contenerdorPrincipal.getChildren().addAll(contenedorNumeros,contenedorSimbolos);
        HBox.setHgrow(contenedorNumeros, Priority.ALWAYS);// se define la prioridad de llenado de espacio que tiene el nodo  dentro de su contenedor.
        HBox.setHgrow(contenedorSimbolos, Priority.ALWAYS);
+       HBox.setHgrow(hexColum1, Priority.ALWAYS);
+       HBox.setHgrow(hexColum2, Priority.ALWAYS);
        HBox.setHgrow(numerosColumna1, Priority.ALWAYS);
        HBox.setHgrow(numerosColumna2, Priority.ALWAYS);
        HBox.setHgrow(numerosColumna3, Priority.ALWAYS);
@@ -802,9 +860,14 @@ public class Pantalla{
                     contenerdorPrincipal.getChildren().addAll(contenedorNumeros,contenedorSimbolos);
                 }
                 
+                if(baseCalculadora==2){
+                    contenedorNumeros.getChildren().removeAll(hexColum1,hexColum2);
+                }
+                
                 basica.setDisable(false);
                 tipoBinario.setDisable(false);
                 tipoDecimal.setDisable(true);
+                tipoHexadec.setDisable(false);
                 tipoCalculadora=1;
                 baseCalculadora=0;
                 break;
@@ -813,12 +876,31 @@ public class Pantalla{
                 
                 contenerdorPrincipal.getChildren().removeAll(contenedorNumeros,contenedorSimbolos);
                 contenerdorPrincipal.getChildren().addAll(binario,contenedorSimbolos);
+                if (baseCalculadora==2) {
+                    contenedorNumeros.getChildren().removeAll(hexColum1,hexColum2);
+                }
                 numberToStrig();
                 basica.setDisable(false);
                 tipoBinario.setDisable(true);
                 tipoDecimal.setDisable(false);
+                tipoHexadec.setDisable(false);
                 tipoCalculadora=1;
                 baseCalculadora=1;
+                break;
+                
+            case "Tipo Hexadecimal":
+                
+                if(baseCalculadora==1){
+                    contenerdorPrincipal.getChildren().removeAll(binario,contenedorSimbolos);
+                    contenerdorPrincipal.getChildren().addAll(contenedorNumeros,contenedorSimbolos);
+                }
+                contenedorNumeros.getChildren().addAll(hexColum1,hexColum2);
+                basica.setDisable(false);
+                tipoBinario.setDisable(false);
+                tipoDecimal.setDisable(false);
+                tipoHexadec.setDisable(true);
+                tipoCalculadora=1;
+                baseCalculadora=2;
                 break;
         }
         
@@ -836,6 +918,10 @@ public class Pantalla{
                     contenerdorPrincipal.getChildren().removeAll(binario,contenedorSimbolos);
                     contenerdorPrincipal.getChildren().addAll(contenedorNumeros,contenedorSimbolos);
                 }
+                if(baseCalculadora==2){
+                    contenedorNumeros.getChildren().removeAll(hexColum1,hexColum2);
+                }
+                
                 cajaDeSimbolos.getChildren().removeAll(trigonometria, simbolos);
                 primaryStage.setTitle("Cancer de Piel");
                 reinicia();
@@ -903,7 +989,7 @@ public class Pantalla{
         }
         System.out.println("binario:"+base2);
         System.out.println("arreglo binario:"+finalList);
-        dibujarBin(finalList);
+        texto.setText(agregarTexto2(finalList));
         return finalList;
     }
     
@@ -1055,12 +1141,14 @@ public class Pantalla{
         }
         return listString;
     }
-   
-   void dibujarBin(ArrayList<String> a){
-       //hay que modificar donde se guarda lo que se transforma en binario y en hex
-       for (String string : a) {
-           dibujar(string);
-       }
-   }
+
+   private String agregarTexto2(ArrayList<String> a){
+        String listString="";
+        for (String s : a)
+        {
+            listString += s;
+        }
+        return listString;
+    }
 }
     
