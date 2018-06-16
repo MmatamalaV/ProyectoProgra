@@ -949,14 +949,20 @@ public class Pantalla{
             if ("symbol".equals(enPantalla.get(x).getType()) || x==enPantalla.size()-1){
                 if (x>1){
                     if ("number".equals(enPantalla.get(x-1).getType()) || x==enPantalla.size()-1){
-                        conversor.hex(numDecimal);
-                        ArrayList<String> a=convertertoBinary();
+                        ArrayList<String>b=conversor.decToHexList(numDecimal);
+                        conversor.hexToDecString(b);
+                        conversor.hexToDecInt(b);
+                        conversor.toBinaryList(numDecimal);
+                        conversor.binToDecList(conversor.toBinaryString(numDecimal));
                         numDecimal.clear();
                     }
                 }                
                 else {
-                    conversor.hex(numDecimal);
-                    ArrayList<String> a=convertertoBinary();
+                    ArrayList<String>b=conversor.decToHexList(numDecimal);
+                    conversor.hexToDecString(b);
+                    conversor.hexToDecInt(b);
+                    conversor.toBinaryList(numDecimal);
+                    conversor.binToDecList(conversor.toBinaryString(numDecimal));
                     numDecimal.clear();
                 }
             }
@@ -964,34 +970,7 @@ public class Pantalla{
         
     }
     
-    //Este método convirte números en decimal a binario.
-    private ArrayList<String> convertertoBinary(){
-
-        Integer numeroLista = 0;
-        
-        for (int x=0; x<numDecimal.size(); x++){
-            numeroLista=numeroLista*10;
-            numeroLista += Integer.parseInt(numDecimal.get(x));
-        }
-        String base2="";
-        while(numeroLista>0) {
-            base2=(numeroLista%2)+base2;
-            numeroLista/=2;  
-        }
-        ArrayList<Character> charList = new ArrayList<Character>();      
-        for(int i = 0; i<base2.length();i++){
-            charList.add(base2.charAt(i));
-        }
-        
-        ArrayList<String> finalList=new ArrayList<>();
-        for (Character character : charList) {
-            finalList.add(Character.toString(character));
-        }
-        System.out.println("binario:"+base2);
-        System.out.println("arreglo binario:"+finalList);
-        texto.setText(agregarTexto2(finalList));
-        return finalList;
-    }
+    
     
     private void setScaleNumbers(double size){
         centro.setScaleX(size);
