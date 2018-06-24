@@ -72,11 +72,11 @@ public class NumerosYSimbolos extends PuntosDeControl{
         VLineTo lineaV = new VLineTo();
         VLineTo lineaV2 = new VLineTo();
         LineTo line1 = new LineTo();
+        LineTo line3 = new LineTo();
         MoveTo moveTo = new MoveTo();
         LineTo line2 = new LineTo();
         MoveTo p1=new MoveTo();
         MoveTo moveTo2;
-        LineTo line3 ;
         LineTo p2= new LineTo();
         LineTo p3= new LineTo();
         LineTo p4= new LineTo();
@@ -992,6 +992,37 @@ public class NumerosYSimbolos extends PuntosDeControl{
                 createCircle(arc3D.getCenterX()+31*size, arc3D.getCenterY());
                 
                 root.getChildren().addAll(pathActual, arc2D, arc3D, circle);
+                configura();
+                return root;
+                
+    //------------------------------------------------------------------------------------------------------------------//
+            case "√a":
+                ID = "√";
+                size=1;
+                xPoint = (180+espacio);
+                yPoint = (200+superior);
+
+                MoveTo startSqrt = new MoveTo();
+                startSqrt.setX(xPoint+10);
+                startSqrt.setY(yPoint-50);
+
+                line1.setX(xPoint+30);
+                line1.setY(yPoint);
+
+                line2.setX(xPoint+60);
+                line2.setY(yPoint-100);
+                
+                line3.setX(xPoint+90);
+                line3.setY(yPoint-100);
+
+                pathActual.getElements().addAll(startSqrt, line1, line2, line3);
+
+                iniciateCircleMoveTo(startSqrt);
+                iniciateCircleLineTo(line1);
+                iniciateCircleLineTo(line2);
+                iniciateCircleLineTo(line3);
+
+                root.getChildren().addAll(pathActual, circle);
                 configura();
                 return root;
                 

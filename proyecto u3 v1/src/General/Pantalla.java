@@ -114,7 +114,7 @@ public class Pantalla{
        Button buttonsqrt = new Button("√a");
        button1.setText(" 1 ");//contenido del boton 
        button1.setMaxWidth(Double.MAX_VALUE);
-      buttonsqrt.setVisible(true);
+       buttonsqrt.setVisible(true);
        
        //HBox.setMargin(button1, new Insets(0,0,0,0));//margen entre objetos en este caso se dejo 5 a la  derecha 
        HBox.setHgrow(button7, Priority.ALWAYS);// esto  se define la prioridad  en caso de aumentar el tamaño de la ventana  los objetos con prioridad llenaran  el espacio 
@@ -649,6 +649,13 @@ public class Pantalla{
            
         {
             dibujar("º");
+        });
+       
+       buttonsqrt.setOnAction((ActionEvent event) ->
+           
+        {
+            dibujar("√a");
+            dibujar("(");
         });
        //Este botón quita o pone los Puntos de Control.
        //Va cambiando el texto del botón según el estado de puntosVisibles.
