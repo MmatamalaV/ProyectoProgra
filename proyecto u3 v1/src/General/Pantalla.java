@@ -81,11 +81,12 @@ public class Pantalla{
     Conversor conversor = new Conversor();
     VBox hexColum1=new VBox();
     VBox hexColum2=new VBox();
+    Label currentLevel=new Label("Nivel actual: ");
     
     
     public Pantalla() {
         this.enPantalla = new ArrayList<NumerosYSimbolos>();
-        this.decimal = new ArrayList<>();
+        this.decimal = new ArrayList<>(); 
         this.numDecimal = new ArrayList<>();
         inicio();
     }
@@ -93,6 +94,7 @@ public class Pantalla{
     Este es el metodo principal en donde se genera la interfaz geafica y muchas de las acciones de los botones
     */
     public void inicio(){
+        currentLevel.setText("Nivel actual: "+ Integer.toString(currentlevel));
         sabe="";
         this.miMap = new MapLevel();
         this.miMap.startMap(this.espacioNumero, this.espacioSuperior);
@@ -266,6 +268,7 @@ public class Pantalla{
                 }
 
                System.out.println(currentlevel+"current");
+               currentLevel.setText("Nivel actual: "+ Integer.toString(currentlevel));
             }
         });
 
@@ -282,8 +285,8 @@ public class Pantalla{
                 {
                     currentlevel-=1;
                 }
-               System.out.println(currentlevel+"current");
-
+                System.out.println(currentlevel+"current");
+                currentLevel.setText("Nivel actual: "+ Integer.toString(currentlevel));
             }
         });
 
@@ -469,6 +472,7 @@ public class Pantalla{
             {
                 //error nivel cerrado
             }
+            currentLevel.setText("Nivel actual: "+ Integer.toString(currentlevel));
             btnUp.fire();
         });
        btnClose.setOnAction(new EventHandler<ActionEvent>() {
@@ -775,7 +779,7 @@ public class Pantalla{
        textBox.setMinHeight(50);
        texto.setMaxWidth(Double.MAX_VALUE);
        texto.setAlignment(Pos.CENTER_LEFT);
-       bottom.getChildren().addAll(contenerdorPrincipal,textBox);
+       bottom.getChildren().addAll(contenerdorPrincipal,textBox,currentLevel);
        BpanePrueba.setBottom(bottom);
        //BpanePrueba.setCenter(pantallaDibujo);
        BpanePrueba.setCenter(pane);
