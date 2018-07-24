@@ -82,7 +82,14 @@ public class Pantalla{
     VBox hexColum1=new VBox();
     VBox hexColum2=new VBox();
     Label currentLevel=new Label("Nivel actual: ");
+    Path center = new Path();
     
+    Path cDecimalPath = new Path();
+    Group cDecimalGrup=new Group(cDecimalPath);
+    Path cBinarioPath = new Path();
+    Group cBinarioGrup=new Group(cBinarioPath);
+    Path cHexaPath = new Path();
+    Group cHexaGrup=new Group(cHexaPath);
     
     public Pantalla() {
         this.enPantalla = new ArrayList<NumerosYSimbolos>();
@@ -369,7 +376,7 @@ public class Pantalla{
        BorderPane pane = new BorderPane();
        box.setManaged(true);    
        //pane.setCenter(box);
-       Path center = new Path();
+       
        center.setManaged(false);
        
        centro=new Group(center);
@@ -857,7 +864,7 @@ public class Pantalla{
         if (tipoCalculadora==0) {
             cajaDeSimbolos.getChildren().addAll(trigonometria, simbolos);
             primaryStage.setTitle("Cancer de Piel (Modo Científico)");
-            reinicia();
+            
             texto.setText("");
             this.decimal = new ArrayList<>();
         }
@@ -881,6 +888,7 @@ public class Pantalla{
                 tipoHexadec.setDisable(false);
                 tipoCalculadora=1;
                 baseCalculadora=0;
+                cambioPantalla();
                 break;
                 
             case "Tipo Binario":
@@ -897,6 +905,7 @@ public class Pantalla{
                 tipoHexadec.setDisable(false);
                 tipoCalculadora=1;
                 baseCalculadora=1;
+                cambioPantalla();
                 break;
                 
             case "Tipo Hexadecimal":
@@ -912,6 +921,7 @@ public class Pantalla{
                 tipoHexadec.setDisable(true);
                 tipoCalculadora=1;
                 baseCalculadora=2;
+                cambioPantalla();
                 break;
         }
         
@@ -935,12 +945,13 @@ public class Pantalla{
                 
                 cajaDeSimbolos.getChildren().removeAll(trigonometria, simbolos);
                 primaryStage.setTitle("Cancer de Piel");
-                reinicia();
+//                reinicia();
                 basica.setDisable(true);
                 tipoBinario.setDisable(false);
                 tipoDecimal.setDisable(false);
                 tipoCalculadora=0;
                 baseCalculadora=0;
+                cambioPantalla();
             break;
         }
     }
@@ -1059,8 +1070,21 @@ public class Pantalla{
             double yFromThisLevel =this.miMap.getLevel(this.currentlevel).getyLevel();
 
             NumerosYSimbolos numero = new NumerosYSimbolos(n, xFromThisLevel,yFromThisLevel, puntosVisibles);
-
-            this.centro.getChildren().add(numero.dibujo(id));
+            
+            if(tipoCalculadora==0)
+                this.centro.getChildren().add(numero.dibujo(id));
+            else{
+                if(baseCalculadora==0){
+                    this.cDecimalGrup.getChildren().add(numero.dibujo(id));
+                }
+                if(baseCalculadora==1){
+                    this.cBinarioGrup.getChildren().add(numero.dibujo(id));
+                }
+                if(baseCalculadora==2){
+                    this.cHexaGrup.getChildren().add(numero.dibujo(id));
+                }
+            }
+            
             this.contador(false,currentlevel);
             this.enPantalla.add(numero);
             String miID=numero.getID();
@@ -1139,6 +1163,43 @@ public class Pantalla{
             listString += s;
         }
         return listString;
+    }
+
+    private void cambioPantalla() {
+        switch (tipoCalculadora) {
+            case 0:
+                switch (baseCalculadora){
+                    case 0:
+                        grupoPantalla.getChildren().clear();
+                        grupoPantalla.getChildren().addAll(centro);
+                        break;
+                    case 1:
+                        grupoPantalla.getChildren().clear();
+                        grupoPantalla.getChildren().addAll(centro);
+                        break;
+                    case 2:
+                        grupoPantalla.getChildren().clear();
+                        grupoPantalla.getChildren().addAll(centro);
+                        break;
+                }
+                break;
+            case 1:
+                switch (baseCalculadora){
+                    case 0:
+                        grupoPantalla.getChildren().clear();
+                        grupoPantalla.getChildren().addAll(cDecimalGrup);
+                        break;
+                    case 1:
+                        grupoPantalla.getChildren().clear();
+                        grupoPantalla.getChildren().addAll(cBinarioGrup);
+                        break;
+                    case 2:
+                        grupoPantalla.getChildren().clear();
+                        grupoPantalla.getChildren().addAll(cHexaGrup);
+                        break;
+                }
+                break;
+        }
     }
 }
     
